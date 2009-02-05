@@ -44,10 +44,9 @@
 						<f:facet name="header">
 							<h:outputText value="#{msgs.items_list_title}"/>
 						</f:facet>
-						<h:commandLink id="updatelink" action="#{CourseArchiveBean.processActionUpdate}" rendered="#{entry.canDelete}">
+						<h:commandLink id="showlink" action="#{CourseArchiveBean.processActionShow}">
 							<h:outputText value="#{entry.item.title}"/>
 						</h:commandLink>
-						<h:outputText value="#{entry.item.title}" rendered="#{not entry.canDelete}"/>
 					</h:column>
 
 					<h:column>

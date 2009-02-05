@@ -71,6 +71,11 @@ public class CourseArchiveBean {
 		this.itemSite = itemSite;
 	}
 
+	private Boolean itemCanDelete;
+	public Boolean getItemCanDelete() {
+		return itemCanDelete;
+	}
+
 	public CourseArchiveBean() {
 	}
 
@@ -99,16 +104,13 @@ public class CourseArchiveBean {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		// Test for empty items and don't add them
 		if (itemSite != null && !itemSite.equals("")) {
-			Site s;
 			try {
-				s = externalLogic.getSite(itemSite);
+				Site s = externalLogic.getSite(itemSite);
+				itemText = s.getTitle();
 			} catch (Exception e) {
 				String message = "Invalid Site ID";
 				fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
-				return "addedItem";
 			}
-
-			itemText = s.getTitle();
 		}
 		if (itemText != null && !itemText.equals("")) {
 			String message;
@@ -167,15 +169,20 @@ public class CourseArchiveBean {
 
 	public String processActionUpdate() {
 		log.debug("in process action update...");
-		currentItem = (CourseArchiveItemWrapper) itemsModel.getRowData(); // gets the user selected item
-		// set the values to those of the selected item
-		itemText = currentItem.getItem().getTitle();
+		if(currentItem == null) { loadCurrentItem(); }
 		return "updateItem";
 	}
 
 	public String processActionList() {
 		log.debug("in process action list...");
+		currentItem = null;
 		return "listItems";
+	}
+	
+	public String processActionShow() {
+		log.debug("in process action show...");
+		if(currentItem == null) { loadCurrentItem(); }
+		return "showItem";
 	}
 
 	public List getCurrentUserSites() {
@@ -189,5 +196,11 @@ public class CourseArchiveBean {
 		}
 
 		return items;
+	}
+
+	private void loadCurrentItem() {
+		currentItem = (CourseArchiveItemWrapper) itemsModel.getRowData(); // gets the user selected item
+		itemText = currentItem.getItem().getTitle();
+		itemCanDelete = currentItem.isCanDelete();
 	}
 }

@@ -13,27 +13,19 @@
 		<h:form id="listItems">
 			<sakai:tool_bar>
 				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionList}" value="#{msgs.project_list_items_link}" />
+				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionUpdate}" value="#{msgs.project_edit_item_link}" rendered="#{CourseArchiveBean.itemCanDelete}" />
 			</sakai:tool_bar>
 		</h:form>
 
 		<sakai:view_content>
-			<h:form id="addUpdateItem">
-			 	<sakai:view_title value="#{msgs.item_add_page_title}"/>
+			 	<sakai:view_title value="#{CourseArchiveBean.itemText}"/>
 
 				<sakai:messages />
 
 				<sakai:panel_edit>
 					<h:outputText value="Course"/>
-					<h:selectOneMenu value="#{CourseArchiveBean.itemSite}" required="true">
-						<f:selectItems value="#{CourseArchiveBean.currentUserSites}"/>
-					</h:selectOneMenu>
+					<h:outputText value="#{CourseArchiveBean.itemText}"/>
 				</sakai:panel_edit>
-
-				<sakai:button_bar>
-					<h:commandButton value="#{msgs.item_add_button}" action="#{CourseArchiveBean.processActionAdd}" /> 
-                </sakai:button_bar>
-
-			 </h:form>
   		</sakai:view_content>	
 	</sakai:view_container>
 </f:view> 
