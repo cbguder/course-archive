@@ -18,7 +18,7 @@
 
 		<sakai:view_content>
 			<h:form id="items">
-			 	<sakai:view_title value="#{msgs.items_list_page_title} Items"/>
+			 	<sakai:view_title value="#{msgs.items_list_page_title}"/>
 
 				<sakai:messages />
 

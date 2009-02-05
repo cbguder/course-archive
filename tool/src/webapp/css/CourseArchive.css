@@ -27,4 +27,7 @@
 .fourthHeader {
 	text-align: left;
 }
+td.chefLabel {
+	width: 100px;
+}
 
