@@ -4,9 +4,9 @@
 	<tool id="sakai.coursearchive"
 		title="Course Archive"
 		description="Course Archive created by Sakai App Builder Plugin">
-		<category name="course" />
-		<category name="project" />
-		<!-- <category name="myworkspace" /> -->
+		<!-- <category name="course" /> -->
+		<!-- <category name="project" /> -->
+		<category name="myworkspace" />
 		<!-- <category name="sakai.admin" /> -->
 	</tool>	
 </registration>
