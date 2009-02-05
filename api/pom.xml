@@ -24,7 +24,22 @@
         <version>0.1</version><!--CourseArchive.version-->
     </parent>
 
-    <dependencies />
+    <dependencies>
+        <dependency>
+            <groupId>org.sakaiproject</groupId>
+            <artifactId>sakai-authz-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.sakaiproject</groupId>
+            <artifactId>sakai-entity-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.sakaiproject</groupId>
+            <artifactId>sakai-site-api</artifactId>
+        </dependency>
+	</dependencies>
 
     <build>
         <resources>

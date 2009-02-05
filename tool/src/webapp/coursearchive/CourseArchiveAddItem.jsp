@@ -26,17 +26,10 @@
 
 				<sakai:panel_edit>
 					<h:outputText value="Course"/>
-					<h:selectOneMenu required="true">
+					<h:selectOneMenu value="#{CourseArchiveBean.itemSite}" required="true">
 						<f:selectItems value="#{CourseArchiveBean.currentUserSites}"/>
 					</h:selectOneMenu>
 				</sakai:panel_edit>
-
-			 	<sakai:panel_edit>
-				 	<h:outputText value="#{msgs.item_add_hidden}"/>
-				 	<h:selectBooleanCheckbox title="#{msgs.item_add_hidden_tooltip}" 
-				 		value="#{CourseArchiveBean.itemHidden}">
-					</h:selectBooleanCheckbox>
-			 	</sakai:panel_edit>
 
 				<sakai:button_bar>
 					<h:commandButton value="#{msgs.item_add_add_button}" action="#{CourseArchiveBean.processActionAdd}" /> 

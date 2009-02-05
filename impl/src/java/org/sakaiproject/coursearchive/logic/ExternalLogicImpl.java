@@ -152,4 +152,8 @@ public class ExternalLogicImpl implements ExternalLogic {
 	public List getCurrentUserSites() {
 		return siteService.getSites(SelectionType.UPDATE, null, null, null, SortType.TITLE_ASC, new PagingPosition());
 	}
+
+	public Site getSite(String id) throws Exception {
+		return siteService.getSite(id);
+	}
 }

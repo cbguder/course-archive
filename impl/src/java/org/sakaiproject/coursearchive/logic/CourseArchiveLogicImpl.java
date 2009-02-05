@@ -68,42 +68,16 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
       } else if ( externalLogic.isUserAdmin(userId) ) {
          // the system super user can modify any item
          return true;
-      } else if ( locationId.equals(item.getLocationId()) &&
-            externalLogic.isUserAllowedInLocation(userId, ExternalLogic.ITEM_WRITE_ANY, locationId) ) {
-         // users with permission in the specified site can modify items from that site
-         return true;
       }
       return false;
    }
 
    /* (non-Javadoc)
-    * @see org.sakaiproject.coursearchive.logic.CourseArchiveLogic#getAllVisibleItems(java.lang.String, java.lang.String)
+    * @see org.sakaiproject.coursearchive.logic.CourseArchiveLogic#getAllItems()
     */
-   public List<CourseArchiveItem> getAllVisibleItems(String locationId, String userId) {
-      log.debug("Fetching visible items for " + userId + " in site: " + locationId);
-      List<CourseArchiveItem> l = null;
-      if (locationId == null) {
-         // get all items
-         l = dao.findAll(CourseArchiveItem.class);
-      } else {
-         l = dao.findBySearch(CourseArchiveItem.class, 
-               new Search("locationId", locationId) );
-      }
-      // check if the current user can see all items (or is super user)
-      if ( externalLogic.isUserAdmin(userId) || 
-            externalLogic.isUserAllowedInLocation(userId, ExternalLogic.ITEM_READ_HIDDEN, locationId) ) {
-         log.debug("Security override: " + userId + " able to view all items");
-      } else {
-         // go backwards through the loop to avoid hitting the "end" early
-         for (int i=l.size()-1; i >= 0; i--) {
-            CourseArchiveItem item = (CourseArchiveItem) l.get(i);
-            if ( item.getHidden().booleanValue() &&
-                  !item.getOwnerId().equals(userId) ) {
-               l.remove(item);
-            }
-         }
-      }
-      return l;
+   public List<CourseArchiveItem> getAllItems() {
+      log.debug("Fetching all items");
+      return dao.findAll(CourseArchiveItem.class);
    }
 
    /* (non-Javadoc)
@@ -129,9 +103,6 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
       // set the owner and site to current if they are not set
       if (item.getOwnerId() == null) {
          item.setOwnerId( externalLogic.getCurrentUserId() );
-      }
-      if (item.getLocationId() == null) {
-         item.setLocationId( externalLogic.getCurrentLocationId() );
       }
       if (item.getDateCreated() == null) {
          item.setDateCreated( new Date() );

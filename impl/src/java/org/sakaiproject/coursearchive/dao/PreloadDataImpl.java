@@ -45,8 +45,7 @@ public class PreloadDataImpl {
 		if(dao.findAll(CourseArchiveItem.class).isEmpty()){
 
 			// use the dao to preload some data here
-			dao.save( new CourseArchiveItem("Preload Title", 
-					"Preload Owner", "Preload Site", Boolean.TRUE, new Date()) );
+			dao.save( new CourseArchiveItem("Preload Title", "Preload Owner", new Date()) );
 
 			log.info("Preloaded " + dao.countAll(CourseArchiveItem.class) + " items");
 		}

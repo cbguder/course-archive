@@ -37,9 +37,6 @@ import org.sakaiproject.site.api.Site;
 public class CourseArchiveBean {
 
 	private static Log log = LogFactory.getLog(CourseArchiveBean.class);
-
-	private static final String TEXT_DEFAULT = "";
-	private static final Boolean HIDDEN_DEFAULT = Boolean.TRUE;
 	
 	private DataModel itemsModel;
 	private CourseArchiveItemWrapper currentItem = null;
@@ -54,7 +51,7 @@ public class CourseArchiveBean {
 		this.externalLogic = externalLogic;
 	}
 
-	private String itemText = TEXT_DEFAULT;
+	private String itemText;
 	public String getItemText() {
 		return itemText;
 	}
@@ -62,18 +59,17 @@ public class CourseArchiveBean {
 		this.itemText = itemText;
 	}
 
-	private Boolean itemHidden = HIDDEN_DEFAULT;
-	public Boolean getItemHidden() {
-		return itemHidden;
-	}
-	public void setItemHidden(Boolean itemHidden) {
-		this.itemHidden = itemHidden;
-	}
-
 	public String getCurrentUserDisplayName() {
 		return externalLogic.getUserDisplayName(externalLogic.getCurrentUserId());
 	}
 
+	private String itemSite;
+	public String getItemSite() {
+		return itemSite;
+	}
+	public void setItemSite(String itemSite) {
+		this.itemSite = itemSite;
+	}
 
 	public CourseArchiveBean() {
 	}
@@ -82,7 +78,7 @@ public class CourseArchiveBean {
 		log.debug("wrapping items for JSF datatable...");
 		List wrappedItems = new ArrayList();
 
-		List items = logic.getAllVisibleItems(externalLogic.getCurrentLocationId(), externalLogic.getCurrentUserId());
+		List items = logic.getAllItems();
 		for (Iterator iter = items.iterator(); iter.hasNext(); ) {
 			CourseArchiveItemWrapper wrapper = 
 				new CourseArchiveItemWrapper((CourseArchiveItem) iter.next());
@@ -102,6 +98,18 @@ public class CourseArchiveBean {
 		log.debug("in process action add...");
 		FacesContext fc = FacesContext.getCurrentInstance();
 		// Test for empty items and don't add them
+		if (itemSite != null && !itemSite.equals("")) {
+			Site s;
+			try {
+				s = externalLogic.getSite(itemSite);
+			} catch (Exception e) {
+				String message = "Invalid Site ID";
+				fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
+				return "addedItem";
+			}
+
+			itemText = s.getTitle();
+		}
 		if (itemText != null && !itemText.equals("")) {
 			String message;
 			CourseArchiveItem item;
@@ -114,8 +122,6 @@ public class CourseArchiveBean {
 				message = "Updated item:" + itemText;
 			}
 			item.setTitle(itemText);
-			if (itemHidden == null) { itemHidden = Boolean.FALSE; }
-			item.setHidden(itemHidden);
 
 			logic.saveItem(item);
 
@@ -123,6 +129,7 @@ public class CourseArchiveBean {
 
 			// Reset text
 			itemText = "";
+			itemSite = "";
 		} else {
 			String message = "Could not add item without a title";
 			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
@@ -153,8 +160,8 @@ public class CourseArchiveBean {
 		log.debug("in process action new...");
 		currentItem = null;
 		// set the values to the new defaults
-		itemText = TEXT_DEFAULT;
-		itemHidden = HIDDEN_DEFAULT;
+		itemText = "";
+		itemSite = "";
 		return "newItem";
 	}
 
@@ -163,7 +170,6 @@ public class CourseArchiveBean {
 		currentItem = (CourseArchiveItemWrapper) itemsModel.getRowData(); // gets the user selected item
 		// set the values to those of the selected item
 		itemText = currentItem.getItem().getTitle();
-		itemHidden = currentItem.getItem().getHidden();
 		return "updateItem";
 	}
 

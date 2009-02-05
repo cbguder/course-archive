@@ -13,6 +13,8 @@ package org.sakaiproject.coursearchive.logic;
 
 import java.util.List;
 
+import org.sakaiproject.site.api.Site;
+
 
 /**
  * This is the interface for logic which is external to our app logic
@@ -67,5 +69,7 @@ public interface ExternalLogic {
 	 */
 	public boolean isUserAllowedInLocation(String userId, String permission, String locationId);
 
-	public List getCurrentUserSites();
+	public List<Site> getCurrentUserSites();
+
+	public Site getSite(String id) throws Exception;
 }

@@ -52,13 +52,6 @@
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="#{msgs.items_list_hidden}"/>
-						</f:facet>
-						<h:selectBooleanCheckbox id="itemHidden" value="#{entry.item.hidden}" disabled="true" />
-					</h:column>
-
-					<h:column>
-						<f:facet name="header">
 							<h:outputText value="#{msgs.items_list_date}"/>
 						</f:facet>
 						<h:outputText value="#{entry.item.dateCreated}">

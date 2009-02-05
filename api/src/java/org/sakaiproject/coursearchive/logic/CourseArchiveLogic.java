@@ -38,13 +38,10 @@ public interface CourseArchiveLogic {
    public boolean canWriteItem(CourseArchiveItem item, String locationId, String userId);
 
    /**
-    * This returns a List of items for a specified site that are
-    * visible to the specified user
-    * @param locationId a unique id which represents the current location of the user (entity reference)
-    * @param userId the internal user id (not username)
+    * This returns the List of all items
     * @return a List of CourseArchiveItem objects
     */
-   public List<CourseArchiveItem> getAllVisibleItems(String locationId, String userId);
+   public List<CourseArchiveItem> getAllItems();
 
    /**
     * Save (Create or Update) an item (uses the current site)

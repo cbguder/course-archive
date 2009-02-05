@@ -22,8 +22,6 @@ public class CourseArchiveItem {
 	private Long id;
 	private String title;
 	private String ownerId; // Sakai userId
-	private String locationId; // Sakai locationId
-	private Boolean hidden; // only visible to owner if true
 	private Date dateCreated;
 
 	/**
@@ -35,35 +33,23 @@ public class CourseArchiveItem {
 	/**
 	 * Minimal constructor
 	 */
-	public CourseArchiveItem(String title,
-			String ownerId, String locationId) {
+	public CourseArchiveItem(String title, String ownerId) {
 		this.title = title;
 		this.ownerId = ownerId;
-		this.locationId = locationId;
 	}
 
 	/**
 	 * Full constructor
 	 */
-	public CourseArchiveItem(String title,
-			String ownerId, String locationId,
-			Boolean hidden, Date dateCreated) {
+	public CourseArchiveItem(String title, String ownerId, Date dateCreated) {
 		this.title = title;
 		this.ownerId = ownerId;
-		this.locationId = locationId;
-		this.hidden = hidden;
 		this.dateCreated = dateCreated;
 	}
 
 	/**
 	 * Getters and Setters
 	 */
-	public Boolean getHidden() {
-		return hidden;
-	}
-	public void setHidden(Boolean hidden) {
-		this.hidden = hidden;
-	}
 	public Long getId() {
 		return id;
 	}
@@ -88,11 +74,4 @@ public class CourseArchiveItem {
 	public void setOwnerId(String ownerId) {
 		this.ownerId = ownerId;
 	}
-	public String getLocationId() {
-		return locationId;
-	}
-	public void setLocationId(String locationId) {
-		this.locationId = locationId;
-	}
-
 }
