@@ -68,6 +68,21 @@
          </exclusions>
       </dependency>
 
+      <dependency>
+         <groupId>org.sakaiproject</groupId>
+         <artifactId>sakai-authz-api</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.sakaiproject</groupId>
+         <artifactId>sakai-entity-api</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.sakaiproject</groupId>
+         <artifactId>sakai-site-api</artifactId>
+      </dependency>
+
       <!-- MyFaces JSF dependencies -->
       <dependency>
          <groupId>org.apache.myfaces.core</groupId>

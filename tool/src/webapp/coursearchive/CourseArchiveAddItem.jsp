@@ -5,9 +5,9 @@
 <f:loadBundle basename="messages" var="msgs"/>
 
 <f:view>
-	<sakai:view_container title="CourseArchive Tool">
+	<sakai:view_container title="Course Archive Tool">
 		<style type="text/css">
-			@import url("/coursearchive/css/CourseArchive.css");
+			@import url("/coursearchive-tool/css/CourseArchive.css");
 		</style>
 
 		<h:form id="listItems">
@@ -24,12 +24,12 @@
 
 				<sakai:instruction_message value="Hello, #{CourseArchiveBean.currentUserDisplayName}"/>
 
-			 	<sakai:panel_edit>
-				 	<h:outputText value="#{msgs.item_add_title}"/>
-			 		<h:inputText value="#{CourseArchiveBean.itemText}" size="70" required="true">
-			 			<f:validateLength minimum="2" maximum="255" />
-					</h:inputText>
-			 	</sakai:panel_edit>
+				<sakai:panel_edit>
+					<h:outputText value="Course"/>
+					<h:selectOneMenu required="true">
+						<f:selectItems value="#{CourseArchiveBean.currentUserSites}"/>
+					</h:selectOneMenu>
+				</sakai:panel_edit>
 
 			 	<sakai:panel_edit>
 				 	<h:outputText value="#{msgs.item_add_hidden}"/>

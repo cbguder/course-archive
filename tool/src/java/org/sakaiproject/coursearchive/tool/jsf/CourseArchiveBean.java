@@ -14,18 +14,20 @@ package org.sakaiproject.coursearchive.tool.jsf;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
 import org.sakaiproject.coursearchive.logic.CourseArchiveLogic;
 import org.sakaiproject.coursearchive.model.CourseArchiveItem;
+import org.sakaiproject.site.api.Site;
 
 /**
  * This is a backing bean for the JSF app which handles the events and
@@ -168,5 +170,18 @@ public class CourseArchiveBean {
 	public String processActionList() {
 		log.debug("in process action list...");
 		return "listItems";
+	}
+
+	public List getCurrentUserSites() {
+		List sites = externalLogic.getCurrentUserSites();
+		ArrayList<SelectItem> items = new ArrayList<SelectItem>(sites.size());
+
+		ListIterator iter = sites.listIterator();
+		while(iter.hasNext()) {
+			Site s = (Site)iter.next();
+			items.add(new SelectItem(s.getId(), s.getTitle()));
+		}
+
+		return items;
 	}
 }
