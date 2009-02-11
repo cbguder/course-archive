@@ -28,6 +28,7 @@
 	text-align: left;
 }
 td.chefLabel {
-	width: 100px;
+	width: 200px;
+	font-weight: bold;
 }
 

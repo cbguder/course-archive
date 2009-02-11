@@ -24,27 +24,32 @@ public class CourseArchiveItem {
 	private String ownerId; // Sakai userId
 	private Date dateCreated;
 
+	private String instructor;
+	private int enrollment;
+
 	/**
 	 * Default constructor
 	 */
 	public CourseArchiveItem() {
+		this(null, null, null);
 	}
 
 	/**
 	 * Minimal constructor
 	 */
 	public CourseArchiveItem(String title, String ownerId) {
-		this.title = title;
-		this.ownerId = ownerId;
+		this(title, ownerId, null);
 	}
 
 	/**
 	 * Full constructor
 	 */
 	public CourseArchiveItem(String title, String ownerId, Date dateCreated) {
-		this.title = title;
-		this.ownerId = ownerId;
+		this.title       = title;
+		this.ownerId     = ownerId;
 		this.dateCreated = dateCreated;
+		this.instructor  = "";
+		this.enrollment  = 0;
 	}
 
 	/**
@@ -73,5 +78,17 @@ public class CourseArchiveItem {
 	}
 	public void setOwnerId(String ownerId) {
 		this.ownerId = ownerId;
+	}
+	public String getInstructor() {
+		return instructor;
+	}
+	public void setInstructor(String instructor) {
+		this.instructor = instructor;
+	}
+	public int getEnrollment() {
+		return enrollment;
+	}
+	public void setEnrollment(int enrollment) {
+		this.enrollment = enrollment;
 	}
 }

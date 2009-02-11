@@ -18,5 +18,7 @@
 		<property name="title" type="string" length="255" not-null="true" />
 		<property name="ownerId" type="string" length="255" not-null="true" />
 		<property name="dateCreated" type="java.util.Date" />
+		<property name="instructor" type="string" length="255" not-null="true"/>
+		<property name="enrollment" type="integer" not-null="true"/>
 	</class>
 </hibernate-mapping>

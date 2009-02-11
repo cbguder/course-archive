@@ -72,4 +72,6 @@ public interface ExternalLogic {
 	public List<Site> getCurrentUserSites();
 
 	public Site getSite(String id) throws Exception;
+
+	public int getStudentCountForSite(Site s);
 }

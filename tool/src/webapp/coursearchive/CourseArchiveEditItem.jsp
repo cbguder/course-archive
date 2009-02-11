@@ -13,7 +13,6 @@
 		<h:form id="listItems">
 			<sakai:tool_bar>
 				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionList}" value="#{msgs.project_list_items_link}" />
-				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionShow}" value="#{msgs.project_show_item_link}" />
 			</sakai:tool_bar>
 		</h:form>
 
@@ -24,14 +23,23 @@
 				<sakai:messages />
 
 				<sakai:panel_edit>
-					<h:outputText value="Course"/>
-					<h:selectOneMenu value="#{CourseArchiveBean.itemSite}" required="true">
-						<f:selectItems value="#{CourseArchiveBean.currentUserSites}"/>
-					</h:selectOneMenu>
+					<h:outputText value="Course Name"/>
+					<h:inputText value="#{CourseArchiveBean.itemText}"/>
+				</sakai:panel_edit>
+
+				<sakai:panel_edit>
+					<h:outputText value="Primary Instructor"/>
+					<h:inputText value="#{CourseArchiveBean.itemInstructor}"/>
+				</sakai:panel_edit>
+
+				<sakai:panel_edit>
+					<h:outputText value="Enrollment"/>
+					<h:inputText value="#{CourseArchiveBean.itemEnrollment}"/>
 				</sakai:panel_edit>
 
 				<sakai:button_bar>
-					<h:commandButton value="#{msgs.item_update_button}" action="#{CourseArchiveBean.processActionAdd}" /> 
+					<h:commandButton value="#{msgs.save_button}" action="#{CourseArchiveBean.processActionAdd}" /> 
+					<h:commandButton value="#{msgs.cancel_button}" action="#{CourseArchiveBean.processActionShow}" /> 
                 </sakai:button_bar>
 
 			 </h:form>

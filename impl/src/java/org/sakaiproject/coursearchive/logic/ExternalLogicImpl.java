@@ -156,4 +156,8 @@ public class ExternalLogicImpl implements ExternalLogic {
 	public Site getSite(String id) throws Exception {
 		return siteService.getSite(id);
 	}
+
+	public int getStudentCountForSite(Site s) {
+		return s.getUsersHasRole("Student").size();
+	}
 }

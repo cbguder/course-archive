@@ -22,8 +22,6 @@
 
 				<sakai:messages />
 
-				<sakai:instruction_message value="Hello, #{CourseArchiveBean.currentUserDisplayName}"/>
-
 			 	<h:dataTable
 			 		id="itemlist"
 			 		value="#{CourseArchiveBean.allItems}"

@@ -23,14 +23,19 @@
 				<sakai:messages />
 
 				<sakai:panel_edit>
-					<h:outputText value="Course"/>
+					<h:outputText value="Course Code"/>
 					<h:selectOneMenu value="#{CourseArchiveBean.itemSite}" required="true">
 						<f:selectItems value="#{CourseArchiveBean.currentUserSites}"/>
 					</h:selectOneMenu>
 				</sakai:panel_edit>
 
+				<sakai:panel_edit>
+					<h:outputText value="Primary Instructor"/>
+					<h:inputText value="#{CourseArchiveBean.itemInstructor}"/>
+				</sakai:panel_edit>
+
 				<sakai:button_bar>
-					<h:commandButton value="#{msgs.item_add_button}" action="#{CourseArchiveBean.processActionAdd}" /> 
+					<h:commandButton value="#{msgs.save_button}" action="#{CourseArchiveBean.processActionAdd}" /> 
                 </sakai:button_bar>
 
 			 </h:form>

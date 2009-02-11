@@ -71,6 +71,22 @@ public class CourseArchiveBean {
 		this.itemSite = itemSite;
 	}
 
+	private String itemInstructor;
+	public String getItemInstructor() {
+		return itemInstructor;
+	}
+	public void setItemInstructor(String itemInstructor) {
+		this.itemInstructor = itemInstructor;
+	}
+
+	private int itemEnrollment;
+	public int getItemEnrollment() {
+		return itemEnrollment;
+	}
+	public void setItemEnrollment(int itemEnrollment) {
+		this.itemEnrollment = itemEnrollment;
+	}
+
 	private Boolean itemCanDelete;
 	public Boolean getItemCanDelete() {
 		return itemCanDelete;
@@ -102,16 +118,18 @@ public class CourseArchiveBean {
 	public String processActionAdd() {
 		log.debug("in process action add...");
 		FacesContext fc = FacesContext.getCurrentInstance();
-		// Test for empty items and don't add them
-		if (itemSite != null && !itemSite.equals("")) {
-			try {
-				Site s = externalLogic.getSite(itemSite);
-				itemText = s.getTitle();
-			} catch (Exception e) {
-				String message = "Invalid Site ID";
-				fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
-			}
+		Site s;
+
+		try {
+			s = externalLogic.getSite(itemSite);
+		} catch (Exception e) {
+			String message = "Invalid Site ID";
+			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
+			return "addedItem";
 		}
+
+		itemText = s.getTitle();
+
 		if (itemText != null && !itemText.equals("")) {
 			String message;
 			CourseArchiveItem item;
@@ -124,18 +142,19 @@ public class CourseArchiveBean {
 				message = "Updated item:" + itemText;
 			}
 			item.setTitle(itemText);
+			item.setInstructor(itemInstructor);
+			item.setEnrollment(externalLogic.getStudentCountForSite(s));
 
 			logic.saveItem(item);
 
 			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
 
-			// Reset text
-			itemText = "";
-			itemSite = "";
+			resetItem();
 		} else {
 			String message = "Could not add item without a title";
 			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
 		}
+
 		return "addedItem";
 	}
 
@@ -161,10 +180,18 @@ public class CourseArchiveBean {
 	public String processActionNew() {
 		log.debug("in process action new...");
 		currentItem = null;
+
+		resetItem();
+
+		return "newItem";
+	}
+
+	public void resetItem() {
 		// set the values to the new defaults
 		itemText = "";
 		itemSite = "";
-		return "newItem";
+		itemEnrollment = 0;
+		itemInstructor = getCurrentUserDisplayName();
 	}
 
 	public String processActionUpdate() {
@@ -200,7 +227,11 @@ public class CourseArchiveBean {
 
 	private void loadCurrentItem() {
 		currentItem = (CourseArchiveItemWrapper) itemsModel.getRowData(); // gets the user selected item
-		itemText = currentItem.getItem().getTitle();
-		itemCanDelete = currentItem.isCanDelete();
+
+		itemText       = currentItem.getItem().getTitle();
+		itemEnrollment = currentItem.getItem().getEnrollment();
+		itemInstructor = currentItem.getItem().getInstructor();
+
+		itemCanDelete  = currentItem.isCanDelete();
 	}
 }
