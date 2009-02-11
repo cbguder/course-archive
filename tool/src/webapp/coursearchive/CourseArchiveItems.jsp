@@ -40,11 +40,25 @@
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="#{msgs.items_list_title}"/>
+							<h:outputText value="Course Name"/>
 						</f:facet>
 						<h:commandLink id="showlink" action="#{CourseArchiveBean.processActionShow}">
 							<h:outputText value="#{entry.item.title}"/>
 						</h:commandLink>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Primary Instructor"/>
+						</f:facet>
+						<h:outputText value="#{entry.item.instructor}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Enrollment"/>
+						</f:facet>
+						<h:outputText value="#{entry.item.enrollment}"/>
 					</h:column>
 
 					<h:column>

@@ -38,8 +38,8 @@
 				</sakai:panel_edit>
 
 				<sakai:button_bar>
-					<h:commandButton value="#{msgs.save_button}" action="#{CourseArchiveBean.processActionAdd}" /> 
-					<h:commandButton value="#{msgs.cancel_button}" action="#{CourseArchiveBean.processActionShow}" /> 
+					<h:commandButton styleClass="active" accesskey="s" value="#{msgs.save_button}" action="#{CourseArchiveBean.processActionAdd}" /> 
+					<h:commandButton accesskey="x" value="#{msgs.cancel_button}" action="#{CourseArchiveBean.processActionShow}" /> 
                 </sakai:button_bar>
 
 			 </h:form>
