@@ -7,7 +7,7 @@
 <f:view>
 	<sakai:view_container title="CourseArchive Tool">
 		<style type="text/css">
-			@import url("/coursearchive/css/CourseArchive.css");
+			@import url("/coursearchive-tool/css/CourseArchive.css");
 		</style>
 
 		<h:form id="addItem">
@@ -26,7 +26,7 @@
 			 		id="itemlist"
 			 		value="#{CourseArchiveBean.allItems}"
 			 		var="entry"
-			 		columnClasses="firstColumn,secondColumn,thirdColumn,fourthColumn"
+			 		columnClasses="checkCol,nameCol,instructorCol,enrollmentCol,dateCol"
 			 		headerClass="headerAlignment"
 			 		styleClass="listHier">
 
