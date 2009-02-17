@@ -144,15 +144,6 @@ public class CourseArchiveBean {
 		return "deleteItems";
 	}
 
-	public String processActionNew() {
-		log.debug("in process action new...");
-		currentItem = null;
-
-		resetItem();
-
-		return "newItem";
-	}
-
 	public void resetItem() {
 		// set the values to the new defaults
 		itemText = "";

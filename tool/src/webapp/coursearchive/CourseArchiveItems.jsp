@@ -10,12 +10,6 @@
 			@import url("/coursearchive-tool/css/CourseArchive.css");
 		</style>
 
-		<h:form id="addItem">
-			<sakai:tool_bar>
-				<sakai:tool_bar_item value="#{msgs.project_add_item_link}" action="#{CourseArchiveBean.processActionNew}"/>
-			</sakai:tool_bar>
-		</h:form>
-
 		<sakai:view_content>
 			<h:form id="items">
 				<sakai:view_title value="#{msgs.items_list_page_title}"/>
