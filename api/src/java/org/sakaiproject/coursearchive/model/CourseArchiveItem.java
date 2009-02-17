@@ -14,11 +14,11 @@ package org.sakaiproject.coursearchive.model;
 import java.util.Date;
 
 /**
- * This is a sample POJO (data storage object) 
+ * This is a sample POJO (data storage object)
  * @author Sakai App Builder -AZ
  */
 public class CourseArchiveItem {
-	
+
 	private Long id;
 	private String title;
 	private String ownerId; // Sakai userId

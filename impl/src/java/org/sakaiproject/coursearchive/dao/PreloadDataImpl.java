@@ -28,9 +28,6 @@ public class PreloadDataImpl {
 	private static Log log = LogFactory.getLog(PreloadDataImpl.class);
 
 	private CourseArchiveDao dao;
-	public void setDao(CourseArchiveDao dao) {
-		this.dao = dao;
-	}
 
 	public void init() {
 		preloadItems();
@@ -40,14 +37,18 @@ public class PreloadDataImpl {
 	 * Preload some items into the database
 	 */
 	public void preloadItems() {
-
 		// check if there are any items present, load some if not
-		if(dao.findAll(CourseArchiveItem.class).isEmpty()){
-
+		if(dao.findAll(CourseArchiveItem.class).isEmpty()) {
 			// use the dao to preload some data here
-			dao.save( new CourseArchiveItem("Preload Title", "Preload Owner", new Date()) );
-
+			dao.save(new CourseArchiveItem("Preload Title", "Preload Owner", new Date()));
 			log.info("Preloaded " + dao.countAll(CourseArchiveItem.class) + " items");
 		}
+	}
+
+	/**
+	 * Getters and Setters
+	 */
+	public void setDao(CourseArchiveDao dao) {
+		this.dao = dao;
 	}
 }

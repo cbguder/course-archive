@@ -19,5 +19,4 @@ import org.sakaiproject.genericdao.api.GeneralGenericDao;
  * @author Sakai App Builder -AZ
  */
 public interface CourseArchiveDao extends GeneralGenericDao {
-
 }

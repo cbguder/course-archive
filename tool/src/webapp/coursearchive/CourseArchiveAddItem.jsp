@@ -12,13 +12,13 @@
 
 		<h:form id="listItems">
 			<sakai:tool_bar>
-				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionList}" value="#{msgs.project_list_items_link}" />
+				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionList}" value="#{msgs.project_list_items_link}"/>
 			</sakai:tool_bar>
 		</h:form>
 
 		<sakai:view_content>
 			<h:form id="addUpdateItem">
-			 	<sakai:view_title value="#{msgs.item_add_page_title}"/>
+				<sakai:view_title value="#{msgs.item_add_page_title}"/>
 
 				<sakai:messages />
 
@@ -35,11 +35,10 @@
 				</sakai:panel_edit>
 
 				<sakai:button_bar>
-	 				<h:commandButton accesskey="s" styleClass="active" value="#{msgs.save_button}" action="#{CourseArchiveBean.processActionAdd}" /> 
-					<h:commandButton accesskey="x" value="#{msgs.cancel_button}" action="#{CourseArchiveBean.processActionList}" />
-                </sakai:button_bar>
-
-			 </h:form>
-  		</sakai:view_content>	
+					<h:commandButton accesskey="s" styleClass="active" value="#{msgs.save_button}" action="#{CourseArchiveBean.processActionAdd}"/>
+					<h:commandButton accesskey="x" value="#{msgs.cancel_button}" action="#{CourseArchiveBean.processActionList}"/>
+				</sakai:button_bar>
+			</h:form>
+		</sakai:view_content>
 	</sakai:view_container>
-</f:view> 
+</f:view>

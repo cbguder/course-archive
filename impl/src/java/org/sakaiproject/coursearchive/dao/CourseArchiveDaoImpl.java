@@ -23,14 +23,11 @@ import org.sakaiproject.coursearchive.dao.CourseArchiveDao;
  * that allows the developer to extend the functionality of the generic dao package
  * @author Sakai App Builder -AZ
  */
-public class CourseArchiveDaoImpl 
-   extends HibernateGeneralGenericDao 
-      implements CourseArchiveDao {
+public class CourseArchiveDaoImpl extends HibernateGeneralGenericDao implements CourseArchiveDao {
 
-   private static Log log = LogFactory.getLog(CourseArchiveDaoImpl.class);
+	private static Log log = LogFactory.getLog(CourseArchiveDaoImpl.class);
 
-   public void init() {
-      log.debug("init");
-   }
-
+	public void init() {
+		log.debug("init");
+	}
 }

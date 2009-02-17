@@ -18,7 +18,7 @@
 
 		<sakai:view_content>
 			<h:form id="addUpdateItem">
-			 	<sakai:view_title value="#{msgs.item_edit_page_title}"/>
+				<sakai:view_title value="#{msgs.item_edit_page_title}"/>
 
 				<sakai:messages />
 
@@ -38,11 +38,10 @@
 				</sakai:panel_edit>
 
 				<sakai:button_bar>
-					<h:commandButton styleClass="active" accesskey="s" value="#{msgs.save_button}" action="#{CourseArchiveBean.processActionAdd}" /> 
-					<h:commandButton accesskey="x" value="#{msgs.cancel_button}" action="#{CourseArchiveBean.processActionShow}" /> 
-                </sakai:button_bar>
-
-			 </h:form>
-  		</sakai:view_content>	
+					<h:commandButton styleClass="active" accesskey="s" value="#{msgs.save_button}" action="#{CourseArchiveBean.processActionAdd}"/>
+					<h:commandButton accesskey="x" value="#{msgs.cancel_button}" action="#{CourseArchiveBean.processActionShow}"/>
+				</sakai:button_bar>
+			</h:form>
+ 		</sakai:view_content>
 	</sakai:view_container>
-</f:view> 
+</f:view>

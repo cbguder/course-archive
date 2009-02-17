@@ -82,28 +82,28 @@ public class ExternalLogicImpl implements ExternalLogic {
 	/* (non-Javadoc)
 	 * @see org.sakaiproject.coursearchive.logic.ExternalLogic#getCurrentLocationId()
 	 */
-   public String getCurrentLocationId() {
-      String location = null;
-      try {
-         String context = toolManager.getCurrentPlacement().getContext();
-         location  = context;
-//         Site s = siteService.getSite( context );
-//         location = s.getReference(); // get the entity reference to the site
-      } catch (Exception e) {
-         // sakai failed to get us a location so we can assume we are not inside the portal
-         return NO_LOCATION;
-      }
-      if (location == null) {
-         location = NO_LOCATION;
-      }
-      return location;
-   }
+	public String getCurrentLocationId() {
+		String location = null;
+		try {
+			String context = toolManager.getCurrentPlacement().getContext();
+			location  = context;
+//			  Site s = siteService.getSite( context );
+//			  location = s.getReference(); // get the entity reference to the site
+		} catch (Exception e) {
+			// sakai failed to get us a location so we can assume we are not inside the portal
+			return NO_LOCATION;
+		}
+		if(location == null) {
+			location = NO_LOCATION;
+		}
+		return location;
+	}
 
 	/* (non-Javadoc)
 	 * @see org.sakaiproject.coursearchive.logic.ExternalLogic#getLocationTitle(java.lang.String)
 	 */
 	public String getLocationTitle(String locationId) {
-	   String title = null;
+		String title = null;
 		try {
 			Site site = siteService.getSite(locationId);
 			title = site.getTitle();
@@ -122,7 +122,7 @@ public class ExternalLogicImpl implements ExternalLogic {
 	}
 
 	public String getUserDisplayName(String userId) {
-	   String name = null;
+		String name = null;
 		try {
 			name = userDirectoryService.getUser(userId).getDisplayName();
 		} catch (UserNotDefinedException e) {
@@ -143,7 +143,7 @@ public class ExternalLogicImpl implements ExternalLogic {
 	 * @see org.sakaiproject.coursearchive.logic.ExternalLogic#isUserAllowedInLocation(java.lang.String, java.lang.String, java.lang.String)
 	 */
 	public boolean isUserAllowedInLocation(String userId, String permission, String locationId) {
-		if ( securityService.unlock(userId, permission, locationId) ) {
+		if(securityService.unlock(userId, permission, locationId)) {
 			return true;
 		}
 		return false;

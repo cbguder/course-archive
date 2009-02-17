@@ -16,43 +16,42 @@ import java.util.List;
 import org.sakaiproject.coursearchive.model.CourseArchiveItem;
 
 /**
- * This is the interface for the app Logic, 
+ * This is the interface for the app Logic
  * @author Sakai App Builder -AZ
  */
 public interface CourseArchiveLogic {
 
-   /**
-    * This returns an item based on an id
-    * @param id the id of the item to fetch
-    * @return a CourseArchiveItem or null if none found
-    */
-   public CourseArchiveItem getItemById(Long id);
+	/**
+	 * This returns an item based on an id
+	 * @param id the id of the item to fetch
+	 * @return a CourseArchiveItem or null if none found
+	 */
+	public CourseArchiveItem getItemById(Long id);
 
-   /**
-    * Check if a specified user can write this item in a specified site
-    * @param item to be modified or removed
-    * @param locationId a unique id which represents the current location of the user (entity reference)
-    * @param userId the internal user id (not username)
-    * @return true if item can be modified, false otherwise
-    */
-   public boolean canWriteItem(CourseArchiveItem item, String locationId, String userId);
+	/**
+	 * Check if a specified user can write this item in a specified site
+	 * @param item to be modified or removed
+	 * @param locationId a unique id which represents the current location of the user (entity reference)
+	 * @param userId the internal user id (not username)
+	 * @return true if item can be modified, false otherwise
+	 */
+	public boolean canWriteItem(CourseArchiveItem item, String locationId, String userId);
 
-   /**
-    * This returns the List of all items
-    * @return a List of CourseArchiveItem objects
-    */
-   public List<CourseArchiveItem> getAllItems();
+	/**
+	 * This returns the List of all items
+	 * @return a List of CourseArchiveItem objects
+	 */
+	public List<CourseArchiveItem> getAllItems();
 
-   /**
-    * Save (Create or Update) an item (uses the current site)
-    * @param item the CourseArchiveItem to create or update
-    */
-   public void saveItem(CourseArchiveItem item);
+	/**
+	 * Save (Create or Update) an item (uses the current site)
+	 * @param item the CourseArchiveItem to create or update
+	 */
+	public void saveItem(CourseArchiveItem item);
 
-   /**
-    * Remove an item
-    * @param item the CourseArchiveItem to remove
-    */
-   public void removeItem(CourseArchiveItem item);
-
+	/**
+	 * Remove an item
+	 * @param item the CourseArchiveItem to remove
+	 */
+	public void removeItem(CourseArchiveItem item);
 }

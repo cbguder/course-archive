@@ -12,13 +12,13 @@
 
 		<h:form id="listItems">
 			<sakai:tool_bar>
-				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionList}" value="#{msgs.project_list_items_link}" />
+				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionList}" value="#{msgs.project_list_items_link}"/>
 			</sakai:tool_bar>
 		</h:form>
 
 		<sakai:view_content>
 			<h:form>
-			 	<sakai:view_title value="#{CourseArchiveBean.itemText}"/>
+				<sakai:view_title value="#{CourseArchiveBean.itemText}"/>
 
 				<sakai:messages />
 
@@ -38,9 +38,9 @@
 				</sakai:panel_edit>
 
 				<sakai:button_bar>
-					<h:commandButton value="#{msgs.edit_button}" action="#{CourseArchiveBean.processActionUpdate}" />
+					<h:commandButton value="#{msgs.edit_button}" action="#{CourseArchiveBean.processActionUpdate}"/>
 				</sakai:button_bar>
 			</h:form>
-  		</sakai:view_content>	
+		</sakai:view_content>
 	</sakai:view_container>
-</f:view> 
+</f:view>

@@ -33,32 +33,25 @@ public class CourseArchiveItemWrapper {
 		this.item = item;
 	}
 
-
 	/**
 	 * Basic setters and getters
 	 */
 	public CourseArchiveItem getItem() {
 		return item;
 	}
-
 	public void setItem(CourseArchiveItem item) {
 		this.item = item;
 	}
-
 	public boolean isCanDelete() {
 		return canDelete;
 	}
-
 	public void setCanDelete(boolean canDelete) {
 		this.canDelete = canDelete;
 	}
-
 	public boolean isSelected() {
 		return isSelected;
 	}
-
 	public void setSelected(boolean isSelected) {
 		this.isSelected = isSelected;
 	}
-
 }

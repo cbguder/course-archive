@@ -12,23 +12,23 @@
 
 		<h:form id="addItem">
 			<sakai:tool_bar>
-				<sakai:tool_bar_item value="#{msgs.project_add_item_link}" action="#{CourseArchiveBean.processActionNew}" />
+				<sakai:tool_bar_item value="#{msgs.project_add_item_link}" action="#{CourseArchiveBean.processActionNew}"/>
 			</sakai:tool_bar>
 		</h:form>
 
 		<sakai:view_content>
 			<h:form id="items">
-			 	<sakai:view_title value="#{msgs.items_list_page_title}"/>
+				<sakai:view_title value="#{msgs.items_list_page_title}"/>
 
 				<sakai:messages />
 
-			 	<h:dataTable
-			 		id="itemlist"
-			 		value="#{CourseArchiveBean.allItems}"
-			 		var="entry"
-			 		columnClasses="checkCol,nameCol,instructorCol,enrollmentCol,dateCol"
-			 		headerClass="headerAlignment"
-			 		styleClass="listHier">
+				<h:dataTable
+					id="itemlist"
+					value="#{CourseArchiveBean.allItems}"
+					var="entry"
+					columnClasses="checkCol,nameCol,instructorCol,enrollmentCol,dateCol"
+					headerClass="headerAlignment"
+					styleClass="listHier">
 
 					<h:column>
 						<f:facet name="header">
@@ -66,17 +66,16 @@
 							<h:outputText value="#{msgs.items_list_date}"/>
 						</f:facet>
 						<h:outputText value="#{entry.item.dateCreated}">
-							<f:convertDateTime type="both" dateStyle="medium" timeStyle="short" />
+							<f:convertDateTime type="both" dateStyle="medium" timeStyle="short"/>
 						</h:outputText>
 					</h:column>
 
 				</h:dataTable>
 
 				<sakai:button_bar>
-					<sakai:button_bar_item id="deleteItem" action="#{CourseArchiveBean.processActionDelete}" value="#{msgs.project_items_delete}"/>  
-                </sakai:button_bar>
-
-			 </h:form>
-  		</sakai:view_content>	
+					<sakai:button_bar_item id="deleteItem" action="#{CourseArchiveBean.processActionDelete}" value="#{msgs.project_items_delete}"/>
+				</sakai:button_bar>
+			</h:form>
+		</sakai:view_content>
 	</sakai:view_container>
-</f:view> 
+</f:view>
