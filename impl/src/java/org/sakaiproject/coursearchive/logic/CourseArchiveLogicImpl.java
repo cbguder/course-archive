@@ -73,6 +73,11 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		return dao.findAll(CourseArchiveItem.class);
 	}
 
+	public List<CourseArchiveItem> getUserItems() {
+		log.debug("Fetching user items");
+		return dao.findBySearch(CourseArchiveItem.class, new Search("ownerId", externalLogic.getCurrentUserId()));
+	}
+
 	/* (non-Javadoc)
 	 * @see org.sakaiproject.coursearchive.logic.CourseArchiveLogic#removeItem(org.sakaiproject.coursearchive.model.CourseArchiveItem)
 	 */

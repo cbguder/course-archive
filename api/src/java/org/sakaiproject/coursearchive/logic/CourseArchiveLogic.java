@@ -43,6 +43,8 @@ public interface CourseArchiveLogic {
 	 */
 	public List<CourseArchiveItem> getAllItems();
 
+	public List<CourseArchiveItem> getUserItems();
+
 	/**
 	 * Save (Create or Update) an item (uses the current site)
 	 * @param item the CourseArchiveItem to create or update

@@ -53,10 +53,19 @@ public class CourseArchiveBean {
 	}
 
 	public DataModel getAllItems() {
+		List items = logic.getAllItems();
+		return wrapItems(items);
+	}
+
+	public DataModel getUserItems() {
+		List items = logic.getUserItems();
+		return wrapItems(items);
+	}
+
+	public DataModel wrapItems(List items) {
 		log.debug("wrapping items for JSF datatable...");
 		List wrappedItems = new ArrayList();
 
-		List items = logic.getAllItems();
 		for(Iterator iter = items.iterator(); iter.hasNext();) {
 			CourseArchiveItemWrapper wrapper = new CourseArchiveItemWrapper((CourseArchiveItem) iter.next());
 			// Mark the item if the current user owns it and can delete it
