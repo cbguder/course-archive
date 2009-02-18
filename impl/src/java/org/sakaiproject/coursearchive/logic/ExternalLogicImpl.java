@@ -11,19 +11,14 @@
 
 package org.sakaiproject.coursearchive.logic;
 
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.authz.api.FunctionManager;
 import org.sakaiproject.authz.api.SecurityService;
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
 import org.sakaiproject.exception.IdUnusedException;
-import org.sakaiproject.javax.PagingPosition;
 import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService;
-import org.sakaiproject.site.api.SiteService.SelectionType;
-import org.sakaiproject.site.api.SiteService.SortType;
 import org.sakaiproject.tool.api.SessionManager;
 import org.sakaiproject.tool.api.ToolManager;
 import org.sakaiproject.user.api.UserDirectoryService;

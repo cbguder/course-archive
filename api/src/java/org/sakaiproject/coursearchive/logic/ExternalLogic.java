@@ -11,11 +11,6 @@
 
 package org.sakaiproject.coursearchive.logic;
 
-import java.util.List;
-
-import org.sakaiproject.site.api.Site;
-
-
 /**
  * This is the interface for logic which is external to our app logic
  * @author Sakai App Builder -AZ
