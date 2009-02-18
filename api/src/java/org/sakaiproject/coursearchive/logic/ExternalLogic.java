@@ -68,10 +68,4 @@ public interface ExternalLogic {
 	 * @return true if allowed, false otherwise
 	 */
 	public boolean isUserAllowedInLocation(String userId, String permission, String locationId);
-
-	public List<Site> getCurrentUserSites();
-
-	public Site getSite(String id) throws Exception;
-
-	public int getStudentCountForSite(Site s);
 }

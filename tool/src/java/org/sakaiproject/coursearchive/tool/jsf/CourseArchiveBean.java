@@ -27,7 +27,6 @@ import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
 import org.sakaiproject.coursearchive.logic.CourseArchiveLogic;
 import org.sakaiproject.coursearchive.model.CourseArchiveItem;
-import org.sakaiproject.site.api.Site;
 
 /**
  * This is a backing bean for the JSF app which handles the events and
@@ -44,7 +43,6 @@ public class CourseArchiveBean {
 	private ExternalLogic externalLogic;
 
 	private String itemText;
-	private String itemSite;
 	private String itemInstructor;
 	private int itemEnrollment;
 	private Boolean itemCanDelete;
@@ -83,17 +81,6 @@ public class CourseArchiveBean {
 	public String processActionAdd() {
 		log.debug("in process action add...");
 		FacesContext fc = FacesContext.getCurrentInstance();
-		Site s;
-
-		try {
-			s = externalLogic.getSite(itemSite);
-		} catch (Exception e) {
-			String message = "Invalid Site ID";
-			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
-			return "addedItem";
-		}
-
-		itemText = s.getTitle();
 
 		if(itemText != null && !itemText.equals("")) {
 			String message;
@@ -110,7 +97,7 @@ public class CourseArchiveBean {
 
 			item.setTitle(itemText);
 			item.setInstructor(itemInstructor);
-			item.setEnrollment(externalLogic.getStudentCountForSite(s));
+			item.setEnrollment(itemEnrollment);
 
 			logic.saveItem(item);
 
@@ -144,10 +131,16 @@ public class CourseArchiveBean {
 		return "deleteItems";
 	}
 
+	public String processActionSearch() {
+		currentItem = null;
+		List items = logic.searchItems(searchQuery);
+		wrapItems(items);
+		return "listItems";
+	}
+
 	public void resetItem() {
 		// set the values to the new defaults
 		itemText = "";
-		itemSite = "";
 		itemEnrollment = 0;
 		itemInstructor = getCurrentUserDisplayName();
 	}
@@ -174,19 +167,6 @@ public class CourseArchiveBean {
 		return externalLogic.getUserDisplayName(externalLogic.getCurrentUserId());
 	}
 
-	public List getCurrentUserSites() {
-		List sites = externalLogic.getCurrentUserSites();
-		ArrayList<SelectItem> items = new ArrayList<SelectItem>(sites.size());
-
-		ListIterator iter = sites.listIterator();
-		while(iter.hasNext()) {
-			Site s = (Site)iter.next();
-			items.add(new SelectItem(s.getId(), s.getTitle()));
-		}
-
-		return items;
-	}
-
 	private void loadCurrentItem() {
 		currentItem = (CourseArchiveItemWrapper) itemsModel.getRowData(); // gets the user selected item
 
@@ -211,12 +191,6 @@ public class CourseArchiveBean {
 	}
 	public void setItemText(String itemText) {
 		this.itemText = itemText;
-	}
-	public String getItemSite() {
-		return itemSite;
-	}
-	public void setItemSite(String itemSite) {
-		this.itemSite = itemSite;
 	}
 	public String getItemInstructor() {
 		return itemInstructor;
