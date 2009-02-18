@@ -81,7 +81,11 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 
 	public List<CourseArchiveItem> searchItems(String query) {
 		log.debug("Searching items");
-		return dao.findBySearch(CourseArchiveItem.class, new Search("title", "%"+query+"%", Restriction.LIKE));
+		Search search = new Search();
+		search.setConjunction(false);
+		search.addRestriction(new Restriction("title",      "%"+query+"%", Restriction.LIKE));
+		search.addRestriction(new Restriction("instructor", "%"+query+"%", Restriction.LIKE));
+		return dao.findBySearch(CourseArchiveItem.class, search);
 	}
 
 	/* (non-Javadoc)
