@@ -9,6 +9,7 @@
 		<constructor-arg>
 			<list>
 				<value>org/sakaiproject/coursearchive/dao/hbm/CourseArchiveItem.hbm.xml</value>
+				<value>org/sakaiproject/coursearchive/dao/hbm/CourseArchiveAssignment.hbm.xml</value>
 			</list>
 		</constructor-arg>
 	</bean>
@@ -21,6 +22,7 @@
 		<property name="persistentClasses">
 			<list>
 				<value>org.sakaiproject.coursearchive.model.CourseArchiveItem</value>
+				<value>org.sakaiproject.coursearchive.model.CourseArchiveAssignment</value>
 			</list>
 		</property>
 	</bean>

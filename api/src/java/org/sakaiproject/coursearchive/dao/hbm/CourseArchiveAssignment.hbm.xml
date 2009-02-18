@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="org.sakaiproject.coursearchive.model.CourseArchiveAssignment" table="course_archive_assignments">
+		<id name="id" type="long">
+			<generator class="native">
+				<param name="sequence">course_archive_assignments_ID_SEQ</param>
+			</generator>
+		</id>
+		<property name="title" type="string" length="255" not-null="true"/>
+		<property name="points" type="double"/>
+		<property name="meanGrade" type="double"/>
+		<property name="dueDate" type="java.util.Date"/>
+	</class>
+</hibernate-mapping>
