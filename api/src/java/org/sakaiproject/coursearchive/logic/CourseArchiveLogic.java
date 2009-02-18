@@ -56,4 +56,6 @@ public interface CourseArchiveLogic {
 	 * @param item the CourseArchiveItem to remove
 	 */
 	public void removeItem(CourseArchiveItem item);
+
+	public List<CourseArchiveItem> searchItems(String query);
 }

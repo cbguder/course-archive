@@ -17,6 +17,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.sakaiproject.genericdao.api.search.Restriction;
 import org.sakaiproject.genericdao.api.search.Search;
 
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
@@ -76,6 +77,11 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 	public List<CourseArchiveItem> getUserItems() {
 		log.debug("Fetching user items");
 		return dao.findBySearch(CourseArchiveItem.class, new Search("ownerId", externalLogic.getCurrentUserId()));
+	}
+
+	public List<CourseArchiveItem> searchItems(String query) {
+		log.debug("Searching items");
+		return dao.findBySearch(CourseArchiveItem.class, new Search("title", "%"+query+"%", Restriction.LIKE));
 	}
 
 	/* (non-Javadoc)

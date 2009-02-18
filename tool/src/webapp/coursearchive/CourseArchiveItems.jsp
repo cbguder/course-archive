@@ -10,6 +10,13 @@
 			@import url("/coursearchive-tool/css/CourseArchive.css");
 		</style>
 
+		<h:form id="search">
+			<sakai:tool_bar>
+				<h:inputText value="#{CourseArchiveBean.searchQuery}"/>
+				<h:commandButton value="#{msgs.search}" action="#{CourseArchiveBean.processActionSearch}"/>
+			</sakai:tool_bar>
+		</h:form>
+
 		<sakai:view_content>
 			<h:form id="items">
 				<sakai:view_title value="#{msgs.items_list_page_title}"/>
@@ -18,7 +25,7 @@
 
 				<h:dataTable
 					id="itemlist"
-					value="#{CourseArchiveBean.userItems}"
+					value="#{CourseArchiveBean.items}"
 					var="entry"
 					columnClasses="checkCol,nameCol,instructorCol,enrollmentCol,dateCol"
 					headerClass="headerAlignment"

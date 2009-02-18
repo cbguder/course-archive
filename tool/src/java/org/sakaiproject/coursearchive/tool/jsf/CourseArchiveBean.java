@@ -47,6 +47,8 @@ public class CourseArchiveBean {
 	private int itemEnrollment;
 	private Boolean itemCanDelete;
 
+	private String searchQuery;
+
 	public CourseArchiveBean() {
 	}
 
@@ -154,6 +156,7 @@ public class CourseArchiveBean {
 	public String processActionList() {
 		log.debug("in process action list...");
 		currentItem = null;
+		getUserItems();
 		return "listItems";
 	}
 	
@@ -206,5 +209,18 @@ public class CourseArchiveBean {
 	}
 	public Boolean getItemCanDelete() {
 		return itemCanDelete;
+	}
+	public String getSearchQuery() {
+		return searchQuery;
+	}
+	public void setSearchQuery(String searchQuery) {
+		this.searchQuery = searchQuery;
+	}
+	public DataModel getItems() {
+		if(itemsModel == null || searchQuery == null || searchQuery == "") {
+			getUserItems();
+		}
+
+		return itemsModel;
 	}
 }
