@@ -18,18 +18,18 @@
 
 		<sakai:view_content>
 			<h:form>
-				<sakai:view_title value="#{CourseArchiveBean.itemCode}"/>
+				<sakai:view_title value="#{CourseArchiveBean.itemCode}-#{CourseArchiveBean.itemTerm}"/>
 
 				<sakai:messages />
 
 				<sakai:panel_edit>
-					<h:outputText value="Term"/>
-					<h:outputText value="#{CourseArchiveBean.itemTerm}"/>
+					<h:outputText value="Code"/>
+					<h:outputText value="#{CourseArchiveBean.itemCode}"/>
 				</sakai:panel_edit>
 
 				<sakai:panel_edit>
-					<h:outputText value="Code"/>
-					<h:outputText value="#{CourseArchiveBean.itemCode}"/>
+					<h:outputText value="Term"/>
+					<h:outputText value="#{CourseArchiveBean.itemTerm}"/>
 				</sakai:panel_edit>
 
 				<sakai:panel_edit>

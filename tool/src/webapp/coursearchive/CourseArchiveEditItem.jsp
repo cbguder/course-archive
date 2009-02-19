@@ -23,13 +23,13 @@
 				<sakai:messages />
 
 				<sakai:panel_edit>
-					<h:outputText value="Term"/>
-					<h:inputText value="#{CourseArchiveBean.itemTerm}"/>
+					<h:outputText value="Code"/>
+					<h:inputText value="#{CourseArchiveBean.itemCode}"/>
 				</sakai:panel_edit>
 
 				<sakai:panel_edit>
-					<h:outputText value="Code"/>
-					<h:inputText value="#{CourseArchiveBean.itemCode}"/>
+					<h:outputText value="Term"/>
+					<h:inputText value="#{CourseArchiveBean.itemTerm}"/>
 				</sakai:panel_edit>
 
 				<sakai:panel_edit>

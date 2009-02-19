@@ -27,7 +27,7 @@
 					id="itemlist"
 					value="#{CourseArchiveBean.items}"
 					var="entry"
-					columnClasses="checkCol,termCol,codeCol,nameCol,instructorCol,enrollmentCol,publicCol,dateCol"
+					columnClasses="checkCol,codeCol,termCol,nameCol,instructorCol,enrollmentCol,publicCol,dateCol"
 					headerClass="headerAlignment"
 					styleClass="listHier">
 
@@ -41,18 +41,18 @@
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Term"/>
-						</f:facet>
-						<h:outputText value="#{entry.item.term}"/>
-					</h:column>
-
-					<h:column>
-						<f:facet name="header">
 							<h:outputText value="Code"/>
 						</f:facet>
 						<h:commandLink id="showlink" action="#{CourseArchiveBean.processActionShow}">
 							<h:outputText value="#{entry.item.code}"/>
 						</h:commandLink>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Term"/>
+						</f:facet>
+						<h:outputText value="#{entry.item.term}"/>
 					</h:column>
 
 					<h:column>
