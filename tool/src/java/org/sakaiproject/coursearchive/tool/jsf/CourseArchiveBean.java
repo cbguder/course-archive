@@ -151,12 +151,14 @@ public class CourseArchiveBean {
 	}
 
 	public void resetItem() {
+		currentItem = null;
 		itemCode = "";
 		itemName = "";
 		itemTerm = "";
 		itemPrimaryInstructor = getCurrentUserDisplayName();
 		itemOtherInstructors = "";
 		itemAssistants = "";
+		itemEnrollment = 0;
 	}
 
 	public String processActionUpdate() {
