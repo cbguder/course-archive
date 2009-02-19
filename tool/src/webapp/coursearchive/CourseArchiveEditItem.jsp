@@ -23,13 +23,33 @@
 				<sakai:messages />
 
 				<sakai:panel_edit>
-					<h:outputText value="Course Name"/>
-					<h:inputText value="#{CourseArchiveBean.itemText}"/>
+					<h:outputText value="Term"/>
+					<h:inputText value="#{CourseArchiveBean.itemTerm}"/>
+				</sakai:panel_edit>
+
+				<sakai:panel_edit>
+					<h:outputText value="Code"/>
+					<h:inputText value="#{CourseArchiveBean.itemCode}"/>
+				</sakai:panel_edit>
+
+				<sakai:panel_edit>
+					<h:outputText value="Name"/>
+					<h:inputText value="#{CourseArchiveBean.itemName}"/>
 				</sakai:panel_edit>
 
 				<sakai:panel_edit>
 					<h:outputText value="Primary Instructor"/>
-					<h:inputText value="#{CourseArchiveBean.itemInstructor}"/>
+					<h:inputText value="#{CourseArchiveBean.itemPrimaryInstructor}"/>
+				</sakai:panel_edit>
+
+				<sakai:panel_edit>
+					<h:outputText value="Other Instructors"/>
+					<h:inputTextarea value="#{CourseArchiveBean.itemOtherInstructors}"/>
+				</sakai:panel_edit>
+
+				<sakai:panel_edit>
+					<h:outputText value="Assistants"/>
+					<h:inputTextarea value="#{CourseArchiveBean.itemAssistants}"/>
 				</sakai:panel_edit>
 
 				<sakai:panel_edit>

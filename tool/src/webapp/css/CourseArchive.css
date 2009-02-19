@@ -1,4 +1,6 @@
 .checkCol      { width: 2%; }
+.termCol       { width: 5%; }
+.codeCol       { width: 5%; }
 .nameCol       {}
 .instructorCol {}
 .enrollmentCol { width: 5%; }
@@ -8,5 +10,7 @@ td.chefLabel {
 	width: 200px;
 	font-weight: bold;
 }
+
+td.chefLabel, td.chefValue { vertical-align:top; }
 
 form#search div { text-align: right; }

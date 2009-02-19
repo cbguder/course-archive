@@ -9,6 +9,8 @@ public class CourseArchiveAssignment {
 	private Double meanGrade;
 	private Date dueDate;
 
+	private CourseArchiveItem item;
+
 	/**
 	 * Default constructor
 	 */
@@ -58,5 +60,11 @@ public class CourseArchiveAssignment {
 	}
 	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
+	}
+	public CourseArchiveItem getItem() {
+		return item;
+	}
+	public void setItem(CourseArchiveItem item) {
+		this.item = item;
 	}
 }

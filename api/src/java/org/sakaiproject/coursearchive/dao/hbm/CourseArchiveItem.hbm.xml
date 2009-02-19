@@ -4,14 +4,16 @@
 <hibernate-mapping>
 	<class name="org.sakaiproject.coursearchive.model.CourseArchiveItem" table="course_archive_items">
 		<id name="id" type="long">
-			<generator class="native">
-				<param name="sequence">course_archive_items_ID_SEQ</param>
-			</generator>
+			<generator class="native"/>
 		</id>
-		<property name="title" type="string" length="255" not-null="true" />
 		<property name="ownerId" type="string" length="255" not-null="true" />
 		<property name="dateCreated" type="java.util.Date" />
-		<property name="instructor" type="string" length="255" not-null="true"/>
+		<property name="code" type="string" length="255" not-null="true" />
+		<property name="name" type="string" length="255" not-null="true" />
+		<property name="term" type="string" length="255" not-null="true" />
+		<property name="primaryInstructor" type="string" length="255" not-null="true"/>
+		<property name="otherInstructors" type="text" not-null="true"/>
+		<property name="assistants" type="text" not-null="true"/>
 		<property name="enrollment" type="integer" not-null="true"/>
 	</class>
 </hibernate-mapping>

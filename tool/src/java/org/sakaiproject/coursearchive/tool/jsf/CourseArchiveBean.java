@@ -40,9 +40,14 @@ public class CourseArchiveBean {
 	private CourseArchiveLogic logic;
 	private ExternalLogic externalLogic;
 
-	private String itemText;
-	private String itemInstructor;
+	private String itemCode;
+	private String itemName;
+	private String itemTerm;
+	private String itemPrimaryInstructor;
+	private String itemOtherInstructors;
+	private String itemAssistants;
 	private int itemEnrollment;
+
 	private Boolean itemCanDelete;
 
 	private String searchQuery;
@@ -82,21 +87,28 @@ public class CourseArchiveBean {
 		log.debug("in process action add...");
 		FacesContext fc = FacesContext.getCurrentInstance();
 
-		if(itemText != null && !itemText.equals("")) {
+		if(itemCode != null && !itemCode.equals("") &&
+		   itemName != null && !itemName.equals("") &&
+		   itemTerm != null && !itemTerm.equals("") &&
+		   itemPrimaryInstructor != null && !itemPrimaryInstructor.equals("")) {
 			String message;
 			CourseArchiveItem item;
 
 			if(currentItem == null) {
 				item = new CourseArchiveItem();
 				// ownerId, locationId, and dateCreated are set in the logic.saveItem
-				message = "Added new item:" + itemText;
+				message = "Added new item:" + itemCode;
 			} else {
 				item = currentItem.getItem();
-				message = "Updated item:" + itemText;
+				message = "Updated item:" + itemCode;
 			}
 
-			item.setTitle(itemText);
-			item.setInstructor(itemInstructor);
+			item.setCode(itemCode);
+			item.setName(itemName);
+			item.setTerm(itemTerm);
+			item.setPrimaryInstructor(itemPrimaryInstructor);
+			item.setOtherInstructors(itemOtherInstructors);
+			item.setAssistants(itemAssistants);
 			item.setEnrollment(itemEnrollment);
 
 			logic.saveItem(item);
@@ -105,7 +117,7 @@ public class CourseArchiveBean {
 
 			resetItem();
 		} else {
-			String message = "Could not add item without a title";
+			String message = "Could not add item without a code, name, term or primary instructor.";
 			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
 		}
 
@@ -139,10 +151,12 @@ public class CourseArchiveBean {
 	}
 
 	public void resetItem() {
-		// set the values to the new defaults
-		itemText = "";
-		itemEnrollment = 0;
-		itemInstructor = getCurrentUserDisplayName();
+		itemCode = "";
+		itemName = "";
+		itemTerm = "";
+		itemPrimaryInstructor = getCurrentUserDisplayName();
+		itemOtherInstructors = "";
+		itemAssistants = "";
 	}
 
 	public String processActionUpdate() {
@@ -171,9 +185,13 @@ public class CourseArchiveBean {
 	private void loadCurrentItem() {
 		currentItem = (CourseArchiveItemWrapper) itemsModel.getRowData(); // gets the user selected item
 
-		itemText       = currentItem.getItem().getTitle();
+		itemCode       = currentItem.getItem().getCode();
+		itemName       = currentItem.getItem().getName();
+		itemTerm       = currentItem.getItem().getTerm();
 		itemEnrollment = currentItem.getItem().getEnrollment();
-		itemInstructor = currentItem.getItem().getInstructor();
+		itemPrimaryInstructor = currentItem.getItem().getPrimaryInstructor();
+		itemOtherInstructors  = currentItem.getItem().getOtherInstructors();
+		itemAssistants        = currentItem.getItem().getAssistants();
 
 		itemCanDelete  = currentItem.isCanDelete();
 	}
@@ -187,17 +205,41 @@ public class CourseArchiveBean {
 	public void setExternalLogic(ExternalLogic externalLogic) {
 		this.externalLogic = externalLogic;
 	}
-	public String getItemText() {
-		return itemText;
+	public String getItemAssistants() {
+		return itemAssistants;
 	}
-	public void setItemText(String itemText) {
-		this.itemText = itemText;
+	public void setItemAssistants(String itemAssistants) {
+		this.itemAssistants = itemAssistants;
 	}
-	public String getItemInstructor() {
-		return itemInstructor;
+	public String getItemCode() {
+		return itemCode;
 	}
-	public void setItemInstructor(String itemInstructor) {
-		this.itemInstructor = itemInstructor;
+	public void setItemCode(String itemCode) {
+		this.itemCode = itemCode;
+	}
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+	public String getItemOtherInstructors() {
+		return itemOtherInstructors;
+	}
+	public void setItemOtherInstructors(String itemOtherInstructors) {
+		this.itemOtherInstructors = itemOtherInstructors;
+	}
+	public String getItemPrimaryInstructor() {
+		return itemPrimaryInstructor;
+	}
+	public void setItemPrimaryInstructor(String itemPrimaryInstructor) {
+		this.itemPrimaryInstructor = itemPrimaryInstructor;
+	}
+	public String getItemTerm() {
+		return itemTerm;
+	}
+	public void setItemTerm(String itemTerm) {
+		this.itemTerm = itemTerm;
 	}
 	public int getItemEnrollment() {
 		return itemEnrollment;

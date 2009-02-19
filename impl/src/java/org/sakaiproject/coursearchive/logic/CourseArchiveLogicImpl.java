@@ -55,7 +55,7 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 	 * @see org.sakaiproject.coursearchive.logic.CourseArchiveLogic#canWriteItem(org.sakaiproject.coursearchive.model.CourseArchiveItem, java.lang.String, java.lang.String)
 	 */
 	public boolean canWriteItem(CourseArchiveItem item, String locationId, String userId) {
-		log.debug("checking if can write for: " + userId + ", " + locationId + ": and item=" + item.getTitle() );
+		log.debug("checking if can write for: " + userId + ", " + locationId + ": and item=" + item.getCode() );
 		if(item.getOwnerId().equals(userId)) {
 			// owner can always modify an item
 			return true;
@@ -92,11 +92,11 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 	 * @see org.sakaiproject.coursearchive.logic.CourseArchiveLogic#removeItem(org.sakaiproject.coursearchive.model.CourseArchiveItem)
 	 */
 	public void removeItem(CourseArchiveItem item) {
-		log.debug("In removeItem with item:" + item.getId() + ":" + item.getTitle());
+		log.debug("In removeItem with item:" + item.getId() + ":" + item.getCode());
 		// check if current user can remove this item
 		if(canWriteItem(item, externalLogic.getCurrentLocationId(), externalLogic.getCurrentUserId())) {
 			dao.delete(item);
-			log.info("Removing item: " + item.getId() + ":" + item.getTitle());
+			log.info("Removing item: " + item.getId() + ":" + item.getCode());
 		} else {
 			throw new SecurityException("Current user cannot remove item " + item.getId() + " because they do not have permission");
 		}
@@ -106,7 +106,7 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 	 * @see org.sakaiproject.coursearchive.logic.CourseArchiveLogic#saveItem(org.sakaiproject.coursearchive.model.CourseArchiveItem)
 	 */
 	public void saveItem(CourseArchiveItem item) {
-		log.debug("In saveItem with item:" + item.getTitle());
+		log.debug("In saveItem with item:" + item.getCode());
 		// set the owner and site to current if they are not set
 		if(item.getOwnerId() == null) {
 			item.setOwnerId(externalLogic.getCurrentUserId());
@@ -117,7 +117,7 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		// save item if new OR check if the current user can update the existing item
 		if((item.getId() == null) || canWriteItem(item, externalLogic.getCurrentLocationId(), externalLogic.getCurrentUserId())) {
 			dao.save(item);
-			log.info("Saving item: " + item.getId() + ":" + item.getTitle());
+			log.info("Saving item: " + item.getId() + ":" + item.getCode());
 		} else {
 			throw new SecurityException("Current user cannot update item " + item.getId() + " because they do not have permission");
 		}

@@ -18,18 +18,38 @@
 
 		<sakai:view_content>
 			<h:form>
-				<sakai:view_title value="#{CourseArchiveBean.itemText}"/>
+				<sakai:view_title value="#{CourseArchiveBean.itemCode}"/>
 
 				<sakai:messages />
 
 				<sakai:panel_edit>
-					<h:outputText value="Course Name"/>
-					<h:outputText value="#{CourseArchiveBean.itemText}"/>
+					<h:outputText value="Term"/>
+					<h:outputText value="#{CourseArchiveBean.itemTerm}"/>
+				</sakai:panel_edit>
+
+				<sakai:panel_edit>
+					<h:outputText value="Code"/>
+					<h:outputText value="#{CourseArchiveBean.itemCode}"/>
+				</sakai:panel_edit>
+
+				<sakai:panel_edit>
+					<h:outputText value="Name"/>
+					<h:outputText value="#{CourseArchiveBean.itemName}"/>
 				</sakai:panel_edit>
 
 				<sakai:panel_edit>
 					<h:outputText value="Primary Instructor"/>
-					<h:outputText value="#{CourseArchiveBean.itemInstructor}"/>
+					<h:outputText value="#{CourseArchiveBean.itemPrimaryInstructor}"/>
+				</sakai:panel_edit>
+
+				<sakai:panel_edit>
+					<h:outputText value="Other Instructors"/>
+					<h:outputText value="#{CourseArchiveBean.itemOtherInstructors}"/>
+				</sakai:panel_edit>
+
+				<sakai:panel_edit>
+					<h:outputText value="Assistants"/>
+					<h:outputText value="#{CourseArchiveBean.itemAssistants}"/>
 				</sakai:panel_edit>
 
 				<sakai:panel_edit>

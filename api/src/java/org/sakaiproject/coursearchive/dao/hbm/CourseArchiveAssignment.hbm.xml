@@ -4,10 +4,10 @@
 <hibernate-mapping>
 	<class name="org.sakaiproject.coursearchive.model.CourseArchiveAssignment" table="course_archive_assignments">
 		<id name="id" type="long">
-			<generator class="native">
-				<param name="sequence">course_archive_assignments_ID_SEQ</param>
-			</generator>
+			<generator class="native"/>
 		</id>
+		<many-to-one name="item" column="itemId" not-null="true"
+			class="org.sakaiproject.coursearchive.model.CourseArchiveItem"/>
 		<property name="title" type="string" length="255" not-null="true"/>
 		<property name="points" type="double"/>
 		<property name="meanGrade" type="double"/>

@@ -1,30 +1,19 @@
-/******************************************************************************
- * CourseArchiveItem.java - created by Sakai App Builder -AZ
- * 
- * Copyright (c) 2008 Sakai Project/Sakai Foundation
- * Licensed under the Educational Community License version 1.0
- * 
- * A copy of the Educational Community License has been included in this 
- * distribution and is available at: http://www.opensource.org/licenses/ecl1.php
- * 
- *****************************************************************************/
-
 package org.sakaiproject.coursearchive.model;
 
 import java.util.Date;
 
-/**
- * This is a sample POJO (data storage object)
- * @author Sakai App Builder -AZ
- */
 public class CourseArchiveItem {
 
 	private Long id;
-	private String title;
 	private String ownerId; // Sakai userId
 	private Date dateCreated;
 
-	private String instructor;
+	private String code;
+	private String name;
+	private String term;
+	private String primaryInstructor;
+	private String otherInstructors;
+	private String assistants;
 	private int enrollment;
 
 	/**
@@ -41,15 +30,17 @@ public class CourseArchiveItem {
 		this(title, ownerId, null);
 	}
 
-	/**
-	 * Full constructor
-	 */
 	public CourseArchiveItem(String title, String ownerId, Date dateCreated) {
-		this.title       = title;
-		this.ownerId     = ownerId;
-		this.dateCreated = dateCreated;
-		this.instructor  = "";
-		this.enrollment  = 0;
+		this.ownerId           = ownerId;
+		this.dateCreated       = dateCreated;
+
+		this.code              = "";
+		this.name              = "";
+		this.term              = "";
+		this.primaryInstructor = "";
+		this.otherInstructors  = "";
+		this.assistants        = "";
+		this.enrollment        = 0;
 	}
 
 	/**
@@ -61,11 +52,11 @@ public class CourseArchiveItem {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getTitle() {
-		return title;
+	public String getOwnerId() {
+		return ownerId;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
 	}
 	public Date getDateCreated() {
 		return dateCreated;
@@ -73,17 +64,41 @@ public class CourseArchiveItem {
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
-	public String getOwnerId() {
-		return ownerId;
+	public String getCode() {
+		return code;
 	}
-	public void setOwnerId(String ownerId) {
-		this.ownerId = ownerId;
+	public void setCode(String code) {
+		this.code = code;
 	}
-	public String getInstructor() {
-		return instructor;
+	public String getName() {
+		return name;
 	}
-	public void setInstructor(String instructor) {
-		this.instructor = instructor;
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getTerm() {
+		return term;
+	}
+	public void setTerm(String term) {
+		this.term = term;
+	}
+	public String getPrimaryInstructor() {
+		return primaryInstructor;
+	}
+	public void setPrimaryInstructor(String primaryInstructor) {
+		this.primaryInstructor = primaryInstructor;
+	}
+	public String getOtherInstructors() {
+		return otherInstructors;
+	}
+	public void setOtherInstructors(String otherInstructors) {
+		this.otherInstructors = otherInstructors;
+	}
+	public String getAssistants() {
+		return assistants;
+	}
+	public void setAssistants(String assistants) {
+		this.assistants = assistants;
 	}
 	public int getEnrollment() {
 		return enrollment;
