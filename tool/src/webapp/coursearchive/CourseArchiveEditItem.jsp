@@ -49,7 +49,7 @@
 
 				<sakai:panel_edit>
 					<h:outputText value="Assistants"/>
-					<h:inputTextarea value="#{CourseArchiveBean.itemAssistants}"/>
+					<h:inputTextarea value="#{CourseArchiveBean.itemAssistants}" rows="5"/>
 				</sakai:panel_edit>
 
 				<sakai:panel_edit>

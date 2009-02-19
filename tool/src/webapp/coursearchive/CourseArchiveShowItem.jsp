@@ -44,17 +44,21 @@
 
 				<sakai:panel_edit>
 					<h:outputText value="Other Instructors"/>
-					<h:outputText value="#{CourseArchiveBean.itemOtherInstructors}"/>
+					<h:outputText value="#{CourseArchiveBean.itemOtherInstructors}">
+						<f:converter converterId="NewlineConverter"/>
+					</h:outputText>
 				</sakai:panel_edit>
 
 				<sakai:panel_edit>
 					<h:outputText value="Assistants"/>
-					<h:outputText value="#{CourseArchiveBean.itemAssistants}"/>
+					<h:outputText value="#{CourseArchiveBean.itemAssistants}" escape="false">
+						<f:converter converterId="NewlineConverter"/>
+					</h:outputText>
 				</sakai:panel_edit>
 
 				<sakai:panel_edit>
 					<h:outputText value="Enrollment"/>
-					<h:outputText value="#{CourseArchiveBean.itemEnrollment}"/>
+					<h:outputText value="#{CourseArchiveBean.itemEnrollment}" escape="false"/>
 				</sakai:panel_edit>
 
 				<sakai:button_bar>

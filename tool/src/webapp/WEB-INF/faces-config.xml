@@ -86,4 +86,10 @@
 			<value>#{org_sakaiproject_coursearchive_logic_ExternalLogic}</value>
 		</managed-property>
 	</managed-bean>
+
+	<converter>
+		<description>Converts line breaks to HTML br tags.</description>
+		<converter-id>NewlineConverter</converter-id>
+		<converter-class>org.sakaiproject.coursearchive.tool.jsf.NewlineConverter</converter-class>
+	</converter>
 </faces-config>
