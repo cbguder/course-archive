@@ -4,6 +4,7 @@
 .nameCol       {}
 .instructorCol {}
 .enrollmentCol { width: 5%; }
+.publicCol     { width: 5%; }
 .dateCol       { width: 17%; }
 
 td.chefLabel {

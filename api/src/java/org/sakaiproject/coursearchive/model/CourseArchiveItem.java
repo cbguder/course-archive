@@ -14,6 +14,8 @@ public class CourseArchiveItem {
 	private String primaryInstructor;
 	private String otherInstructors;
 	private String assistants;
+	private String comments;
+	private boolean _public;
 	private int enrollment;
 
 	/**
@@ -40,7 +42,9 @@ public class CourseArchiveItem {
 		this.primaryInstructor = "";
 		this.otherInstructors  = "";
 		this.assistants        = "";
+		this.comments          = "";
 		this.enrollment        = 0;
+		this._public           = false;
 	}
 
 	/**
@@ -99,6 +103,18 @@ public class CourseArchiveItem {
 	}
 	public void setAssistants(String assistants) {
 		this.assistants = assistants;
+	}
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+	public boolean isPublic() {
+		return _public;
+	}
+	public void setPublic(boolean _public) {
+		this._public = _public;
 	}
 	public int getEnrollment() {
 		return enrollment;

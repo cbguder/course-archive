@@ -46,6 +46,8 @@ public class CourseArchiveBean {
 	private String itemPrimaryInstructor;
 	private String itemOtherInstructors;
 	private String itemAssistants;
+	private String itemComments;
+	private boolean itemPublic;
 	private int itemEnrollment;
 
 	private Boolean itemCanDelete;
@@ -110,6 +112,8 @@ public class CourseArchiveBean {
 			item.setOtherInstructors(itemOtherInstructors);
 			item.setAssistants(itemAssistants);
 			item.setEnrollment(itemEnrollment);
+			item.setComments(itemComments);
+			item.setPublic(itemPublic);
 
 			logic.saveItem(item);
 
@@ -159,6 +163,8 @@ public class CourseArchiveBean {
 		itemOtherInstructors = "";
 		itemAssistants = "";
 		itemEnrollment = 0;
+		itemComments = "";
+		itemPublic = false;
 	}
 
 	public String processActionUpdate() {
@@ -191,6 +197,8 @@ public class CourseArchiveBean {
 		itemName       = currentItem.getItem().getName();
 		itemTerm       = currentItem.getItem().getTerm();
 		itemEnrollment = currentItem.getItem().getEnrollment();
+		itemComments   = currentItem.getItem().getComments();
+		itemPublic     = currentItem.getItem().isPublic();
 		itemPrimaryInstructor = currentItem.getItem().getPrimaryInstructor();
 		itemOtherInstructors  = currentItem.getItem().getOtherInstructors();
 		itemAssistants        = currentItem.getItem().getAssistants();
@@ -207,12 +215,6 @@ public class CourseArchiveBean {
 	public void setExternalLogic(ExternalLogic externalLogic) {
 		this.externalLogic = externalLogic;
 	}
-	public String getItemAssistants() {
-		return itemAssistants;
-	}
-	public void setItemAssistants(String itemAssistants) {
-		this.itemAssistants = itemAssistants;
-	}
 	public String getItemCode() {
 		return itemCode;
 	}
@@ -225,11 +227,11 @@ public class CourseArchiveBean {
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-	public String getItemOtherInstructors() {
-		return itemOtherInstructors;
+	public String getItemTerm() {
+		return itemTerm;
 	}
-	public void setItemOtherInstructors(String itemOtherInstructors) {
-		this.itemOtherInstructors = itemOtherInstructors;
+	public void setItemTerm(String itemTerm) {
+		this.itemTerm = itemTerm;
 	}
 	public String getItemPrimaryInstructor() {
 		return itemPrimaryInstructor;
@@ -237,17 +239,35 @@ public class CourseArchiveBean {
 	public void setItemPrimaryInstructor(String itemPrimaryInstructor) {
 		this.itemPrimaryInstructor = itemPrimaryInstructor;
 	}
-	public String getItemTerm() {
-		return itemTerm;
+	public String getItemOtherInstructors() {
+		return itemOtherInstructors;
 	}
-	public void setItemTerm(String itemTerm) {
-		this.itemTerm = itemTerm;
+	public void setItemOtherInstructors(String itemOtherInstructors) {
+		this.itemOtherInstructors = itemOtherInstructors;
+	}
+	public String getItemAssistants() {
+		return itemAssistants;
+	}
+	public void setItemAssistants(String itemAssistants) {
+		this.itemAssistants = itemAssistants;
+	}
+	public boolean getItemPublic() {
+		return itemPublic;
+	}
+	public void setItemPublic(boolean itemPublic) {
+		this.itemPublic = itemPublic;
 	}
 	public int getItemEnrollment() {
 		return itemEnrollment;
 	}
 	public void setItemEnrollment(int itemEnrollment) {
 		this.itemEnrollment = itemEnrollment;
+	}
+	public String getItemComments() {
+		return itemComments;
+	}
+	public void setItemComments(String itemComments) {
+		this.itemComments = itemComments;
 	}
 	public Boolean getItemCanDelete() {
 		return itemCanDelete;

@@ -15,5 +15,7 @@
 		<property name="otherInstructors" type="text" not-null="true"/>
 		<property name="assistants" type="text" not-null="true"/>
 		<property name="enrollment" type="integer" not-null="true"/>
+		<property name="comments" type="text" not-null="true"/>
+		<property name="public" type="boolean" not-null="true"/>
 	</class>
 </hibernate-mapping>

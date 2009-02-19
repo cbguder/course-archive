@@ -61,6 +61,16 @@
 					<h:outputText value="#{CourseArchiveBean.itemEnrollment}"/>
 				</sakai:panel_edit>
 
+				<sakai:panel_edit>
+					<h:outputText value="Comments"/>
+					<h:outputText value="#{CourseArchiveBean.itemComments}"/>
+				</sakai:panel_edit>
+
+				<sakai:panel_edit>
+					<h:outputText value="Public?"/>
+					<h:outputText value="#{CourseArchiveBean.itemPublic}"/>
+				</sakai:panel_edit>
+
 				<sakai:button_bar>
 					<h:commandButton value="#{msgs.edit_button}" action="#{CourseArchiveBean.processActionUpdate}"/>
 				</sakai:button_bar>

@@ -57,6 +57,16 @@
 					<h:inputText value="#{CourseArchiveBean.itemEnrollment}"/>
 				</sakai:panel_edit>
 
+				<sakai:panel_edit>
+					<h:outputText value="Comments"/>
+					<h:inputTextarea value="#{CourseArchiveBean.itemComments}" rows="5" cols="40"/>
+				</sakai:panel_edit>
+
+				<sakai:panel_edit>
+					<h:outputText value="Public?"/>
+					<h:selectBooleanCheckbox value="#{CourseArchiveBean.itemPublic}"/>
+				</sakai:panel_edit>
+
 				<sakai:button_bar>
 					<h:commandButton styleClass="active" accesskey="s" value="#{msgs.save_button}" action="#{CourseArchiveBean.processActionAdd}"/>
 					<h:commandButton accesskey="x" value="#{msgs.cancel_button}" action="#{CourseArchiveBean.processActionShow}"/>

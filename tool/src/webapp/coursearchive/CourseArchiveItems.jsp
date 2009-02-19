@@ -27,7 +27,7 @@
 					id="itemlist"
 					value="#{CourseArchiveBean.items}"
 					var="entry"
-					columnClasses="checkCol,termCol,codeCol,nameCol,instructorCol,enrollmentCol,dateCol"
+					columnClasses="checkCol,termCol,codeCol,nameCol,instructorCol,enrollmentCol,publicCol,dateCol"
 					headerClass="headerAlignment"
 					styleClass="listHier">
 
@@ -74,6 +74,13 @@
 							<h:outputText value="Enrollment"/>
 						</f:facet>
 						<h:outputText value="#{entry.item.enrollment}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Public?"/>
+						</f:facet>
+						<h:outputText value="#{entry.item.public}"/>
 					</h:column>
 
 					<h:column>
