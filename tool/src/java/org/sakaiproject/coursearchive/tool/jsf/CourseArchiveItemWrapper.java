@@ -22,7 +22,7 @@ import org.sakaiproject.coursearchive.model.CourseArchiveItem;
 public class CourseArchiveItemWrapper {
 
 	private CourseArchiveItem item;
-	private boolean canDelete; // can this item be deleted
+	private boolean canEdit;    // can this item be edited
 	private boolean isSelected; // is this item selected by the user
 
 	/**
@@ -42,11 +42,11 @@ public class CourseArchiveItemWrapper {
 	public void setItem(CourseArchiveItem item) {
 		this.item = item;
 	}
-	public boolean isCanDelete() {
-		return canDelete;
+	public boolean isCanEdit() {
+		return canEdit;
 	}
-	public void setCanDelete(boolean canDelete) {
-		this.canDelete = canDelete;
+	public void setCanEdit(boolean canEdit) {
+		this.canEdit = canEdit;
 	}
 	public boolean isSelected() {
 		return isSelected;

@@ -35,7 +35,9 @@ public interface CourseArchiveLogic {
 	 * @param userId the internal user id (not username)
 	 * @return true if item can be modified, false otherwise
 	 */
-	public boolean canWriteItem(CourseArchiveItem item, String locationId, String userId);
+	public boolean canWriteItem(CourseArchiveItem item, String userId);
+
+	public boolean canDeleteItems(String userId);
 
 	/**
 	 * This returns the List of all items

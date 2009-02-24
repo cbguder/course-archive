@@ -50,7 +50,7 @@ public class CourseArchiveBean {
 	private boolean itemPublic;
 	private int itemEnrollment;
 
-	private Boolean itemCanDelete;
+	private Boolean itemCanEdit;
 
 	private String searchQuery;
 
@@ -74,10 +74,10 @@ public class CourseArchiveBean {
 		for(Iterator iter = items.iterator(); iter.hasNext();) {
 			CourseArchiveItemWrapper wrapper = new CourseArchiveItemWrapper((CourseArchiveItem) iter.next());
 			// Mark the item if the current user owns it and can delete it
-			if(logic.canWriteItem(wrapper.getItem(), externalLogic.getCurrentLocationId(), externalLogic.getCurrentUserId())) {
-				wrapper.setCanDelete(true);
+			if(logic.canWriteItem(wrapper.getItem(), externalLogic.getCurrentUserId())) {
+				wrapper.setCanEdit(true);
 			} else {
-				wrapper.setCanDelete(false);
+				wrapper.setCanEdit(false);
 			}
 			wrappedItems.add(wrapper);
 		}
@@ -199,11 +199,12 @@ public class CourseArchiveBean {
 		itemEnrollment = currentItem.getItem().getEnrollment();
 		itemComments   = currentItem.getItem().getComments();
 		itemPublic     = currentItem.getItem().isPublic();
+
 		itemPrimaryInstructor = currentItem.getItem().getPrimaryInstructor();
 		itemOtherInstructors  = currentItem.getItem().getOtherInstructors();
 		itemAssistants        = currentItem.getItem().getAssistants();
 
-		itemCanDelete  = currentItem.isCanDelete();
+		itemCanEdit    = currentItem.isCanEdit();
 	}
 
 	/**
@@ -269,8 +270,8 @@ public class CourseArchiveBean {
 	public void setItemComments(String itemComments) {
 		this.itemComments = itemComments;
 	}
-	public Boolean getItemCanDelete() {
-		return itemCanDelete;
+	public Boolean getItemCanEdit() {
+		return itemCanEdit;
 	}
 	public String getSearchQuery() {
 		return searchQuery;
@@ -284,5 +285,8 @@ public class CourseArchiveBean {
 		}
 
 		return itemsModel;
+	}
+	public Boolean getUserCanDeleteItems() {
+		return logic.canDeleteItems(externalLogic.getCurrentUserId());
 	}
 }

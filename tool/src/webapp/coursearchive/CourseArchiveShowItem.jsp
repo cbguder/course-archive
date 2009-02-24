@@ -72,7 +72,7 @@
 				</sakai:panel_edit>
 
 				<sakai:button_bar>
-					<h:commandButton value="#{msgs.edit_button}" action="#{CourseArchiveBean.processActionUpdate}"/>
+					<h:commandButton value="#{msgs.edit_button}" action="#{CourseArchiveBean.processActionUpdate}" rendered="#{CourseArchiveBean.itemCanEdit}"/>
 				</sakai:button_bar>
 			</h:form>
 		</sakai:view_content>

@@ -54,8 +54,8 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 	/* (non-Javadoc)
 	 * @see org.sakaiproject.coursearchive.logic.CourseArchiveLogic#canWriteItem(org.sakaiproject.coursearchive.model.CourseArchiveItem, java.lang.String, java.lang.String)
 	 */
-	public boolean canWriteItem(CourseArchiveItem item, String locationId, String userId) {
-		log.debug("checking if can write for: " + userId + ", " + locationId + ": and item=" + item.getCode() );
+	public boolean canWriteItem(CourseArchiveItem item, String userId) {
+		log.debug("checking if can write for: " + userId + " and item=" + item.getCode() );
 		if(item.getOwnerId().equals(userId)) {
 			// owner can always modify an item
 			return true;
@@ -64,6 +64,10 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean canDeleteItems(String userId) {
+		return externalLogic.isUserAdmin(userId);
 	}
 
 	/* (non-Javadoc)
@@ -95,7 +99,7 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 	public void removeItem(CourseArchiveItem item) {
 		log.debug("In removeItem with item:" + item.getId() + ":" + item.getCode());
 		// check if current user can remove this item
-		if(canWriteItem(item, externalLogic.getCurrentLocationId(), externalLogic.getCurrentUserId())) {
+		if(canDeleteItems(externalLogic.getCurrentUserId())) {
 			dao.delete(item);
 			log.info("Removing item: " + item.getId() + ":" + item.getCode());
 		} else {
@@ -116,7 +120,7 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 			item.setDateCreated(new Date());
 		}
 		// save item if new OR check if the current user can update the existing item
-		if((item.getId() == null) || canWriteItem(item, externalLogic.getCurrentLocationId(), externalLogic.getCurrentUserId())) {
+		if((item.getId() == null) || canWriteItem(item, externalLogic.getCurrentUserId())) {
 			dao.save(item);
 			log.info("Saving item: " + item.getId() + ":" + item.getCode());
 		} else {

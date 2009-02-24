@@ -31,12 +31,11 @@
 					headerClass="headerAlignment"
 					styleClass="listHier">
 
-					<h:column>
+					<h:column rendered="#{CourseArchiveBean.userCanDeleteItems}">
 						<f:facet name="header">
 							<h:outputText value=""/>
 						</f:facet>
-						<h:selectBooleanCheckbox id="itemSelect" value="#{entry.selected}" rendered="#{entry.canDelete}"/>
-						<h:outputText value="" rendered="#{not entry.canDelete}"/>
+						<h:selectBooleanCheckbox id="itemSelect" value="#{entry.selected}"/>
 					</h:column>
 
 					<h:column>
@@ -95,7 +94,7 @@
 				</h:dataTable>
 
 				<sakai:button_bar>
-					<sakai:button_bar_item id="deleteItem" action="#{CourseArchiveBean.processActionDelete}" value="#{msgs.project_items_delete}"/>
+					<sakai:button_bar_item id="deleteItem" action="#{CourseArchiveBean.processActionDelete}" value="#{msgs.project_items_delete}" rendered="#{CourseArchiveBean.userCanDeleteItems}"/>
 				</sakai:button_bar>
 			</h:form>
 		</sakai:view_content>
