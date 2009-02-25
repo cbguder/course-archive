@@ -25,44 +25,28 @@
 				<sakai:panel_edit>
 					<h:outputText value="Code"/>
 					<h:inputText value="#{CourseArchiveBean.itemCode}"/>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Term"/>
 					<h:inputText value="#{CourseArchiveBean.itemTerm}"/>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Name"/>
 					<h:inputText value="#{CourseArchiveBean.itemName}"/>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Primary Instructor"/>
 					<h:inputText value="#{CourseArchiveBean.itemPrimaryInstructor}"/>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Other Instructors"/>
 					<h:inputTextarea value="#{CourseArchiveBean.itemOtherInstructors}"/>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Assistants"/>
 					<h:inputTextarea value="#{CourseArchiveBean.itemAssistants}" rows="5"/>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Enrollment"/>
 					<h:inputText value="#{CourseArchiveBean.itemEnrollment}"/>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Comments"/>
 					<h:inputTextarea value="#{CourseArchiveBean.itemComments}" rows="5" cols="40"/>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Public?"/>
 					<h:selectBooleanCheckbox value="#{CourseArchiveBean.itemPublic}"/>
 				</sakai:panel_edit>

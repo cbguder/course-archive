@@ -20,53 +20,35 @@
 			<h:form>
 				<sakai:view_title value="#{CourseArchiveBean.itemCode}-#{CourseArchiveBean.itemTerm}"/>
 
-				<sakai:messages />
-
 				<sakai:panel_edit>
 					<h:outputText value="Code"/>
 					<h:outputText value="#{CourseArchiveBean.itemCode}"/>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Term"/>
 					<h:outputText value="#{CourseArchiveBean.itemTerm}"/>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Name"/>
 					<h:outputText value="#{CourseArchiveBean.itemName}"/>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Primary Instructor"/>
 					<h:outputText value="#{CourseArchiveBean.itemPrimaryInstructor}"/>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Other Instructors"/>
 					<h:outputText value="#{CourseArchiveBean.itemOtherInstructors}" escape="false">
 						<f:converter converterId="NewlineConverter"/>
 					</h:outputText>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Assistants"/>
 					<h:outputText value="#{CourseArchiveBean.itemAssistants}" escape="false">
 						<f:converter converterId="NewlineConverter"/>
 					</h:outputText>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Enrollment"/>
 					<h:outputText value="#{CourseArchiveBean.itemEnrollment}"/>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Comments"/>
 					<h:outputText value="#{CourseArchiveBean.itemComments}"/>
-				</sakai:panel_edit>
 
-				<sakai:panel_edit>
 					<h:outputText value="Public?"/>
 					<h:outputText value="#{CourseArchiveBean.itemPublic}"/>
 				</sakai:panel_edit>
