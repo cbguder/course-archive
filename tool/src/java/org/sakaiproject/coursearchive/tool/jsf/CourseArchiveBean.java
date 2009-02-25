@@ -36,6 +36,7 @@ public class CourseArchiveBean {
 	private static Log log = LogFactory.getLog(CourseArchiveBean.class);
 
 	private DataModel itemsModel;
+	private DataModel itemStudents;
 	private CourseArchiveItemWrapper currentItem = null;
 	private CourseArchiveLogic logic;
 	private ExternalLogic externalLogic;
@@ -154,6 +155,11 @@ public class CourseArchiveBean {
 		return "listItems";
 	}
 
+	public String processActionShowRoster() {
+		itemStudents = new ListDataModel(currentItem.getItem().getStudents());
+		return "showRoster";
+	}
+
 	public void resetItem() {
 		currentItem = null;
 		itemCode = "";
@@ -165,6 +171,7 @@ public class CourseArchiveBean {
 		itemEnrollment = 0;
 		itemComments = "";
 		itemPublic = false;
+		itemStudents = null;
 	}
 
 	public String processActionUpdate() {
@@ -288,5 +295,8 @@ public class CourseArchiveBean {
 	}
 	public Boolean getUserCanDeleteItems() {
 		return logic.canDeleteItems(externalLogic.getCurrentUserId());
+	}
+	public DataModel getItemStudents() {
+		return itemStudents;
 	}
 }

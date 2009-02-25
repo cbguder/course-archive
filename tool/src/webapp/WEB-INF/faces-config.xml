@@ -44,6 +44,10 @@
 			<to-view-id>/coursearchive/CourseArchiveItems.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>showRoster</from-outcome>
+			<to-view-id>/coursearchive/CourseArchiveShowRoster.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
 			<from-outcome>*</from-outcome>
 			<to-view-id>/coursearchive/CourseArchiveItems.jsp</to-view-id>
 		</navigation-case>
@@ -62,6 +66,22 @@
 		<navigation-case>
 			<from-outcome>showItem</from-outcome>
 			<to-view-id>/coursearchive/CourseArchiveShowItem.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>*</from-outcome>
+			<to-view-id>/coursearchive/CourseArchiveItems.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/coursearchive/CourseArchiveShowRoster.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>showItem</from-outcome>
+			<to-view-id>/coursearchive/CourseArchiveShowItem.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listItems</from-outcome>
+			<to-view-id>/coursearchive/CourseArchiveItems.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>*</from-outcome>

@@ -13,6 +13,7 @@
 		<h:form id="listItems">
 			<sakai:tool_bar>
 				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionList}" value="#{msgs.project_list_items_link}"/>
+				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionShowRoster}" value="Show Class Roster"/>
 			</sakai:tool_bar>
 		</h:form>
 
@@ -44,7 +45,7 @@
 					</h:outputText>
 
 					<h:outputText value="Enrollment"/>
-					<h:outputText value="#{CourseArchiveBean.itemEnrollment}"/>
+					<h:outputText value="#{CourseArchiveBean.itemEnrollment} "/>
 
 					<h:outputText value="Comments"/>
 					<h:outputText value="#{CourseArchiveBean.itemComments}"/>

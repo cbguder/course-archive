@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class CourseArchiveStudent {
 	private Long id;
-	private Long sid;
+	private Integer sid;
 	private String uid;
 	private String email;
 	private String name;
@@ -21,7 +21,7 @@ public class CourseArchiveStudent {
 	/**
 	 * Full constructor
 	 */
-	public CourseArchiveStudent(Long sid, String uid, String email, String name) {
+	public CourseArchiveStudent(Integer sid, String uid, String email, String name) {
 		this.sid   = sid;
 		this.uid   = uid;
 		this.email = email;
@@ -37,10 +37,10 @@ public class CourseArchiveStudent {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getSid() {
+	public Integer getSid() {
 		return sid;
 	}
-	public void setSid(Long sid) {
+	public void setSid(Integer sid) {
 		this.sid = sid;
 	}
 	public String getUid() {
