@@ -17,5 +17,13 @@
 		<property name="enrollment" type="integer" not-null="true"/>
 		<property name="comments" type="text" not-null="true"/>
 		<property name="public" type="boolean" not-null="true"/>
+		<bag name="assignments" inverse="true">
+			<key column="itemId"/>
+			<one-to-many class="org.sakaiproject.coursearchive.model.CourseArchiveAssignment"/>
+		</bag>
+		<bag name="students" inverse="true" order-by="name">
+			<key column="itemId"/>
+			<one-to-many class="org.sakaiproject.coursearchive.model.CourseArchiveStudent"/>
+		</bag>
 	</class>
 </hibernate-mapping>

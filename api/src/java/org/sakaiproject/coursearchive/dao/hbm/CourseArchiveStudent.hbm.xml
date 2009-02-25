@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="org.sakaiproject.coursearchive.model.CourseArchiveStudent" table="course_archive_students">
+		<id name="id" type="long">
+			<generator class="native"/>
+		</id>
+		<many-to-one name="item" column="itemId" not-null="true"
+			class="org.sakaiproject.coursearchive.model.CourseArchiveItem"/>
+		<property name="sid" type="integer" not-null="true"/>
+		<property name="uid" type="string" not-null="true"/>
+		<property name="email" type="string" not-null="true"/>
+		<property name="name" type="string" not-null="true"/>
+	</class>
+</hibernate-mapping>

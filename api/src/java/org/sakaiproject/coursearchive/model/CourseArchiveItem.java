@@ -1,6 +1,8 @@
 package org.sakaiproject.coursearchive.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class CourseArchiveItem {
 
@@ -17,6 +19,9 @@ public class CourseArchiveItem {
 	private String comments;
 	private boolean _public;
 	private int enrollment;
+
+	private List assignments;
+	private List students;
 
 	/**
 	 * Default constructor
@@ -45,6 +50,9 @@ public class CourseArchiveItem {
 		this.comments          = "";
 		this.enrollment        = 0;
 		this._public           = false;
+
+		this.assignments       = new ArrayList();
+		this.students          = new ArrayList();
 	}
 
 	/**
@@ -121,5 +129,17 @@ public class CourseArchiveItem {
 	}
 	public void setEnrollment(int enrollment) {
 		this.enrollment = enrollment;
+	}
+	public List getAssignments() {
+		return assignments;
+	}
+	public void setAssignments(List assignments) {
+		this.assignments = assignments;
+	}
+	public List getStudents() {
+		return students;
+	}
+	public void setStudents(List students) {
+		this.students = students;
 	}
 }
