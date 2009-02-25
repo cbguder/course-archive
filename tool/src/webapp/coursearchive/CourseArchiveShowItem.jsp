@@ -54,6 +54,43 @@
 					<h:outputText value="#{CourseArchiveBean.itemPublic}"/>
 				</sakai:panel_edit>
 
+				<h:dataTable
+					value="#{CourseArchiveBean.itemAssignments}"
+					var="assignment"
+					headerClass="headerAlignment"
+					styleClass="listHier">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Title"/>
+						</f:facet>
+						<h:outputText value="#{assignment.title}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Max. Points"/>
+						</f:facet>
+						<h:outputText value="#{assignment.points}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Mean Grade"/>
+						</f:facet>
+						<h:outputText value="#{assignment.meanGrade}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Due Date"/>
+						</f:facet>
+						<h:outputText value="#{assignment.dueDate}">
+							<f:convertDateTime type="both" dateStyle="medium" timeStyle="short"/>
+						</h:outputText>
+					</h:column>
+
+				</h:dataTable>
+
 				<sakai:button_bar>
 					<h:commandButton value="#{msgs.edit_button}" action="#{CourseArchiveBean.processActionUpdate}" rendered="#{CourseArchiveBean.itemCanEdit}"/>
 				</sakai:button_bar>

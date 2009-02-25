@@ -37,6 +37,7 @@ public class CourseArchiveBean {
 
 	private DataModel itemsModel;
 	private DataModel itemStudents;
+	private DataModel itemAssignments;
 	private CourseArchiveItemWrapper currentItem = null;
 	private CourseArchiveLogic logic;
 	private ExternalLogic externalLogic;
@@ -211,6 +212,8 @@ public class CourseArchiveBean {
 		itemAssistants        = currentItem.getItem().getAssistants();
 
 		itemCanEdit    = currentItem.isCanEdit();
+
+		itemAssignments = new ListDataModel(currentItem.getItem().getAssignments());
 	}
 
 	/**
@@ -297,5 +300,8 @@ public class CourseArchiveBean {
 	}
 	public DataModel getItemStudents() {
 		return itemStudents;
+	}
+	public DataModel getItemAssignments() {
+		return itemAssignments;
 	}
 }
