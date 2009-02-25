@@ -18,7 +18,6 @@ public class CourseArchiveItem {
 	private String assistants;
 	private String comments;
 	private boolean _public;
-	private int enrollment;
 
 	private List assignments;
 	private List students;
@@ -48,7 +47,6 @@ public class CourseArchiveItem {
 		this.otherInstructors  = "";
 		this.assistants        = "";
 		this.comments          = "";
-		this.enrollment        = 0;
 		this._public           = false;
 
 		this.assignments       = new ArrayList();
@@ -125,10 +123,7 @@ public class CourseArchiveItem {
 		this._public = _public;
 	}
 	public int getEnrollment() {
-		return enrollment;
-	}
-	public void setEnrollment(int enrollment) {
-		this.enrollment = enrollment;
+		return students.size();
 	}
 	public List getAssignments() {
 		return assignments;

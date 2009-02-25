@@ -112,7 +112,6 @@ public class CourseArchiveBean {
 			item.setPrimaryInstructor(itemPrimaryInstructor);
 			item.setOtherInstructors(itemOtherInstructors);
 			item.setAssistants(itemAssistants);
-			item.setEnrollment(itemEnrollment);
 			item.setComments(itemComments);
 			item.setPublic(itemPublic);
 

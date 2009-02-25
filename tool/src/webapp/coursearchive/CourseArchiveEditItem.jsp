@@ -41,9 +41,6 @@
 					<h:outputText value="Assistants"/>
 					<h:inputTextarea value="#{CourseArchiveBean.itemAssistants}" rows="5"/>
 
-					<h:outputText value="Enrollment"/>
-					<h:inputText value="#{CourseArchiveBean.itemEnrollment}"/>
-
 					<h:outputText value="Comments"/>
 					<h:inputTextarea value="#{CourseArchiveBean.itemComments}" rows="5" cols="40"/>
 
