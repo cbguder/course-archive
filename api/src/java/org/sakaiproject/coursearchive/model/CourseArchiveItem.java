@@ -53,6 +53,10 @@ public class CourseArchiveItem {
 		this.students          = new ArrayList();
 	}
 
+	public String getTitle() {
+		return code + "-" + term;
+	}
+
 	/**
 	 * Getters and Setters
 	 */

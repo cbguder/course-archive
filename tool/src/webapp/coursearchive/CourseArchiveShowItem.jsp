@@ -19,7 +19,7 @@
 
 		<sakai:view_content>
 			<h:form>
-				<sakai:view_title value="#{CourseArchiveBean.itemCode}-#{CourseArchiveBean.itemTerm}"/>
+				<sakai:view_title value="#{CourseArchiveBean.itemTitle}"/>
 
 				<sakai:panel_edit>
 					<h:outputText value="Code"/>

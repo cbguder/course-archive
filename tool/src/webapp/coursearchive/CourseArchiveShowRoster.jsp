@@ -19,7 +19,7 @@
 
 		<sakai:view_content>
 			<h:form>
-				<sakai:view_title value="Class Roster for #{CourseArchiveBean.itemCode}-#{CourseArchiveBean.itemTerm}"/>
+				<sakai:view_title value="Class Roster for #{CourseArchiveBean.itemTitle}"/>
 
 				<h:dataTable
 					value="#{CourseArchiveBean.itemStudents}"

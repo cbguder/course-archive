@@ -304,4 +304,7 @@ public class CourseArchiveBean {
 	public DataModel getItemAssignments() {
 		return itemAssignments;
 	}
+	public String getItemTitle() {
+		return currentItem.getItem().getTitle();
+	}
 }
