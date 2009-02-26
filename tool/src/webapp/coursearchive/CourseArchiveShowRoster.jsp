@@ -49,10 +49,6 @@
 						</h:outputLink>
 					</h:column>
 				</h:dataTable>
-
-				<sakai:button_bar>
-					<h:commandButton value="#{msgs.edit_button}" action="#{CourseArchiveBean.processActionUpdate}" rendered="#{CourseArchiveBean.itemCanEdit}"/>
-				</sakai:button_bar>
 			</h:form>
 		</sakai:view_content>
 	</sakai:view_container>
