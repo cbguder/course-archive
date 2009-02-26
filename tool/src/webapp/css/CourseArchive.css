@@ -7,6 +7,8 @@
 .publicCol     { width: 5%; }
 .dateCol       { width: 17%; }
 
+table.chefEditItem { margin-top: 1em; }
+
 td.chefLabel {
 	font-weight: bold;
 	padding-right: 20px;
