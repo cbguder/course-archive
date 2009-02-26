@@ -16,16 +16,12 @@
 	<navigation-rule>
 		<from-view-id>/coursearchive/CourseArchiveItems.jsp</from-view-id>
 		<navigation-case>
-			<from-outcome>updateItem</from-outcome>
-			<to-view-id>/coursearchive/CourseArchiveEditItem.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>deleteItems</from-outcome>
-			<to-view-id>/coursearchive/CourseArchiveItems.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
 			<from-outcome>showItem</from-outcome>
 			<to-view-id>/coursearchive/CourseArchiveShowItem.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>deletedItems</from-outcome>
+			<to-view-id>/coursearchive/CourseArchiveItems.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>*</from-outcome>
@@ -36,16 +32,16 @@
 	<navigation-rule>
 		<from-view-id>/coursearchive/CourseArchiveShowItem.jsp</from-view-id>
 		<navigation-case>
-			<from-outcome>updateItem</from-outcome>
+			<from-outcome>editItem</from-outcome>
 			<to-view-id>/coursearchive/CourseArchiveEditItem.jsp</to-view-id>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>listItems</from-outcome>
-			<to-view-id>/coursearchive/CourseArchiveItems.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>showRoster</from-outcome>
 			<to-view-id>/coursearchive/CourseArchiveShowRoster.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>listItems</from-outcome>
+			<to-view-id>/coursearchive/CourseArchiveItems.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>*</from-outcome>
@@ -56,7 +52,7 @@
 	<navigation-rule>
 		<from-view-id>/coursearchive/CourseArchiveEditItem.jsp</from-view-id>
 		<navigation-case>
-			<from-outcome>addedItem</from-outcome>
+			<from-outcome>updatedItem</from-outcome>
 			<to-view-id>/coursearchive/CourseArchiveItems.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>

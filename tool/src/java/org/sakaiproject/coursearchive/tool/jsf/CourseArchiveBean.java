@@ -87,25 +87,18 @@ public class CourseArchiveBean {
 		return itemsModel;
 	}
 
-	public String processActionAdd() {
-		log.debug("in process action add...");
+	/**
+	 * Actions
+	 */
+
+	public String processActionUpdate() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 
 		if(itemCode != null && !itemCode.equals("") &&
 		   itemName != null && !itemName.equals("") &&
 		   itemTerm != null && !itemTerm.equals("") &&
 		   itemPrimaryInstructor != null && !itemPrimaryInstructor.equals("")) {
-			String message;
-			CourseArchiveItem item;
-
-			if(currentItem == null) {
-				item = new CourseArchiveItem();
-				// ownerId, locationId, and dateCreated are set in the logic.saveItem
-				message = "Added new item:" + itemCode;
-			} else {
-				item = currentItem.getItem();
-				message = "Updated item:" + itemCode;
-			}
+			CourseArchiveItem item = currentItem.getItem();
 
 			item.setCode(itemCode);
 			item.setName(itemName);
@@ -118,6 +111,7 @@ public class CourseArchiveBean {
 
 			logic.saveItem(item);
 
+			String message = "Updated item: " + item.getTitle();
 			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
 
 			resetItem();
@@ -126,11 +120,10 @@ public class CourseArchiveBean {
 			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
 		}
 
-		return "addedItem";
+		return "updatedItem";
 	}
 
 	public String processActionDelete() {
-		log.debug("in process action delete...");
 		FacesContext fc = FacesContext.getCurrentInstance();
 		List items = (List) itemsModel.getWrappedData();
 		int itemsRemoved = 0;
@@ -145,7 +138,7 @@ public class CourseArchiveBean {
 
 		String message = "Removed " + itemsRemoved + " items";
 		fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
-		return "deleteItems";
+		return "deletedItems";
 	}
 
 	public String processActionSearch() {
@@ -174,21 +167,18 @@ public class CourseArchiveBean {
 		itemStudents = null;
 	}
 
-	public String processActionUpdate() {
-		log.debug("in process action update...");
+	public String processActionEdit() {
 		if(currentItem == null) { loadCurrentItem(); }
-		return "updateItem";
+		return "editItem";
 	}
 
 	public String processActionList() {
-		log.debug("in process action list...");
 		currentItem = null;
 		getUserItems();
 		return "listItems";
 	}
-	
+
 	public String processActionShow() {
-		log.debug("in process action show...");
 		if(currentItem == null) { loadCurrentItem(); }
 		return "showItem";
 	}
@@ -199,21 +189,22 @@ public class CourseArchiveBean {
 
 	private void loadCurrentItem() {
 		currentItem = (CourseArchiveItemWrapper) itemsModel.getRowData(); // gets the user selected item
+		CourseArchiveItem item = currentItem.getItem();
 
-		itemCode       = currentItem.getItem().getCode();
-		itemName       = currentItem.getItem().getName();
-		itemTerm       = currentItem.getItem().getTerm();
-		itemEnrollment = currentItem.getItem().getEnrollment();
-		itemComments   = currentItem.getItem().getComments();
-		itemPublic     = currentItem.getItem().isPublic();
+		itemCode       = item.getCode();
+		itemName       = item.getName();
+		itemTerm       = item.getTerm();
+		itemEnrollment = item.getEnrollment();
+		itemComments   = item.getComments();
+		itemPublic     = item.isPublic();
 
-		itemPrimaryInstructor = currentItem.getItem().getPrimaryInstructor();
-		itemOtherInstructors  = currentItem.getItem().getOtherInstructors();
-		itemAssistants        = currentItem.getItem().getAssistants();
+		itemPrimaryInstructor = item.getPrimaryInstructor();
+		itemOtherInstructors  = item.getOtherInstructors();
+		itemAssistants        = item.getAssistants();
 
 		itemCanEdit    = currentItem.isCanEdit();
 
-		itemAssignments = new ListDataModel(currentItem.getItem().getAssignments());
+		itemAssignments = new ListDataModel(item.getAssignments());
 	}
 
 	/**

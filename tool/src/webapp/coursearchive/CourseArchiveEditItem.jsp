@@ -49,7 +49,7 @@
 				</sakai:panel_edit>
 
 				<sakai:button_bar>
-					<h:commandButton styleClass="active" accesskey="s" value="#{msgs.save_button}" action="#{CourseArchiveBean.processActionAdd}"/>
+					<h:commandButton styleClass="active" accesskey="s" value="#{msgs.save_button}" action="#{CourseArchiveBean.processActionUpdate}"/>
 					<h:commandButton accesskey="x" value="#{msgs.cancel_button}" action="#{CourseArchiveBean.processActionShow}"/>
 				</sakai:button_bar>
 			</h:form>
