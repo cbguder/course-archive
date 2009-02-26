@@ -59,37 +59,55 @@ public class CourseArchiveBean {
 	public CourseArchiveBean() {
 	}
 
-	public DataModel getAllItems() {
-		List items = logic.getAllItems();
-		return wrapItems(items);
-	}
-
-	public DataModel getUserItems() {
-		List items = logic.getUserItems();
-		return wrapItems(items);
-	}
-
-	public DataModel wrapItems(List items) {
-		log.debug("wrapping items for JSF datatable...");
-		List<CourseArchiveItemWrapper> wrappedItems = new ArrayList<CourseArchiveItemWrapper>();
-
-		for(Iterator iter = items.iterator(); iter.hasNext();) {
-			CourseArchiveItemWrapper wrapper = new CourseArchiveItemWrapper((CourseArchiveItem) iter.next());
-			// Mark the item if the current user owns it and can delete it
-			if(logic.canWriteItem(wrapper.getItem(), externalLogic.getCurrentUserId())) {
-				wrapper.setCanEdit(true);
-			} else {
-				wrapper.setCanEdit(false);
-			}
-			wrappedItems.add(wrapper);
-		}
-		itemsModel = new ListDataModel(wrappedItems);
-		return itemsModel;
-	}
-
 	/**
 	 * Actions
 	 */
+
+	public String processActionDelete() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		List items = (List) itemsModel.getWrappedData();
+		int itemsRemoved = 0;
+
+		for(Iterator iter = items.iterator(); iter.hasNext();) {
+			CourseArchiveItemWrapper wrapper = (CourseArchiveItemWrapper)iter.next();
+			if(wrapper.isSelected()) {
+				logic.removeItem(wrapper.getItem());
+				itemsRemoved++;
+			}
+		}
+
+		String message = "Removed " + itemsRemoved + " items";
+		fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
+		return "deletedItems";
+	}
+
+	public String processActionEdit() {
+		if(currentItem == null) { loadCurrentItem(); }
+		return "editItem";
+	}
+
+	public String processActionList() {
+		currentItem = null;
+		getUserItems();
+		return "listItems";
+	}
+
+	public String processActionSearch() {
+		currentItem = null;
+		List items = logic.searchItems(searchQuery);
+		wrapItems(items);
+		return "listItems";
+	}
+
+	public String processActionShow() {
+		if(currentItem == null) { loadCurrentItem(); }
+		return "showItem";
+	}
+
+	public String processActionShowRoster() {
+		itemStudents = new ListDataModel(currentItem.getItem().getStudents());
+		return "showRoster";
+	}
 
 	public String processActionUpdate() {
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -123,34 +141,48 @@ public class CourseArchiveBean {
 		return "updatedItem";
 	}
 
-	public String processActionDelete() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		List items = (List) itemsModel.getWrappedData();
-		int itemsRemoved = 0;
+	/**
+	 * Item Management
+	 */
 
-		for(Iterator iter = items.iterator(); iter.hasNext();) {
-			CourseArchiveItemWrapper wrapper = (CourseArchiveItemWrapper)iter.next();
-			if(wrapper.isSelected()) {
-				logic.removeItem(wrapper.getItem());
-				itemsRemoved++;
-			}
+	public DataModel getItems() {
+		if(itemsModel == null || searchQuery == null || searchQuery == "") {
+			getUserItems();
 		}
 
-		String message = "Removed " + itemsRemoved + " items";
-		fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
-		return "deletedItems";
+		return itemsModel;
 	}
 
-	public String processActionSearch() {
-		currentItem = null;
-		List items = logic.searchItems(searchQuery);
-		wrapItems(items);
-		return "listItems";
+	public DataModel getAllItems() {
+		List items = logic.getAllItems();
+		return wrapItems(items);
 	}
 
-	public String processActionShowRoster() {
-		itemStudents = new ListDataModel(currentItem.getItem().getStudents());
-		return "showRoster";
+	public DataModel getUserItems() {
+		List items = logic.getUserItems();
+		return wrapItems(items);
+	}
+
+	public String getItemTitle() {
+		return currentItem.getItem().getTitle();
+	}
+
+	public DataModel wrapItems(List items) {
+		log.debug("wrapping items for JSF datatable...");
+		List<CourseArchiveItemWrapper> wrappedItems = new ArrayList<CourseArchiveItemWrapper>();
+
+		for(Iterator iter = items.iterator(); iter.hasNext();) {
+			CourseArchiveItemWrapper wrapper = new CourseArchiveItemWrapper((CourseArchiveItem) iter.next());
+			// Mark the item if the current user owns it and can delete it
+			if(logic.canWriteItem(wrapper.getItem(), externalLogic.getCurrentUserId())) {
+				wrapper.setCanEdit(true);
+			} else {
+				wrapper.setCanEdit(false);
+			}
+			wrappedItems.add(wrapper);
+		}
+		itemsModel = new ListDataModel(wrappedItems);
+		return itemsModel;
 	}
 
 	public void resetItem() {
@@ -165,26 +197,6 @@ public class CourseArchiveBean {
 		itemComments = "";
 		itemPublic = false;
 		itemStudents = null;
-	}
-
-	public String processActionEdit() {
-		if(currentItem == null) { loadCurrentItem(); }
-		return "editItem";
-	}
-
-	public String processActionList() {
-		currentItem = null;
-		getUserItems();
-		return "listItems";
-	}
-
-	public String processActionShow() {
-		if(currentItem == null) { loadCurrentItem(); }
-		return "showItem";
-	}
-
-	public String getCurrentUserDisplayName() {
-		return externalLogic.getUserDisplayName(externalLogic.getCurrentUserId());
 	}
 
 	private void loadCurrentItem() {
@@ -205,6 +217,18 @@ public class CourseArchiveBean {
 		itemCanEdit    = currentItem.isCanEdit();
 
 		itemAssignments = new ListDataModel(item.getAssignments());
+	}
+
+	/**
+	 * User Management
+	 */
+
+	public String getCurrentUserDisplayName() {
+		return externalLogic.getUserDisplayName(externalLogic.getCurrentUserId());
+	}
+
+	public Boolean getUserCanDeleteItems() {
+		return logic.canDeleteItems(externalLogic.getCurrentUserId());
 	}
 
 	/**
@@ -279,23 +303,10 @@ public class CourseArchiveBean {
 	public void setSearchQuery(String searchQuery) {
 		this.searchQuery = searchQuery;
 	}
-	public DataModel getItems() {
-		if(itemsModel == null || searchQuery == null || searchQuery == "") {
-			getUserItems();
-		}
-
-		return itemsModel;
-	}
-	public Boolean getUserCanDeleteItems() {
-		return logic.canDeleteItems(externalLogic.getCurrentUserId());
-	}
 	public DataModel getItemStudents() {
 		return itemStudents;
 	}
 	public DataModel getItemAssignments() {
 		return itemAssignments;
-	}
-	public String getItemTitle() {
-		return currentItem.getItem().getTitle();
 	}
 }
