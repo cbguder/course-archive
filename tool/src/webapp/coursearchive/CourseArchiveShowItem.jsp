@@ -12,8 +12,8 @@
 
 		<h:form id="listItems">
 			<sakai:tool_bar>
-				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionList}" value="#{msgs.project_list_items_link}"/>
-				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionShowRoster}" value="Show Class Roster"/>
+				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionList}" value="#{msgs.list_items}"/>
+				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionShowRoster}" value="#{msgs.show_roster}"/>
 			</sakai:tool_bar>
 		</h:form>
 
@@ -22,35 +22,35 @@
 				<sakai:view_title value="#{CourseArchiveBean.itemTitle}"/>
 
 				<sakai:panel_edit>
-					<h:outputText value="Code"/>
+					<h:outputText value="#{msgs.item_code}"/>
 					<h:outputText value="#{CourseArchiveBean.itemCode}"/>
 
-					<h:outputText value="Term"/>
+					<h:outputText value="#{msgs.item_term}"/>
 					<h:outputText value="#{CourseArchiveBean.itemTerm}"/>
 
-					<h:outputText value="Name"/>
+					<h:outputText value="#{msgs.item_name}"/>
 					<h:outputText value="#{CourseArchiveBean.itemName}"/>
 
-					<h:outputText value="Primary Instructor"/>
+					<h:outputText value="#{msgs.item_primary_instructor}"/>
 					<h:outputText value="#{CourseArchiveBean.itemPrimaryInstructor}"/>
 
-					<h:outputText value="Other Instructors"/>
+					<h:outputText value="#{msgs.item_other_instructors}"/>
 					<h:outputText value="#{CourseArchiveBean.itemOtherInstructors}" escape="false">
 						<f:converter converterId="NewlineConverter"/>
 					</h:outputText>
 
-					<h:outputText value="Assistants"/>
+					<h:outputText value="#{msgs.item_assistants}"/>
 					<h:outputText value="#{CourseArchiveBean.itemAssistants}" escape="false">
 						<f:converter converterId="NewlineConverter"/>
 					</h:outputText>
 
-					<h:outputText value="Enrollment"/>
+					<h:outputText value="#{msgs.item_enrollment}"/>
 					<h:outputText value="#{CourseArchiveBean.itemEnrollment} "/>
 
-					<h:outputText value="Comments"/>
+					<h:outputText value="#{msgs.item_comments}"/>
 					<h:outputText value="#{CourseArchiveBean.itemComments}"/>
 
-					<h:outputText value="Public?"/>
+					<h:outputText value="#{msgs.item_public}"/>
 					<h:outputText value="#{CourseArchiveBean.itemPublic}"/>
 				</sakai:panel_edit>
 
@@ -61,28 +61,28 @@
 					styleClass="listHier">
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Title"/>
+							<h:outputText value="#{msgs.assignment_title}"/>
 						</f:facet>
 						<h:outputText value="#{assignment.title}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Max. Points"/>
+							<h:outputText value="#{msgs.assignment_points}"/>
 						</f:facet>
 						<h:outputText value="#{assignment.points}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Mean Grade"/>
+							<h:outputText value="#{msgs.assignment_mean_grade}"/>
 						</f:facet>
 						<h:outputText value="#{assignment.meanGrade}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Due Date"/>
+							<h:outputText value="#{msgs.assignment_due_date}"/>
 						</f:facet>
 						<h:outputText value="#{assignment.dueDate}">
 							<f:convertDateTime type="both" dateStyle="medium" timeStyle="short"/>
@@ -92,7 +92,7 @@
 				</h:dataTable>
 
 				<sakai:button_bar>
-					<h:commandButton value="#{msgs.edit_button}" action="#{CourseArchiveBean.processActionEdit}" rendered="#{CourseArchiveBean.itemCanEdit}"/>
+					<h:commandButton value="#{msgs.edit}" action="#{CourseArchiveBean.processActionEdit}" rendered="#{CourseArchiveBean.itemCanEdit}"/>
 				</sakai:button_bar>
 			</h:form>
 		</sakai:view_content>

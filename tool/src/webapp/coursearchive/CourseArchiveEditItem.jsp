@@ -12,7 +12,7 @@
 
 		<h:form id="listItems">
 			<sakai:tool_bar>
-				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionList}" value="#{msgs.project_list_items_link}" />
+				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionList}" value="#{msgs.list_items}" />
 			</sakai:tool_bar>
 		</h:form>
 
@@ -23,34 +23,34 @@
 				<sakai:messages />
 
 				<sakai:panel_edit>
-					<h:outputText value="Code"/>
+					<h:outputText value="#{msgs.item_code}"/>
 					<h:inputText value="#{CourseArchiveBean.itemCode}"/>
 
-					<h:outputText value="Term"/>
+					<h:outputText value="#{msgs.item_term}"/>
 					<h:inputText value="#{CourseArchiveBean.itemTerm}"/>
 
-					<h:outputText value="Name"/>
+					<h:outputText value="#{msgs.item_name}"/>
 					<h:inputText value="#{CourseArchiveBean.itemName}"/>
 
-					<h:outputText value="Primary Instructor"/>
+					<h:outputText value="#{msgs.item_primary_instructor}"/>
 					<h:inputText value="#{CourseArchiveBean.itemPrimaryInstructor}"/>
 
-					<h:outputText value="Other Instructors"/>
+					<h:outputText value="#{msgs.item_other_instructors}"/>
 					<h:inputTextarea value="#{CourseArchiveBean.itemOtherInstructors}"/>
 
-					<h:outputText value="Assistants"/>
+					<h:outputText value="#{msgs.item_assistants}"/>
 					<h:inputTextarea value="#{CourseArchiveBean.itemAssistants}" rows="5"/>
 
-					<h:outputText value="Comments"/>
+					<h:outputText value="#{msgs.item_comments}"/>
 					<h:inputTextarea value="#{CourseArchiveBean.itemComments}" rows="5" cols="40"/>
 
-					<h:outputText value="Public?"/>
+					<h:outputText value="#{msgs.item_public}"/>
 					<h:selectBooleanCheckbox value="#{CourseArchiveBean.itemPublic}"/>
 				</sakai:panel_edit>
 
 				<sakai:button_bar>
-					<h:commandButton styleClass="active" accesskey="s" value="#{msgs.save_button}" action="#{CourseArchiveBean.processActionUpdate}"/>
-					<h:commandButton accesskey="x" value="#{msgs.cancel_button}" action="#{CourseArchiveBean.processActionShow}"/>
+					<h:commandButton styleClass="active" accesskey="s" value="#{msgs.save}" action="#{CourseArchiveBean.processActionUpdate}"/>
+					<h:commandButton accesskey="x" value="#{msgs.cancel}" action="#{CourseArchiveBean.processActionShow}"/>
 				</sakai:button_bar>
 			</h:form>
  		</sakai:view_content>

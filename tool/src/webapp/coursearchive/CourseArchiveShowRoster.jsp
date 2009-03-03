@@ -12,8 +12,8 @@
 
 		<h:form id="listItems">
 			<sakai:tool_bar>
-				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionShow}" value="Back to Course"/>
-				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionList}" value="#{msgs.project_list_items_link}"/>
+				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionShow}" value="#{msgs.back_to_course}"/>
+				<sakai:tool_bar_item action="#{CourseArchiveBean.processActionList}" value="#{msgs.list_items}"/>
 			</sakai:tool_bar>
 		</h:form>
 
@@ -28,21 +28,21 @@
 					styleClass="listHier">
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="ID"/>
+							<h:outputText value="#{msgs.student_sid}"/>
 						</f:facet>
 						<h:outputText value="#{student.sid}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Name"/>
+							<h:outputText value="#{msgs.student_name}"/>
 						</f:facet>
 						<h:outputText value="#{student.name}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Email"/>
+							<h:outputText value="#{msgs.student_email}"/>
 						</f:facet>
 						<h:outputLink value="mailto:#{student.email}">
 							<h:outputText value="#{student.email}"/>

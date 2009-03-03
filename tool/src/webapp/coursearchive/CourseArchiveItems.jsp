@@ -19,7 +19,7 @@
 
 		<sakai:view_content>
 			<h:form id="items">
-				<sakai:view_title value="#{msgs.items_list_page_title}"/>
+				<sakai:view_title value="#{msgs.list_title}"/>
 
 				<sakai:messages />
 
@@ -40,7 +40,7 @@
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Code"/>
+							<h:outputText value="#{msgs.item_code}"/>
 						</f:facet>
 						<h:commandLink id="showlink" action="#{CourseArchiveBean.processActionShow}">
 							<h:outputText value="#{entry.item.code}"/>
@@ -49,42 +49,42 @@
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Term"/>
+							<h:outputText value="#{msgs.item_term}"/>
 						</f:facet>
 						<h:outputText value="#{entry.item.term}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Name"/>
+							<h:outputText value="#{msgs.item_name}"/>
 						</f:facet>
 						<h:outputText value="#{entry.item.name}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Primary Instructor"/>
+							<h:outputText value="#{msgs.item_primary_instructor}"/>
 						</f:facet>
 						<h:outputText value="#{entry.item.primaryInstructor}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Enrollment"/>
+							<h:outputText value="#{msgs.item_enrollment}"/>
 						</f:facet>
 						<h:outputText value="#{entry.item.enrollment}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="Public?"/>
+							<h:outputText value="#{msgs.item_public}"/>
 						</f:facet>
 						<h:outputText value="#{entry.item.public}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="#{msgs.items_list_date}"/>
+							<h:outputText value="#{msgs.item_date_created}"/>
 						</f:facet>
 						<h:outputText value="#{entry.item.dateCreated}">
 							<f:convertDateTime type="both" dateStyle="medium" timeStyle="short"/>
@@ -93,8 +93,9 @@
 
 				</h:dataTable>
 
-				<sakai:button_bar>
-					<sakai:button_bar_item id="deleteItem" action="#{CourseArchiveBean.processActionDelete}" value="#{msgs.project_items_delete}" rendered="#{CourseArchiveBean.userCanDeleteItems}"/>
+				<sakai:button_bar rendered="#{CourseArchiveBean.userCanDeleteItems}">
+					<sakai:button_bar_item action="#{CourseArchiveBean.processActionMerge}" value="#{msgs.merge}"/>
+					<sakai:button_bar_item action="#{CourseArchiveBean.processActionDelete}" value="#{msgs.delete}"/>
 				</sakai:button_bar>
 			</h:form>
 		</sakai:view_content>
