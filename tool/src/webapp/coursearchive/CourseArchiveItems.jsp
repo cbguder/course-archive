@@ -6,6 +6,8 @@
 
 <f:view>
 	<sakai:view_container title="CourseArchive Tool">
+		<script src="/coursearchive-tool/javascript/prototype.js" type="text/javascript"></script>
+
 		<style type="text/css">
 			@import url("/coursearchive-tool/css/CourseArchive.css");
 		</style>
@@ -24,9 +26,9 @@
 				<sakai:messages />
 
 				<h:dataTable
-					id="itemlist"
 					value="#{CourseArchiveBean.items}"
 					var="entry"
+					rows="1"
 					columnClasses="checkCol,codeCol,nameCol,instructorCol,enrollmentCol,publicCol,dateCol"
 					headerClass="headerAlignment"
 					styleClass="listHier">
@@ -84,6 +86,72 @@
 						</h:outputText>
 					</h:column>
 				</h:dataTable>
+
+				<a href="#" onclick="$('olderItems').toggle(); return false;">Reveal Older Items</a>
+
+				<div id="olderItems" style="display: none;">
+				<h:dataTable
+					value="#{CourseArchiveBean.items}"
+					var="entry"
+					first="1"
+					columnClasses="checkCol,codeCol,nameCol,instructorCol,enrollmentCol,publicCol,dateCol"
+					headerClass="headerAlignment"
+					styleClass="listHier">
+
+					<h:column rendered="#{CourseArchiveBean.userCanDeleteItems}">
+						<f:facet name="header">
+							<h:outputText value=""/>
+						</f:facet>
+						<h:selectBooleanCheckbox id="itemSelect" value="#{entry.selected}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.item_code}"/>
+						</f:facet>
+						<h:commandLink id="showlink" action="#{CourseArchiveBean.processActionShow}">
+							<h:outputText value="#{entry.item.title}"/>
+						</h:commandLink>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.item_name}"/>
+						</f:facet>
+						<h:outputText value="#{entry.item.name}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.item_primary_instructor}"/>
+						</f:facet>
+						<h:outputText value="#{entry.item.primaryInstructor}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.item_enrollment}"/>
+						</f:facet>
+						<h:outputText value="#{entry.item.enrollment}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.item_public}"/>
+						</f:facet>
+						<h:outputText value="#{entry.item.public}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.item_date_created}"/>
+						</f:facet>
+						<h:outputText value="#{entry.item.dateCreated}">
+							<f:convertDateTime type="both" dateStyle="medium" timeStyle="short"/>
+						</h:outputText>
+					</h:column>
+				</h:dataTable>
+				</div>
 
 				<sakai:button_bar rendered="#{CourseArchiveBean.userCanDeleteItems}">
 					<sakai:button_bar_item action="#{CourseArchiveBean.processActionMerge}" value="#{msgs.merge}"/>
