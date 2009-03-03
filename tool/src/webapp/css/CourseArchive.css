@@ -1,6 +1,5 @@
 .checkCol      { width: 2%; }
-.termCol       { width: 5%; }
-.codeCol       { width: 5%; }
+.codeCol       { width: 10%; }
 .nameCol       {}
 .instructorCol {}
 .enrollmentCol { width: 5%; }

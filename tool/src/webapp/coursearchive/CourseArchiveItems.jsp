@@ -27,7 +27,7 @@
 					id="itemlist"
 					value="#{CourseArchiveBean.items}"
 					var="entry"
-					columnClasses="checkCol,codeCol,termCol,nameCol,instructorCol,enrollmentCol,publicCol,dateCol"
+					columnClasses="checkCol,codeCol,nameCol,instructorCol,enrollmentCol,publicCol,dateCol"
 					headerClass="headerAlignment"
 					styleClass="listHier">
 
@@ -43,15 +43,8 @@
 							<h:outputText value="#{msgs.item_code}"/>
 						</f:facet>
 						<h:commandLink id="showlink" action="#{CourseArchiveBean.processActionShow}">
-							<h:outputText value="#{entry.item.code}"/>
+							<h:outputText value="#{entry.item.title}"/>
 						</h:commandLink>
-					</h:column>
-
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="#{msgs.item_term}"/>
-						</f:facet>
-						<h:outputText value="#{entry.item.term}"/>
 					</h:column>
 
 					<h:column>
@@ -90,7 +83,6 @@
 							<f:convertDateTime type="both" dateStyle="medium" timeStyle="short"/>
 						</h:outputText>
 					</h:column>
-
 				</h:dataTable>
 
 				<sakai:button_bar rendered="#{CourseArchiveBean.userCanDeleteItems}">
