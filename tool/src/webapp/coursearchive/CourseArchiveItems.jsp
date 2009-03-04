@@ -7,6 +7,20 @@
 <f:view>
 	<sakai:view_container title="CourseArchive Tool">
 		<script src="/coursearchive-tool/javascript/prototype.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		<!--
+		function toggleOlderItems() {
+			$('olderItems').toggle();
+			eval($(document.body).readAttribute('onload'));
+
+			if($('olderItems').visible()) {
+				$('items:toggleButton').writeAttribute('value', 'Hide Older Items');
+			} else {
+				$('items:toggleButton').writeAttribute('value', 'Reveal Older Items');
+			}
+		}
+		//-->
+		</script>
 
 		<style type="text/css">
 			@import url("/coursearchive-tool/css/CourseArchive.css");
@@ -87,7 +101,9 @@
 					</h:column>
 				</h:dataTable>
 
-				<a href="#" onclick="$('olderItems').toggle(); return false;">Reveal Older Items</a>
+				<sakai:button_bar>
+					<h:commandButton id="toggleButton" value="Reveal Older Items" type="button" onclick="toggleOlderItems();"/>
+				</sakai:button_bar>
 
 				<div id="olderItems" style="display: none;">
 				<h:dataTable
