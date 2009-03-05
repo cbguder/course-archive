@@ -50,10 +50,11 @@ public class CourseArchiveBean {
 	private String itemOtherInstructors;
 	private String itemAssistants;
 	private String itemComments;
-	private boolean itemPublic;
 	private long itemEnrollment;
+	private boolean itemPublic;
+	private boolean itemCanEdit;
 
-	private Boolean itemCanEdit;
+	private boolean hasMore = true;
 
 	private String searchQuery;
 
@@ -89,6 +90,7 @@ public class CourseArchiveBean {
 
 	public String processActionList() {
 		currentItem = null;
+		hasMore     = true;
 		return "listItems";
 	}
 
@@ -97,8 +99,10 @@ public class CourseArchiveBean {
 
 		if(searchQuery == null || searchQuery == "") {
 			itemsModel = wrapItems(logic.getUserItems());
+			hasMore    = true;
 		} else {
 			itemsModel = wrapItems(logic.searchItems(searchQuery));
+			hasMore    = false;
 		}
 
 		return "listItems";
@@ -112,7 +116,8 @@ public class CourseArchiveBean {
 
 	public String processActionShowOlder() {
 		currentItem = null;
-		itemsModel = wrapItems(logic.getUserItems(true));
+		itemsModel  = wrapItems(logic.getUserItems(true));
+		hasMore     = false;
 		return "listItems";
 	}
 
@@ -220,7 +225,7 @@ public class CourseArchiveBean {
 		itemOtherInstructors  = item.getOtherInstructors();
 		itemAssistants        = item.getAssistants();
 
-		itemCanEdit    = currentItem.isCanEdit();
+		itemCanEdit = currentItem.isCanEdit();
 	}
 
 	/**
@@ -295,7 +300,7 @@ public class CourseArchiveBean {
 	public void setItemComments(String itemComments) {
 		this.itemComments = itemComments;
 	}
-	public Boolean getItemCanEdit() {
+	public boolean getItemCanEdit() {
 		return itemCanEdit;
 	}
 	public String getSearchQuery() {
@@ -309,5 +314,8 @@ public class CourseArchiveBean {
 	}
 	public DataModel getItemAssignments() {
 		return itemAssignments;
+	}
+	public boolean isHasMore() {
+		return hasMore;
 	}
 }

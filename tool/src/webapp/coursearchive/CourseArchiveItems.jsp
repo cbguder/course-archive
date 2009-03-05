@@ -85,7 +85,7 @@
 				</h:dataTable>
 
 				<sakai:button_bar>
-					<sakai:button_bar_item action="#{CourseArchiveBean.processActionShowOlder}" value="Reveal Older Items"/>
+					<sakai:button_bar_item action="#{CourseArchiveBean.processActionShowOlder}" value="Reveal Older Items" rendered="#{CourseArchiveBean.hasMore}"/>
 					<sakai:button_bar_item action="#{CourseArchiveBean.processActionMerge}" value="#{msgs.merge}" rendered="#{CourseArchiveBean.userCanDeleteItems}"/>
 					<sakai:button_bar_item action="#{CourseArchiveBean.processActionDelete}" value="#{msgs.delete}" rendered="#{CourseArchiveBean.userCanDeleteItems}"/>
 				</sakai:button_bar>
