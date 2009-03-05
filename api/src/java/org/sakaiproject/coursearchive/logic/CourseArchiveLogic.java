@@ -14,6 +14,8 @@ package org.sakaiproject.coursearchive.logic;
 import java.util.List;
 
 import org.sakaiproject.coursearchive.model.CourseArchiveItem;
+import org.sakaiproject.coursearchive.model.CourseArchiveStudent;
+import org.sakaiproject.coursearchive.model.CourseArchiveAssignment;
 
 /**
  * This is the interface for the app Logic
@@ -60,4 +62,10 @@ public interface CourseArchiveLogic {
 	public void removeItem(CourseArchiveItem item);
 
 	public List<CourseArchiveItem> searchItems(String query);
+
+	public List<CourseArchiveAssignment> getItemAssignments(CourseArchiveItem item);
+
+	public List<CourseArchiveStudent> getItemStudents(CourseArchiveItem item);
+
+	public long getItemEnrollment(CourseArchiveItem item);
 }

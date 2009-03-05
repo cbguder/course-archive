@@ -19,11 +19,14 @@ import org.apache.commons.logging.LogFactory;
 
 import org.sakaiproject.genericdao.api.search.Restriction;
 import org.sakaiproject.genericdao.api.search.Search;
+import org.sakaiproject.genericdao.api.search.Order;
 
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
 import org.sakaiproject.coursearchive.dao.CourseArchiveDao;
 import org.sakaiproject.coursearchive.logic.CourseArchiveLogic;
 import org.sakaiproject.coursearchive.model.CourseArchiveItem;
+import org.sakaiproject.coursearchive.model.CourseArchiveStudent;
+import org.sakaiproject.coursearchive.model.CourseArchiveAssignment;
 
 /**
  * This is the implementation of the business logic interface
@@ -80,17 +83,37 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 
 	public List<CourseArchiveItem> getUserItems() {
 		log.debug("Fetching user items");
-		return dao.findBySearch(CourseArchiveItem.class, new Search("ownerId", externalLogic.getCurrentUserId()));
+
+		Search search = new Search();
+		search.addRestriction(new Restriction("ownerId", externalLogic.getCurrentUserId()));
+		search.addOrder(new Order("term", false));
+
+		return dao.findBySearch(CourseArchiveItem.class, search);
 	}
 
 	public List<CourseArchiveItem> searchItems(String query) {
 		log.debug("Searching items");
+
 		Search search = new Search();
 		search.setConjunction(false);
 		search.addRestriction(new Restriction("code", "%"+query+"%", Restriction.LIKE));
 		search.addRestriction(new Restriction("name", "%"+query+"%", Restriction.LIKE));
 		search.addRestriction(new Restriction("primaryInstructor", "%"+query+"%", Restriction.LIKE));
+		search.addOrder(new Order("term"));
+
 		return dao.findBySearch(CourseArchiveItem.class, search);
+	}
+
+	public List<CourseArchiveAssignment> getItemAssignments(CourseArchiveItem item) {
+		return dao.findBySearch(CourseArchiveAssignment.class, new Search("item.id", item.getId()));
+	}
+
+	public long getItemEnrollment(CourseArchiveItem item) {
+		return dao.countBySearch(CourseArchiveStudent.class, new Search("item.id", item.getId()));
+	}
+
+	public List<CourseArchiveStudent> getItemStudents(CourseArchiveItem item) {
+		return dao.findBySearch(CourseArchiveStudent.class, new Search("item.id", item.getId()));
 	}
 
 	/* (non-Javadoc)

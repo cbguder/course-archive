@@ -36,6 +36,7 @@ public class CourseArchiveBean {
 	private static Log log = LogFactory.getLog(CourseArchiveBean.class);
 
 	private DataModel itemsModel;
+
 	private DataModel itemStudents;
 	private DataModel itemAssignments;
 	private CourseArchiveItemWrapper currentItem = null;
@@ -50,7 +51,7 @@ public class CourseArchiveBean {
 	private String itemAssistants;
 	private String itemComments;
 	private boolean itemPublic;
-	private int itemEnrollment;
+	private long itemEnrollment;
 
 	private Boolean itemCanEdit;
 
@@ -88,24 +89,23 @@ public class CourseArchiveBean {
 
 	public String processActionList() {
 		currentItem = null;
-		getUserItems();
 		return "listItems";
 	}
 
 	public String processActionSearch() {
 		currentItem = null;
-		List items = logic.searchItems(searchQuery);
-		wrapItems(items);
+		itemsModel = wrapItems(logic.searchItems(searchQuery));
 		return "listItems";
 	}
 
 	public String processActionShow() {
 		if(currentItem == null) { loadCurrentItem(); }
+		itemAssignments = new ListDataModel(logic.getItemAssignments(currentItem.getItem()));
 		return "showItem";
 	}
 
 	public String processActionShowRoster() {
-		itemStudents = new ListDataModel(currentItem.getItem().getStudents());
+		itemStudents = new ListDataModel(logic.getItemStudents(currentItem.getItem()));
 		return "showRoster";
 	}
 
@@ -147,20 +147,10 @@ public class CourseArchiveBean {
 
 	public DataModel getItems() {
 		if(itemsModel == null || searchQuery == null || searchQuery == "") {
-			getUserItems();
+			itemsModel = wrapItems(logic.getUserItems());
 		}
 
 		return itemsModel;
-	}
-
-	public DataModel getAllItems() {
-		List items = logic.getAllItems();
-		return wrapItems(items);
-	}
-
-	public DataModel getUserItems() {
-		List items = logic.getUserItems();
-		return wrapItems(items);
 	}
 
 	public String getItemTitle() {
@@ -172,17 +162,21 @@ public class CourseArchiveBean {
 		List<CourseArchiveItemWrapper> wrappedItems = new ArrayList<CourseArchiveItemWrapper>();
 
 		for(Iterator iter = items.iterator(); iter.hasNext();) {
-			CourseArchiveItemWrapper wrapper = new CourseArchiveItemWrapper((CourseArchiveItem) iter.next());
+			CourseArchiveItem item = (CourseArchiveItem)iter.next();
+			item.setEnrollment(logic.getItemEnrollment(item));
+			CourseArchiveItemWrapper wrapper = new CourseArchiveItemWrapper(item);
+
 			// Mark the item if the current user owns it and can delete it
 			if(logic.canWriteItem(wrapper.getItem(), externalLogic.getCurrentUserId())) {
 				wrapper.setCanEdit(true);
 			} else {
 				wrapper.setCanEdit(false);
 			}
+
 			wrappedItems.add(wrapper);
 		}
-		itemsModel = new ListDataModel(wrappedItems);
-		return itemsModel;
+
+		return new ListDataModel(wrappedItems);
 	}
 
 	public void resetItem() {
@@ -200,7 +194,7 @@ public class CourseArchiveBean {
 	}
 
 	private void loadCurrentItem() {
-		currentItem = (CourseArchiveItemWrapper) itemsModel.getRowData(); // gets the user selected item
+		currentItem = (CourseArchiveItemWrapper)itemsModel.getRowData();
 		CourseArchiveItem item = currentItem.getItem();
 
 		itemCode       = item.getCode();
@@ -215,8 +209,6 @@ public class CourseArchiveBean {
 		itemAssistants        = item.getAssistants();
 
 		itemCanEdit    = currentItem.isCanEdit();
-
-		itemAssignments = new ListDataModel(item.getAssignments());
 	}
 
 	/**
@@ -282,11 +274,8 @@ public class CourseArchiveBean {
 	public void setItemPublic(boolean itemPublic) {
 		this.itemPublic = itemPublic;
 	}
-	public int getItemEnrollment() {
+	public long getItemEnrollment() {
 		return itemEnrollment;
-	}
-	public void setItemEnrollment(int itemEnrollment) {
-		this.itemEnrollment = itemEnrollment;
 	}
 	public String getItemComments() {
 		return itemComments;

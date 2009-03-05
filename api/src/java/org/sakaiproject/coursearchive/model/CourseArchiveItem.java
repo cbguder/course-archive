@@ -17,10 +17,8 @@ public class CourseArchiveItem {
 	private String otherInstructors;
 	private String assistants;
 	private String comments;
+	private long enrollment;
 	private boolean _public;
-
-	private List assignments;
-	private List students;
 
 	/**
 	 * Default constructor
@@ -48,9 +46,6 @@ public class CourseArchiveItem {
 		this.assistants        = "";
 		this.comments          = "";
 		this._public           = false;
-
-		this.assignments       = new ArrayList();
-		this.students          = new ArrayList();
 	}
 
 	public String getTitle() {
@@ -120,25 +115,16 @@ public class CourseArchiveItem {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
+	public long getEnrollment() {
+		return enrollment;
+	}
+	public void setEnrollment(long enrollment) {
+		this.enrollment = enrollment;
+	}
 	public boolean isPublic() {
 		return _public;
 	}
 	public void setPublic(boolean _public) {
 		this._public = _public;
-	}
-	public int getEnrollment() {
-		return students.size();
-	}
-	public List getAssignments() {
-		return assignments;
-	}
-	public void setAssignments(List assignments) {
-		this.assignments = assignments;
-	}
-	public List getStudents() {
-		return students;
-	}
-	public void setStudents(List students) {
-		this.students = students;
 	}
 }
