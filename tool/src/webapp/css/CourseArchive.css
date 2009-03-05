@@ -16,3 +16,6 @@ td.chefLabel {
 td.chefLabel, td.chefValue { vertical-align:top; }
 
 form#search div { text-align: right; }
+
+#gradesTable th, #gradesTable td { width: 9%; text-align: center; }
+#gradesTable input { width: 90%; text-align: center; }

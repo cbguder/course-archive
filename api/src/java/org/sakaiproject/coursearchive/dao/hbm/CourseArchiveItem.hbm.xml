@@ -16,5 +16,17 @@
 		<property name="assistants" type="text" not-null="true"/>
 		<property name="comments" type="text" not-null="true"/>
 		<property name="public" type="boolean" not-null="true"/>
+
+		<property name="A"       type="integer" not-null="true"/>
+		<property name="A_MINUS" type="integer" not-null="true"/>
+		<property name="B_PLUS"  type="integer" not-null="true"/>
+		<property name="B"       type="integer" not-null="true"/>
+		<property name="B_MINUS" type="integer" not-null="true"/>
+		<property name="C_PLUS"  type="integer" not-null="true"/>
+		<property name="C"       type="integer" not-null="true"/>
+		<property name="C_MINUS" type="integer" not-null="true"/>
+		<property name="D_PLUS"  type="integer" not-null="true"/>
+		<property name="D"       type="integer" not-null="true"/>
+		<property name="F"       type="integer" not-null="true"/>
 	</class>
 </hibernate-mapping>

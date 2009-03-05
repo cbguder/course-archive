@@ -48,6 +48,41 @@
 					<h:selectBooleanCheckbox value="#{CourseArchiveBean.itemPublic}"/>
 				</sakai:panel_edit>
 
+				<sakai:view_title value="Letter Grades"/>
+
+				<table id="gradesTable" class="listHier">
+					<thead>
+						<tr>
+							<th class="headerAlignment">A</th>
+							<th class="headerAlignment">A-</th>
+							<th class="headerAlignment">B+</th>
+							<th class="headerAlignment">B</th>
+							<th class="headerAlignment">B-</th>
+							<th class="headerAlignment">C+</th>
+							<th class="headerAlignment">C</th>
+							<th class="headerAlignment">C-</th>
+							<th class="headerAlignment">D+</th>
+							<th class="headerAlignment">D</th>
+							<th class="headerAlignment">F</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><h:inputText value="#{CourseArchiveBean.itemA}"/></td>
+							<td><h:inputText value="#{CourseArchiveBean.itemA_MINUS}"/></td>
+							<td><h:inputText value="#{CourseArchiveBean.itemB_PLUS}"/></td>
+							<td><h:inputText value="#{CourseArchiveBean.itemB}"/></td>
+							<td><h:inputText value="#{CourseArchiveBean.itemB_MINUS}"/></td>
+							<td><h:inputText value="#{CourseArchiveBean.itemC_PLUS}"/></td>
+							<td><h:inputText value="#{CourseArchiveBean.itemC}"/></td>
+							<td><h:inputText value="#{CourseArchiveBean.itemC_MINUS}"/></td>
+							<td><h:inputText value="#{CourseArchiveBean.itemD_PLUS}"/></td>
+							<td><h:inputText value="#{CourseArchiveBean.itemD}"/></td>
+							<td><h:inputText value="#{CourseArchiveBean.itemF}"/></td>
+						</tr>
+					</tbody>
+				</table>
+
 				<sakai:button_bar>
 					<h:commandButton styleClass="active" accesskey="s" value="#{msgs.save}" action="#{CourseArchiveBean.processActionUpdate}"/>
 					<h:commandButton accesskey="x" value="#{msgs.cancel}" action="#{CourseArchiveBean.processActionShow}"/>

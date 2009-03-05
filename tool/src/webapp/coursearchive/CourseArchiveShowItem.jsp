@@ -54,6 +54,43 @@
 					<h:outputText value="#{CourseArchiveBean.itemPublic}"/>
 				</sakai:panel_edit>
 
+				<sakai:view_title value="Letter Grades"/>
+
+				<table id="gradesTable" class="listHier">
+					<thead>
+						<tr>
+							<th class="headerAlignment">A</th>
+							<th class="headerAlignment">A-</th>
+							<th class="headerAlignment">B+</th>
+							<th class="headerAlignment">B</th>
+							<th class="headerAlignment">B-</th>
+							<th class="headerAlignment">C+</th>
+							<th class="headerAlignment">C</th>
+							<th class="headerAlignment">C-</th>
+							<th class="headerAlignment">D+</th>
+							<th class="headerAlignment">D</th>
+							<th class="headerAlignment">F</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><h:outputText value="#{CourseArchiveBean.itemA}"/></td>
+							<td><h:outputText value="#{CourseArchiveBean.itemA_MINUS}"/></td>
+							<td><h:outputText value="#{CourseArchiveBean.itemB_PLUS}"/></td>
+							<td><h:outputText value="#{CourseArchiveBean.itemB}"/></td>
+							<td><h:outputText value="#{CourseArchiveBean.itemB_MINUS}"/></td>
+							<td><h:outputText value="#{CourseArchiveBean.itemC_PLUS}"/></td>
+							<td><h:outputText value="#{CourseArchiveBean.itemC}"/></td>
+							<td><h:outputText value="#{CourseArchiveBean.itemC_MINUS}"/></td>
+							<td><h:outputText value="#{CourseArchiveBean.itemD_PLUS}"/></td>
+							<td><h:outputText value="#{CourseArchiveBean.itemD}"/></td>
+							<td><h:outputText value="#{CourseArchiveBean.itemF}"/></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<sakai:view_title value="Assignment and Exam Grades"/>
+
 				<h:dataTable
 					value="#{CourseArchiveBean.itemAssignments}"
 					var="assignment"
@@ -88,7 +125,6 @@
 							<f:convertDateTime type="both" dateStyle="medium" timeStyle="short"/>
 						</h:outputText>
 					</h:column>
-
 				</h:dataTable>
 
 				<sakai:button_bar>

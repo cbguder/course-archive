@@ -20,6 +20,18 @@ public class CourseArchiveItem {
 	private long enrollment;
 	private boolean _public;
 
+	private int A;
+	private int A_MINUS;
+	private int B_PLUS;
+	private int B;
+	private int B_MINUS;
+	private int C_PLUS;
+	private int C;
+	private int C_MINUS;
+	private int D_PLUS;
+	private int D;
+	private int F;
+
 	/**
 	 * Default constructor
 	 */
@@ -127,4 +139,26 @@ public class CourseArchiveItem {
 	public void setPublic(boolean _public) {
 		this._public = _public;
 	}
+	public int getA()       { return A; }
+	public int getA_MINUS() { return A_MINUS; }
+	public int getB_PLUS()  { return B_PLUS; }
+	public int getB()       { return B; }
+	public int getB_MINUS() { return B_MINUS; }
+	public int getC_PLUS()  { return C_PLUS; }
+	public int getC()       { return C; }
+	public int getC_MINUS() { return C_MINUS; }
+	public int getD_PLUS()  { return D_PLUS; }
+	public int getD()       { return D; }
+	public int getF()       { return F; }
+	public void setA(int A)             { this.A = A; }
+	public void setA_MINUS(int A_MINUS) { this.A_MINUS = A_MINUS; }
+	public void setB_PLUS(int B_PLUS)   { this.B_PLUS = B_PLUS; }
+	public void setB(int B)             { this.B = B; }
+	public void setB_MINUS(int B_MINUS) { this.B_MINUS = B_MINUS; }
+	public void setC_PLUS(int C_PLUS)   { this.C_PLUS = C_PLUS; }
+	public void setC(int C)             { this.C = C; }
+	public void setC_MINUS(int C_MINUS) { this.C_MINUS = C_MINUS; }
+	public void setD_PLUS(int D_PLUS)   { this.D_PLUS = D_PLUS; }
+	public void setD(int D)             { this.D = D; }
+	public void setF(int F)             { this.F = F; }
 }

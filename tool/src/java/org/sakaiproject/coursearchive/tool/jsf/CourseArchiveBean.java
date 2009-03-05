@@ -54,6 +54,18 @@ public class CourseArchiveBean {
 	private boolean itemPublic;
 	private boolean itemCanEdit;
 
+	private int itemA;
+	private int itemA_MINUS;
+	private int itemB_PLUS;
+	private int itemB;
+	private int itemB_MINUS;
+	private int itemC_PLUS;
+	private int itemC;
+	private int itemC_MINUS;
+	private int itemD_PLUS;
+	private int itemD;
+	private int itemF;
+
 	private boolean hasMore = true;
 
 	private String searchQuery;
@@ -144,6 +156,18 @@ public class CourseArchiveBean {
 			item.setComments(itemComments);
 			item.setPublic(itemPublic);
 
+			item.setA(itemA);
+			item.setA_MINUS(itemA_MINUS);
+			item.setB_PLUS(itemB_PLUS);
+			item.setB(itemB);
+			item.setB_MINUS(itemB_MINUS);
+			item.setC_PLUS(itemC_PLUS);
+			item.setC(itemC);
+			item.setC_MINUS(itemC_MINUS);
+			item.setD_PLUS(itemD_PLUS);
+			item.setD(itemD);
+			item.setF(itemF);
+
 			logic.saveItem(item);
 
 			String message = "Updated item: " + item.getTitle();
@@ -224,6 +248,18 @@ public class CourseArchiveBean {
 		itemPrimaryInstructor = item.getPrimaryInstructor();
 		itemOtherInstructors  = item.getOtherInstructors();
 		itemAssistants        = item.getAssistants();
+
+		itemA       = item.getA();
+		itemA_MINUS = item.getA_MINUS();
+		itemB_PLUS  = item.getB_PLUS();
+		itemB       = item.getB();
+		itemB_MINUS = item.getB_MINUS();
+		itemC_PLUS  = item.getC_PLUS();
+		itemC       = item.getC();
+		itemC_MINUS = item.getC_MINUS();
+		itemD_PLUS  = item.getD_PLUS();
+		itemD       = item.getD();
+		itemF       = item.getF();
 
 		itemCanEdit = currentItem.isCanEdit();
 	}
@@ -318,4 +354,26 @@ public class CourseArchiveBean {
 	public boolean isHasMore() {
 		return hasMore;
 	}
+	public int getItemA()       { return itemA; }
+	public int getItemA_MINUS() { return itemA_MINUS; }
+	public int getItemB_PLUS()  { return itemB_PLUS; }
+	public int getItemB()       { return itemB; }
+	public int getItemB_MINUS() { return itemB_MINUS; }
+	public int getItemC_PLUS()  { return itemC_PLUS; }
+	public int getItemC()       { return itemC; }
+	public int getItemC_MINUS() { return itemC_MINUS; }
+	public int getItemD_PLUS()  { return itemD_PLUS; }
+	public int getItemD()       { return itemD; }
+	public int getItemF()       { return itemF; }
+	public void setItemA(int itemA)             { this.itemA = itemA; }
+	public void setItemA_MINUS(int itemA_MINUS) { this.itemA_MINUS = itemA_MINUS; }
+	public void setItemB_PLUS(int itemB_PLUS)   { this.itemB_PLUS = itemB_PLUS; }
+	public void setItemB(int itemB)             { this.itemB = itemB; }
+	public void setItemB_MINUS(int itemB_MINUS) { this.itemB_MINUS = itemB_MINUS; }
+	public void setItemC_PLUS(int itemC_PLUS)   { this.itemC_PLUS = itemC_PLUS; }
+	public void setItemC(int itemC)             { this.itemC = itemC; }
+	public void setItemC_MINUS(int itemC_MINUS) { this.itemC_MINUS = itemC_MINUS; }
+	public void setItemD_PLUS(int itemD_PLUS)   { this.itemD_PLUS = itemD_PLUS; }
+	public void setItemD(int itemD)             { this.itemD = itemD; }
+	public void setItemF(int itemF)             { this.itemF = itemF; }
 }
