@@ -48,6 +48,7 @@ public interface CourseArchiveLogic {
 	public List<CourseArchiveItem> getAllItems();
 
 	public List<CourseArchiveItem> getUserItems();
+	public List<CourseArchiveItem> getUserItems(boolean includeOlder);
 
 	/**
 	 * Save (Create or Update) an item (uses the current site)

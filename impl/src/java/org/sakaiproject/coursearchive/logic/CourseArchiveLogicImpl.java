@@ -13,6 +13,7 @@ package org.sakaiproject.coursearchive.logic;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Calendar;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -82,10 +83,31 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 	}
 
 	public List<CourseArchiveItem> getUserItems() {
+		return getUserItems(false);
+	}
+
+	public List<CourseArchiveItem> getUserItems(boolean includeOlder) {
 		log.debug("Fetching user items");
 
 		Search search = new Search();
 		search.addRestriction(new Restriction("ownerId", externalLogic.getCurrentUserId()));
+
+		if(!includeOlder) {
+			Calendar calendar = Calendar.getInstance();
+			int year  = calendar.get(Calendar.YEAR);
+			int month = calendar.get(Calendar.MONTH);
+
+			if(month >= 9) {
+				year -= 2;
+			} else {
+				year -= 3;
+			}
+
+			String term = Integer.toString(year) + "02";
+
+			search.addRestriction(new Restriction("term", term, Restriction.GREATER));
+		}
+
 		search.addOrder(new Order("term", false));
 
 		return dao.findBySearch(CourseArchiveItem.class, search);

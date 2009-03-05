@@ -94,7 +94,13 @@ public class CourseArchiveBean {
 
 	public String processActionSearch() {
 		currentItem = null;
-		itemsModel = wrapItems(logic.searchItems(searchQuery));
+
+		if(searchQuery == null || searchQuery == "") {
+			itemsModel = wrapItems(logic.getUserItems());
+		} else {
+			itemsModel = wrapItems(logic.searchItems(searchQuery));
+		}
+
 		return "listItems";
 	}
 
@@ -102,6 +108,12 @@ public class CourseArchiveBean {
 		if(currentItem == null) { loadCurrentItem(); }
 		itemAssignments = new ListDataModel(logic.getItemAssignments(currentItem.getItem()));
 		return "showItem";
+	}
+
+	public String processActionShowOlder() {
+		currentItem = null;
+		itemsModel = wrapItems(logic.getUserItems(true));
+		return "listItems";
 	}
 
 	public String processActionShowRoster() {
@@ -146,7 +158,7 @@ public class CourseArchiveBean {
 	 */
 
 	public DataModel getItems() {
-		if(itemsModel == null || searchQuery == null || searchQuery == "") {
+		if(itemsModel == null) {
 			itemsModel = wrapItems(logic.getUserItems());
 		}
 
