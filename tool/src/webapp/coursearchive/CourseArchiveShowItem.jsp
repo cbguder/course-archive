@@ -95,6 +95,7 @@
 					value="#{CourseArchiveBean.itemAssignments}"
 					var="assignment"
 					headerClass="headerAlignment"
+					columnClasses=",gradeCol,gradeCol,gradeCol,gradeCol,gradeCol,dateCol"
 					styleClass="listHier">
 					<h:column>
 						<f:facet name="header">
@@ -105,9 +106,16 @@
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="#{msgs.assignment_points}"/>
+							<h:outputText value="#{msgs.assignment_weight}"/>
 						</f:facet>
-						<h:outputText value="#{assignment.points}"/>
+						<h:outputText value="#{assignment.weight}%"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.assignment_max_grade}"/>
+						</f:facet>
+						<h:outputText value="#{assignment.maxGrade}"/>
 					</h:column>
 
 					<h:column>
@@ -119,9 +127,23 @@
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="#{msgs.assignment_due_date}"/>
+							<h:outputText value="#{msgs.assignment_median_grade}"/>
 						</f:facet>
-						<h:outputText value="#{assignment.dueDate}">
+						<h:outputText value="#{assignment.medianGrade}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.assignment_standard_deviation}"/>
+						</f:facet>
+						<h:outputText value="#{assignment.standardDeviation}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.assignment_date}"/>
+						</f:facet>
+						<h:outputText value="#{assignment.date}">
 							<f:convertDateTime type="both" dateStyle="medium" timeStyle="short"/>
 						</h:outputText>
 					</h:column>

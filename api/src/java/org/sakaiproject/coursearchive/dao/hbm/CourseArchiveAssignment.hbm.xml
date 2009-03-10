@@ -9,8 +9,11 @@
 		<many-to-one name="item" column="itemId" not-null="true"
 			class="org.sakaiproject.coursearchive.model.CourseArchiveItem"/>
 		<property name="title" type="string" length="255" not-null="true"/>
-		<property name="points" type="double"/>
-		<property name="meanGrade" type="double"/>
-		<property name="dueDate" type="java.util.Date"/>
+		<property name="maxGrade" type="double" not-null="true"/>
+		<property name="meanGrade" type="double" not-null="true"/>
+		<property name="medianGrade" type="double" not-null="true"/>
+		<property name="standardDeviation" type="double" not-null="true"/>
+		<property name="weight" type="double" not-null="true"/>
+		<property name="date" type="java.util.Date" not-null="true"/>
 	</class>
 </hibernate-mapping>

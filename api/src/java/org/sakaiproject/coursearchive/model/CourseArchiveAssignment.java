@@ -5,9 +5,12 @@ import java.util.Date;
 public class CourseArchiveAssignment {
 	private Long id;
 	private String title;
-	private Double points;
-	private Double meanGrade;
-	private Date dueDate;
+	private double maxGrade;
+	private double meanGrade;
+	private double medianGrade;
+	private double standardDeviation;
+	private double weight;
+	private Date date;
 
 	private CourseArchiveItem item;
 
@@ -21,11 +24,11 @@ public class CourseArchiveAssignment {
 	/**
 	 * Full constructor
 	 */
-	public CourseArchiveAssignment(String title, Double points, Double meanGrade, Date dueDate) {
+	public CourseArchiveAssignment(String title, double maxGrade, double meanGrade, Date date) {
 		this.title     = title;
-		this.points    = points;
+		this.maxGrade  = maxGrade;
 		this.meanGrade = meanGrade;
-		this.dueDate   = dueDate;
+		this.date      = date;
 	}
 
 	/**
@@ -43,23 +46,41 @@ public class CourseArchiveAssignment {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public Double getPoints() {
-		return points;
+	public double getMaxGrade() {
+		return maxGrade;
 	}
-	public void setPoints(Double points) {
-		this.points = points;
+	public void setMaxGrade(double maxGrade) {
+		this.maxGrade = maxGrade;
 	}
-	public Double getMeanGrade() {
+	public double getMeanGrade() {
 		return meanGrade;
 	}
-	public void setMeanGrade(Double meanGrade) {
+	public void setMeanGrade(double meanGrade) {
 		this.meanGrade = meanGrade;
 	}
-	public Date getDueDate() {
-		return dueDate;
+	public double getMedianGrade() {
+		return medianGrade;
 	}
-	public void setDueDate(Date dueDate) {
-		this.dueDate = dueDate;
+	public void setMedianGrade(double medianGrade) {
+		this.medianGrade = medianGrade;
+	}
+	public double getStandardDeviation() {
+		return standardDeviation;
+	}
+	public void setStandardDeviation(double standardDeviation) {
+		this.standardDeviation = standardDeviation;
+	}
+	public double getWeight() {
+		return weight;
+	}
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	public CourseArchiveItem getItem() {
 		return item;
