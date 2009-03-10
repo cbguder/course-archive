@@ -5,7 +5,6 @@ import org.sakaiproject.coursearchive.model.CourseArchiveAssignment;
 public class CourseArchiveAssignmentWrapper {
 
 	private CourseArchiveAssignment item;
-	private boolean canDelete; // can this item be deleted
 	private boolean isSelected; // is this item selected by the user
 
 	/**
@@ -24,12 +23,6 @@ public class CourseArchiveAssignmentWrapper {
 	}
 	public void setItem(CourseArchiveAssignment item) {
 		this.item = item;
-	}
-	public boolean isCanDelete() {
-		return canDelete;
-	}
-	public void setCanDelete(boolean canDelete) {
-		this.canDelete = canDelete;
 	}
 	public boolean isSelected() {
 		return isSelected;

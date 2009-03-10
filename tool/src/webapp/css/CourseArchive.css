@@ -1,10 +1,13 @@
-.checkCol      { width: 2%; }
+.checkCol      { width: 2%; text-align: center; }
+.deleteCol     { width: 5%; text-align: center; }
 .codeCol       { width: 10%; }
 .nameCol       {}
+.titleCol      {}
 .instructorCol {}
 .enrollmentCol { width: 5%; text-align: right; }
 .publicCol     { width: 5%; }
-.dateCol       { width: 17%; }
+.dateTimeCol   { width: 17%; }
+.dateCol       { width: 10%; }
 .gradeCol      { width: 10%; text-align: right; }
 
 table.chefEditItem { margin-top: 1em; }
@@ -20,3 +23,4 @@ form#search div { text-align: right; }
 
 #gradesTable th, #gradesTable td { width: 9%; text-align: center; }
 #gradesTable input { width: 90%; text-align: center; }
+.assignmentsTable input { width: 98%; }

@@ -83,6 +83,71 @@
 					</tbody>
 				</table>
 
+				<h:dataTable
+					value="#{CourseArchiveBean.itemAssignments}"
+					var="entry"
+					headerClass="headerAlignment"
+					columnClasses="deleteCol,titleCol,gradeCol,gradeCol,gradeCol,gradeCol,gradeCol,dateCol"
+					styleClass="listHier assignmentsTable">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.assignment_delete}"/>
+						</f:facet>
+						<h:selectBooleanCheckbox id="itemSelect" value="#{entry.selected}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.assignment_title}"/>
+						</f:facet>
+						<h:inputText value="#{entry.item.title}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.assignment_weight}"/>
+						</f:facet>
+						<h:inputText value="#{entry.item.weight}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.assignment_max_grade}"/>
+						</f:facet>
+						<h:inputText value="#{entry.item.maxGrade}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.assignment_mean_grade}"/>
+						</f:facet>
+						<h:inputText value="#{entry.item.meanGrade}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.assignment_median_grade}"/>
+						</f:facet>
+						<h:inputText value="#{entry.item.medianGrade}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.assignment_standard_deviation}"/>
+						</f:facet>
+						<h:inputText value="#{entry.item.standardDeviation}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.assignment_date}"/>
+						</f:facet>
+						<h:inputText value="#{entry.item.date}">
+							<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+						</h:inputText>
+					</h:column>
+				</h:dataTable>
+
 				<sakai:button_bar>
 					<h:commandButton styleClass="active" accesskey="s" value="#{msgs.save}" action="#{CourseArchiveBean.processActionUpdate}"/>
 					<h:commandButton accesskey="x" value="#{msgs.cancel}" action="#{CourseArchiveBean.processActionShow}"/>

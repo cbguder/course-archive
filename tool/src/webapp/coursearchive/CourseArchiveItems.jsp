@@ -26,7 +26,7 @@
 				<h:dataTable
 					value="#{CourseArchiveBean.items}"
 					var="entry"
-					columnClasses="checkCol,codeCol,nameCol,instructorCol,enrollmentCol,publicCol,dateCol"
+					columnClasses="checkCol,codeCol,nameCol,instructorCol,enrollmentCol,publicCol,dateTimeCol"
 					headerClass="headerAlignment"
 					styleClass="listHier">
 

@@ -93,7 +93,7 @@
 
 				<h:dataTable
 					value="#{CourseArchiveBean.itemAssignments}"
-					var="assignment"
+					var="entry"
 					headerClass="headerAlignment"
 					columnClasses=",gradeCol,gradeCol,gradeCol,gradeCol,gradeCol,dateCol"
 					styleClass="listHier">
@@ -101,50 +101,50 @@
 						<f:facet name="header">
 							<h:outputText value="#{msgs.assignment_title}"/>
 						</f:facet>
-						<h:outputText value="#{assignment.title}"/>
+						<h:outputText value="#{entry.item.title}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="#{msgs.assignment_weight}"/>
 						</f:facet>
-						<h:outputText value="#{assignment.weight}%"/>
+						<h:outputText value="#{entry.item.weight}%"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="#{msgs.assignment_max_grade}"/>
 						</f:facet>
-						<h:outputText value="#{assignment.maxGrade}"/>
+						<h:outputText value="#{entry.item.maxGrade}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="#{msgs.assignment_mean_grade}"/>
 						</f:facet>
-						<h:outputText value="#{assignment.meanGrade}"/>
+						<h:outputText value="#{entry.item.meanGrade}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="#{msgs.assignment_median_grade}"/>
 						</f:facet>
-						<h:outputText value="#{assignment.medianGrade}"/>
+						<h:outputText value="#{entry.item.medianGrade}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="#{msgs.assignment_standard_deviation}"/>
 						</f:facet>
-						<h:outputText value="#{assignment.standardDeviation}"/>
+						<h:outputText value="#{entry.item.standardDeviation}"/>
 					</h:column>
 
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="#{msgs.assignment_date}"/>
 						</f:facet>
-						<h:outputText value="#{assignment.date}">
-							<f:convertDateTime type="both" dateStyle="medium" timeStyle="short"/>
+						<h:outputText value="#{entry.item.date}">
+							<f:convertDateTime type="date" dateStyle="medium"/>
 						</h:outputText>
 					</h:column>
 				</h:dataTable>

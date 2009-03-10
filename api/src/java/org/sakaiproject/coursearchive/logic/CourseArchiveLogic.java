@@ -56,11 +56,15 @@ public interface CourseArchiveLogic {
 	 */
 	public void saveItem(CourseArchiveItem item);
 
+	public void saveAssignment(CourseArchiveAssignment assignment);
+
 	/**
 	 * Remove an item
 	 * @param item the CourseArchiveItem to remove
 	 */
 	public void removeItem(CourseArchiveItem item);
+
+	public void removeAssignment(CourseArchiveAssignment assignment);
 
 	public List<CourseArchiveItem> searchItems(String query);
 

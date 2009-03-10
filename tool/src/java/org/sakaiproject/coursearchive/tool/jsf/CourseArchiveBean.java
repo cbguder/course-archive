@@ -25,6 +25,7 @@ import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
 import org.sakaiproject.coursearchive.logic.CourseArchiveLogic;
 import org.sakaiproject.coursearchive.model.CourseArchiveItem;
+import org.sakaiproject.coursearchive.model.CourseArchiveAssignment;
 
 /**
  * This is a backing bean for the JSF app which handles the events and
@@ -36,9 +37,9 @@ public class CourseArchiveBean {
 	private static Log log = LogFactory.getLog(CourseArchiveBean.class);
 
 	private DataModel itemsModel;
-
 	private DataModel itemStudents;
 	private DataModel itemAssignments;
+
 	private CourseArchiveItemWrapper currentItem = null;
 	private CourseArchiveLogic logic;
 	private ExternalLogic externalLogic;
@@ -122,7 +123,7 @@ public class CourseArchiveBean {
 
 	public String processActionShow() {
 		if(currentItem == null) { loadCurrentItem(); }
-		itemAssignments = new ListDataModel(logic.getItemAssignments(currentItem.getItem()));
+		itemAssignments = wrapAssignments(logic.getItemAssignments(currentItem.getItem()));
 		return "showItem";
 	}
 
@@ -169,6 +170,19 @@ public class CourseArchiveBean {
 			item.setF(itemF);
 
 			logic.saveItem(item);
+
+			List items = (List) itemAssignments.getWrappedData();
+
+			for(Iterator iter = items.iterator(); iter.hasNext();) {
+				CourseArchiveAssignmentWrapper wrapper = (CourseArchiveAssignmentWrapper)iter.next();
+				CourseArchiveAssignment assignment = wrapper.getItem();
+
+				if(wrapper.isSelected()) {
+					logic.removeAssignment(assignment);
+				} else {
+					logic.saveAssignment(assignment);
+				}
+			}
 
 			String message = "Updated item: " + item.getTitle();
 			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
@@ -218,6 +232,19 @@ public class CourseArchiveBean {
 		}
 
 		return new ListDataModel(wrappedItems);
+	}
+
+	public DataModel wrapAssignments(List assignments) {
+		log.debug("wrapping assignments for JSF datatable...");
+		List<CourseArchiveAssignmentWrapper> wrappedAssignments = new ArrayList<CourseArchiveAssignmentWrapper>();
+
+		for(Iterator iter = assignments.iterator(); iter.hasNext();) {
+			CourseArchiveAssignment item = (CourseArchiveAssignment)iter.next();
+			CourseArchiveAssignmentWrapper wrapper = new CourseArchiveAssignmentWrapper(item);
+			wrappedAssignments.add(wrapper);
+		}
+
+		return new ListDataModel(wrappedAssignments);
 	}
 
 	public void resetItem() {

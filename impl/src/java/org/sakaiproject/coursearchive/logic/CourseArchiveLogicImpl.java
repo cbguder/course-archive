@@ -152,6 +152,16 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		}
 	}
 
+	public void removeAssignment(CourseArchiveAssignment assignment) {
+		CourseArchiveItem item = getItemById(assignment.getItem().getId());
+
+		if(canWriteItem(item, externalLogic.getCurrentUserId())) {
+			dao.delete(assignment);
+		} else {
+			throw new SecurityException("Current user cannot uptade item " + item.getId() + " because they do not have permission");
+		}
+	}
+
 	/* (non-Javadoc)
 	 * @see org.sakaiproject.coursearchive.logic.CourseArchiveLogic#saveItem(org.sakaiproject.coursearchive.model.CourseArchiveItem)
 	 */
@@ -168,6 +178,16 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		if((item.getId() == null) || canWriteItem(item, externalLogic.getCurrentUserId())) {
 			dao.save(item);
 			log.info("Saving item: " + item.getId() + ":" + item.getCode());
+		} else {
+			throw new SecurityException("Current user cannot update item " + item.getId() + " because they do not have permission");
+		}
+	}
+
+	public void saveAssignment(CourseArchiveAssignment assignment) {
+		CourseArchiveItem item = getItemById(assignment.getItem().getId());
+
+		if(canWriteItem(item, externalLogic.getCurrentUserId())) {
+			dao.save(assignment);
 		} else {
 			throw new SecurityException("Current user cannot update item " + item.getId() + " because they do not have permission");
 		}
