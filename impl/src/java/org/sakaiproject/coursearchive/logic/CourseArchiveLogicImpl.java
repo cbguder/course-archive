@@ -11,9 +11,12 @@
 
 package org.sakaiproject.coursearchive.logic;
 
+import java.util.Map;
+import java.util.HashMap;
 import java.util.Date;
 import java.util.List;
 import java.util.Calendar;
+import java.util.Iterator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,6 +24,8 @@ import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.genericdao.api.search.Restriction;
 import org.sakaiproject.genericdao.api.search.Search;
 import org.sakaiproject.genericdao.api.search.Order;
+
+import org.sakaiproject.genericdao.hibernate.HibernateGeneralGenericDao;
 
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
 import org.sakaiproject.coursearchive.dao.CourseArchiveDao;
@@ -121,7 +126,7 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		search.addRestriction(new Restriction("code", "%"+query+"%", Restriction.LIKE));
 		search.addRestriction(new Restriction("name", "%"+query+"%", Restriction.LIKE));
 		search.addRestriction(new Restriction("primaryInstructor", "%"+query+"%", Restriction.LIKE));
-		search.addOrder(new Order("term"));
+		search.addOrder(new Order("term", false));
 
 		return dao.findBySearch(CourseArchiveItem.class, search);
 	}
@@ -145,6 +150,8 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		log.debug("In removeItem with item:" + item.getId() + ":" + item.getCode());
 		// check if current user can remove this item
 		if(canDeleteItems(externalLogic.getCurrentUserId())) {
+			dao.deleteByItemId(CourseArchiveAssignment.class, item.getId());
+			dao.deleteByItemId(CourseArchiveStudent.class,    item.getId());
 			dao.delete(item);
 			log.info("Removing item: " + item.getId() + ":" + item.getCode());
 		} else {
@@ -190,6 +197,39 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 			dao.save(assignment);
 		} else {
 			throw new SecurityException("Current user cannot update item " + item.getId() + " because they do not have permission");
+		}
+	}
+
+	public void mergeItems(List<CourseArchiveItem> items) {
+		if(externalLogic.isUserAdmin(externalLogic.getCurrentUserId())) {
+			CourseArchiveItem newItem  = new CourseArchiveItem(items.get(0));
+			for(int i = 1; i < items.size(); i++) {
+				CourseArchiveItem item = items.get(i);
+
+				newItem.setA      (newItem.getA()       + item.getA());
+				newItem.setA_MINUS(newItem.getA_MINUS() + item.getA_MINUS());
+				newItem.setB_PLUS (newItem.getB_PLUS()  + item.getB_PLUS());
+				newItem.setB      (newItem.getB()       + item.getB());
+				newItem.setB_MINUS(newItem.getB_MINUS() + item.getB_MINUS());
+				newItem.setC_PLUS (newItem.getC_PLUS()  + item.getC_PLUS());
+				newItem.setC      (newItem.getC()       + item.getC());
+				newItem.setC_MINUS(newItem.getC_MINUS() + item.getC_MINUS());
+				newItem.setD_PLUS (newItem.getD_PLUS()  + item.getD_PLUS());
+				newItem.setD      (newItem.getD()       + item.getD());
+				newItem.setF      (newItem.getF()       + item.getF());
+			}
+
+			newItem.setDateCreated(new Date());
+			dao.save(newItem);
+
+			for(Iterator iter = items.iterator(); iter.hasNext();) {
+				CourseArchiveItem item = (CourseArchiveItem)iter.next();
+				dao.updateItemId(CourseArchiveStudent.class,    item.getId(), newItem.getId());
+				dao.updateItemId(CourseArchiveAssignment.class, item.getId(), newItem.getId());
+				dao.delete(item);
+			}
+		} else {
+			throw new SecurityException("Current user cannot merge items because they do not have permission");
 		}
 	}
 

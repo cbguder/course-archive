@@ -19,4 +19,6 @@ import org.sakaiproject.genericdao.api.GeneralGenericDao;
  * @author Sakai App Builder -AZ
  */
 public interface CourseArchiveDao extends GeneralGenericDao {
+	public int updateItemId(Class<?> type, Long oldItemId, Long newItemId);
+	public int deleteByItemId(Class<?> type, Long itemId);
 }

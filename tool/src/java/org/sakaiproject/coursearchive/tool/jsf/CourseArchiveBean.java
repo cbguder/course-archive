@@ -93,6 +93,8 @@ public class CourseArchiveBean {
 
 		String message = "Removed " + itemsRemoved + " items";
 		fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
+
+		processActionSearch();
 		return "deletedItems";
 	}
 
@@ -102,6 +104,7 @@ public class CourseArchiveBean {
 	}
 
 	public String processActionList() {
+		searchQuery = null;
 		currentItem = null;
 		hasMore     = true;
 		return "listItems";
@@ -194,6 +197,50 @@ public class CourseArchiveBean {
 		}
 
 		return "updatedItem";
+	}
+
+	public String processActionMerge() {
+		FacesContext fc = FacesContext.getCurrentInstance();
+		List items = (List) itemsModel.getWrappedData();
+		List<CourseArchiveItem> toMerge = new ArrayList<CourseArchiveItem>();
+
+		for(Iterator iter = items.iterator(); iter.hasNext();) {
+			CourseArchiveItemWrapper wrapper = (CourseArchiveItemWrapper)iter.next();
+			if(wrapper.isSelected()) {
+				toMerge.add(wrapper.getItem());
+			}
+		}
+
+		if(toMerge.size() < 2) {
+			String message = "Select at least 2 items to merge.";
+			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
+			return "mergedItems";
+		}
+
+		String ownerId = toMerge.get(0).getOwnerId();
+		boolean ownersMatch = true;
+
+		for(Iterator iter = toMerge.iterator(); iter.hasNext();) {
+			CourseArchiveItem item = (CourseArchiveItem)iter.next();
+			if(!item.getOwnerId().equals(ownerId)) {
+				ownersMatch = false;
+				break;
+			}
+		}
+
+		if(!ownersMatch) {
+			String message = "Items to merge must belong to the same user.";
+			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
+			return "mergedItems";
+		}
+
+		logic.mergeItems(toMerge);
+
+		String message = "Merged " + toMerge.size() + " items";
+		fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
+
+		processActionSearch();
+		return "mergedItems";
 	}
 
 	/**

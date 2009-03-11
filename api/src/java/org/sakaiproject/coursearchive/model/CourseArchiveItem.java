@@ -60,6 +60,37 @@ public class CourseArchiveItem {
 		this._public           = false;
 	}
 
+	/**
+	 * Copy constructor
+	 */
+	public CourseArchiveItem(CourseArchiveItem item) {
+		this.ownerId = item.ownerId;
+
+		this.code = item.code;
+		this.name = item.name;
+		this.term = item.term;
+
+		this.primaryInstructor = item.primaryInstructor;
+		this.otherInstructors  = item.otherInstructors;
+
+		this.assistants = item.assistants;
+		this.comments   = item.comments;
+		this.enrollment = item.enrollment;
+		this._public    = item._public;
+
+		this.A       = item.A;
+		this.A_MINUS = item.A_MINUS;
+		this.B_PLUS  = item.B_PLUS;
+		this.B       = item.B;
+		this.B_MINUS = item.B_MINUS;
+		this.C_PLUS  = item.C_PLUS;
+		this.C       = item.C;
+		this.C_MINUS = item.C_MINUS;
+		this.D_PLUS  = item.D_PLUS;
+		this.D       = item.D;
+		this.F       = item.F;
+	}
+
 	public String getTitle() {
 		return code + "-" + term;
 	}

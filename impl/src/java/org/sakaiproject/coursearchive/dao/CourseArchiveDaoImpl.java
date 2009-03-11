@@ -14,6 +14,8 @@ package org.sakaiproject.coursearchive.dao;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.hibernate.Query;
+
 import org.sakaiproject.genericdao.hibernate.HibernateGeneralGenericDao;
 
 import org.sakaiproject.coursearchive.dao.CourseArchiveDao;
@@ -29,5 +31,24 @@ public class CourseArchiveDaoImpl extends HibernateGeneralGenericDao implements 
 
 	public void init() {
 		log.debug("init");
+	}
+
+	public int updateItemId(Class<?> type, Long oldItemId, Long newItemId) {
+		String hql = "update " + type.getName() + " set itemId = :newItemId where itemId = :oldItemId";
+
+		Query query = getSession().createQuery(hql);
+		query.setLong("newItemId", newItemId);
+		query.setLong("oldItemId", oldItemId);
+
+		return query.executeUpdate();
+	}
+
+	public int deleteByItemId(Class<?> type, Long itemId) {
+		String hql = "delete " + type.getName() + " where itemId = :itemId";
+
+		Query query = getSession().createQuery(hql);
+		query.setLong("itemId", itemId);
+
+		return query.executeUpdate();
 	}
 }

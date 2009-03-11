@@ -24,6 +24,10 @@
 			<to-view-id>/coursearchive/CourseArchiveItems.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>mergedItems</from-outcome>
+			<to-view-id>/coursearchive/CourseArchiveItems.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
 			<from-outcome>*</from-outcome>
 			<to-view-id>/coursearchive/CourseArchiveItems.jsp</to-view-id>
 		</navigation-case>
