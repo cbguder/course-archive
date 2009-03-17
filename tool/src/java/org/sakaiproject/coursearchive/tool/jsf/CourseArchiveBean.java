@@ -78,6 +78,16 @@ public class CourseArchiveBean {
 	 * Actions
 	 */
 
+	public String processActionAddAssignment() {
+		List assignments = (List)itemAssignments.getWrappedData();
+		CourseArchiveAssignment assignment = new CourseArchiveAssignment(currentItem.getItem());
+		CourseArchiveAssignmentWrapper wrapper = new CourseArchiveAssignmentWrapper(assignment);
+		assignments.add(wrapper);
+		itemAssignments.setWrappedData(assignments);
+
+		return "editItem";
+	}
+
 	public String processActionDelete() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		List items = (List) itemsModel.getWrappedData();
@@ -174,16 +184,22 @@ public class CourseArchiveBean {
 
 			logic.saveItem(item);
 
-			List items = (List) itemAssignments.getWrappedData();
+			List items = (List)itemAssignments.getWrappedData();
 
 			for(Iterator iter = items.iterator(); iter.hasNext();) {
 				CourseArchiveAssignmentWrapper wrapper = (CourseArchiveAssignmentWrapper)iter.next();
 				CourseArchiveAssignment assignment = wrapper.getItem();
 
 				if(wrapper.isSelected()) {
-					logic.removeAssignment(assignment);
+					Long id = assignment.getId();
+					if(id != null && id != 0) {
+						logic.removeAssignment(assignment);
+					}
 				} else {
-					logic.saveAssignment(assignment);
+					String title = assignment.getTitle();
+					if(title != null && !title.equals("")) {
+						logic.saveAssignment(assignment);
+					}
 				}
 			}
 

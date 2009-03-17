@@ -18,17 +18,24 @@ public class CourseArchiveAssignment {
 	 * Default constructor
 	 */
 	public CourseArchiveAssignment() {
-		this(null, 0.0, 0.0, null);
+		this(null, "", 100.0, 0.0, 0.0, 0.0, 0.0, new Date());
+	}
+
+	public CourseArchiveAssignment(CourseArchiveItem item) {
+		this(item, "", 100.0, 0.0, 0.0, 0.0, 0.0, new Date());
 	}
 
 	/**
 	 * Full constructor
 	 */
-	public CourseArchiveAssignment(String title, double maxGrade, double meanGrade, Date date) {
-		this.title     = title;
-		this.maxGrade  = maxGrade;
-		this.meanGrade = meanGrade;
-		this.date      = date;
+	public CourseArchiveAssignment(CourseArchiveItem item, String title, double maxGrade, double meanGrade, double medianGrade, double standardDeviation, double weight, Date date) {
+		this.item              = item;
+		this.title             = title;
+		this.maxGrade          = maxGrade;
+		this.meanGrade         = meanGrade;
+		this.medianGrade       = medianGrade;
+		this.standardDeviation = standardDeviation;
+		this.date              = date;
 	}
 
 	/**

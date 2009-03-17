@@ -83,6 +83,8 @@
 					</tbody>
 				</table>
 
+				<sakai:view_title value="Assignment and Exam Grades"/>
+
 				<h:dataTable
 					value="#{CourseArchiveBean.itemAssignments}"
 					var="entry"
@@ -147,6 +149,8 @@
 						</h:inputText>
 					</h:column>
 				</h:dataTable>
+
+				<h:commandButton value="Add New Grade" action="#{CourseArchiveBean.processActionAddAssignment}"/>
 
 				<sakai:button_bar>
 					<h:commandButton styleClass="active" accesskey="s" value="#{msgs.save}" action="#{CourseArchiveBean.processActionUpdate}"/>
