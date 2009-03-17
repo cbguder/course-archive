@@ -11,28 +11,29 @@
 
 package org.sakaiproject.coursearchive.logic;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.sakaiproject.genericdao.api.search.Restriction;
-import org.sakaiproject.genericdao.api.search.Search;
-import org.sakaiproject.genericdao.api.search.Order;
-
-import org.sakaiproject.genericdao.hibernate.HibernateGeneralGenericDao;
-
-import org.sakaiproject.coursearchive.logic.ExternalLogic;
 import org.sakaiproject.coursearchive.dao.CourseArchiveDao;
 import org.sakaiproject.coursearchive.logic.CourseArchiveLogic;
+import org.sakaiproject.coursearchive.logic.ExternalLogic;
+import org.sakaiproject.coursearchive.model.CourseArchiveAssignment;
 import org.sakaiproject.coursearchive.model.CourseArchiveItem;
 import org.sakaiproject.coursearchive.model.CourseArchiveStudent;
-import org.sakaiproject.coursearchive.model.CourseArchiveAssignment;
+
+import org.sakaiproject.genericdao.api.search.Order;
+import org.sakaiproject.genericdao.api.search.Restriction;
+import org.sakaiproject.genericdao.api.search.Search;
+
+import org.sakaiproject.genericdao.hibernate.HibernateGeneralGenericDao;
 
 /**
  * This is the implementation of the business logic interface
@@ -200,11 +201,74 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		}
 	}
 
+	protected String commonPrefix(List<String> strings) {
+		int stringCount = strings.size();
+
+		if(stringCount == 0) {
+			return "";
+		} else if(stringCount == 1) {
+			return strings.get(0);
+		}
+
+		int minLength = Integer.MAX_VALUE;
+		for(Iterator<String> iter = strings.iterator(); iter.hasNext();) {
+			int len = iter.next().length();
+			if(len < minLength) {
+				minLength = len;
+			}
+		}
+
+		StringBuilder result = new StringBuilder(minLength);
+
+		String first = strings.get(0);
+		for(int i = 0; i < minLength; i++) {
+			boolean notFound = false;
+			char c = first.charAt(i);
+
+			for(Iterator<String> iter = strings.iterator(); iter.hasNext();) {
+				if(iter.next().charAt(i) != c) {
+					notFound = true;
+					break;
+				}
+			}
+
+			if(notFound) {
+				break;
+			} else {
+				result.append(c);
+			}
+		}
+
+		return result.toString();
+	}
+
+	protected String mergeCodes(List<String> codes) {
+		String commonCodePrefix = commonPrefix(codes);
+		int prefixLength = commonCodePrefix.length();
+
+		StringBuilder result = new StringBuilder(commonCodePrefix);
+
+		for(Iterator<String> iter = codes.iterator(); iter.hasNext();) {
+			result.append(iter.next().substring(prefixLength));
+		}
+
+		return result.toString();
+	}
+
 	public void mergeItems(List<CourseArchiveItem> items) {
 		if(externalLogic.isUserAdmin(externalLogic.getCurrentUserId())) {
-			CourseArchiveItem newItem  = new CourseArchiveItem(items.get(0));
-			for(int i = 1; i < items.size(); i++) {
-				CourseArchiveItem item = items.get(i);
+			CourseArchiveItem first   = items.get(0);
+			CourseArchiveItem newItem = new CourseArchiveItem(first);
+
+			ArrayList<String> codes   = new ArrayList<String>(items.size());
+			codes.add(first.getCode());
+
+			Iterator<CourseArchiveItem> iter = items.iterator();
+			iter.next();
+
+			while(iter.hasNext()) {
+				CourseArchiveItem item = iter.next();
+				codes.add(item.getCode());
 
 				newItem.setA      (newItem.getA()       + item.getA());
 				newItem.setA_MINUS(newItem.getA_MINUS() + item.getA_MINUS());
@@ -219,11 +283,13 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 				newItem.setF      (newItem.getF()       + item.getF());
 			}
 
+			newItem.setCode(mergeCodes(codes));
 			newItem.setDateCreated(new Date());
 			dao.save(newItem);
 
-			for(Iterator iter = items.iterator(); iter.hasNext();) {
-				CourseArchiveItem item = (CourseArchiveItem)iter.next();
+			iter = items.iterator();
+			while(iter.hasNext()) {
+				CourseArchiveItem item = iter.next();
 				dao.updateItemId(CourseArchiveStudent.class,    item.getId(), newItem.getId());
 				dao.updateItemId(CourseArchiveAssignment.class, item.getId(), newItem.getId());
 				dao.delete(item);
