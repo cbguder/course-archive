@@ -66,18 +66,62 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 	 */
 	public boolean canWriteItem(CourseArchiveItem item, String userId) {
 		log.debug("checking if can write for: " + userId + " and item=" + item.getCode() );
+
 		if(item.getOwnerId().equals(userId)) {
-			// owner can always modify an item
-			return true;
+			// owner can only modify last term's items
+			return item.getTerm().equals(getTerm(-1));
 		} else if(externalLogic.isUserAdmin(userId)) {
 			// the system super user can modify any item
 			return true;
 		}
+
 		return false;
 	}
 
 	public boolean canDeleteItems(String userId) {
 		return externalLogic.isUserAdmin(userId);
+	}
+
+	protected String getTerm(int offset) {
+		Calendar calendar = Calendar.getInstance();
+		int year  = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH);
+		int term  = 1;
+
+		if(month < Calendar.SEPTEMBER) {
+			year -= 1;
+			if(month > Calendar.FEBRUARY) {
+				term = 2;
+			}
+		}
+
+		term += offset;
+
+		while(term < 1) {
+			year -= 1;
+			term += 2;
+		}
+
+		while(term > 2) {
+			year += 1;
+			term -= 2;
+		}
+
+		return String.format("%04d%02d", year, term);
+	}
+
+	protected String getCurrentTerm() {
+		return getTerm(0);
+	}
+
+	protected String getLimitTerm() {
+		String aTerm = getTerm(-4);
+
+		if(aTerm.endsWith("02")) {
+			return aTerm;
+		} else {
+			return getTerm(-5);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -99,19 +143,7 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		search.addRestriction(new Restriction("ownerId", externalLogic.getCurrentUserId()));
 
 		if(!includeOlder) {
-			Calendar calendar = Calendar.getInstance();
-			int year  = calendar.get(Calendar.YEAR);
-			int month = calendar.get(Calendar.MONTH);
-
-			if(month >= 9) {
-				year -= 2;
-			} else {
-				year -= 3;
-			}
-
-			String term = Integer.toString(year) + "02";
-
-			search.addRestriction(new Restriction("term", term, Restriction.GREATER));
+			search.addRestriction(new Restriction("term", getLimitTerm(), Restriction.GREATER));
 		}
 
 		search.addOrder(new Order("term", false));
