@@ -11,6 +11,8 @@
 
 package org.sakaiproject.coursearchive.dao;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -19,6 +21,7 @@ import org.hibernate.Query;
 import org.sakaiproject.genericdao.hibernate.HibernateGeneralGenericDao;
 
 import org.sakaiproject.coursearchive.dao.CourseArchiveDao;
+import org.sakaiproject.coursearchive.model.CourseArchiveItem;
 
 /**
  * Implementations of any specialized DAO methods from the specialized DAO 
@@ -50,5 +53,29 @@ public class CourseArchiveDaoImpl extends HibernateGeneralGenericDao implements 
 		query.setLong("itemId", itemId);
 
 		return query.executeUpdate();
+	}
+
+	public List<CourseArchiveItem> getUserItems(String userId) {
+		return getUserItems(userId, null);
+	}
+
+	public List<CourseArchiveItem> getUserItems(String userId, String term) {
+		String hql = "from " + CourseArchiveItem.class.getName()
+		           + " where (ownerId = :userId or delegateId = :userId)";
+
+		if(term != null) {
+			hql += " and term > :term";
+		}
+
+		hql += " order by term desc";
+
+		Query query = getSession().createQuery(hql);
+		query.setString("userId", userId);
+
+		if(term != null) {
+			query.setString("term", term);
+		}
+
+		return query.list();
 	}
 }

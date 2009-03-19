@@ -11,7 +11,11 @@
 
 package org.sakaiproject.coursearchive.dao;
 
+import java.util.List;
+
 import org.sakaiproject.genericdao.api.GeneralGenericDao;
+
+import org.sakaiproject.coursearchive.model.CourseArchiveItem;
 
 /**
  * This is a specialized DAO that allows the developer to extend
@@ -21,4 +25,6 @@ import org.sakaiproject.genericdao.api.GeneralGenericDao;
 public interface CourseArchiveDao extends GeneralGenericDao {
 	public int updateItemId(Class<?> type, Long oldItemId, Long newItemId);
 	public int deleteByItemId(Class<?> type, Long itemId);
+	public List<CourseArchiveItem> getUserItems(String userId);
+	public List<CourseArchiveItem> getUserItems(String userId, String term);
 }

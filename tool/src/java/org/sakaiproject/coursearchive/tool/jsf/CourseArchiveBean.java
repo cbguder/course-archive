@@ -51,6 +51,8 @@ public class CourseArchiveBean {
 	private String itemOtherInstructors;
 	private String itemAssistants;
 	private String itemComments;
+	private String itemDelegateEid;
+	private String itemDelegateName;
 	private long itemEnrollment;
 	private boolean itemPublic;
 	private boolean itemCanEdit;
@@ -168,6 +170,7 @@ public class CourseArchiveBean {
 			item.setOtherInstructors(itemOtherInstructors);
 			item.setAssistants(itemAssistants);
 			item.setComments(itemComments);
+			item.setDelegateId(externalLogic.getUserId(itemDelegateEid));
 			item.setPublic(itemPublic);
 
 			item.setA(itemA);
@@ -320,6 +323,8 @@ public class CourseArchiveBean {
 		itemAssistants = "";
 		itemEnrollment = 0;
 		itemComments = "";
+		itemDelegateEid = "";
+		itemDelegateName = "";
 		itemPublic = false;
 		itemStudents = null;
 	}
@@ -328,12 +333,14 @@ public class CourseArchiveBean {
 		currentItem = (CourseArchiveItemWrapper)itemsModel.getRowData();
 		CourseArchiveItem item = currentItem.getItem();
 
-		itemCode       = item.getCode();
-		itemName       = item.getName();
-		itemTerm       = item.getTerm();
-		itemEnrollment = item.getEnrollment();
-		itemComments   = item.getComments();
-		itemPublic     = item.isPublic();
+		itemCode         = item.getCode();
+		itemName         = item.getName();
+		itemTerm         = item.getTerm();
+		itemEnrollment   = item.getEnrollment();
+		itemComments     = item.getComments();
+		itemDelegateEid  = externalLogic.getUserEid(item.getDelegateId());
+		itemDelegateName = externalLogic.getUserDisplayName(item.getDelegateId());
+		itemPublic       = item.isPublic();
 
 		itemPrimaryInstructor = item.getPrimaryInstructor();
 		itemOtherInstructors  = item.getOtherInstructors();
@@ -425,6 +432,15 @@ public class CourseArchiveBean {
 	}
 	public void setItemComments(String itemComments) {
 		this.itemComments = itemComments;
+	}
+	public String getItemDelegateEid() {
+		return itemDelegateEid;
+	}
+	public void setItemDelegateEid(String itemDelegateEid) {
+		this.itemDelegateEid = itemDelegateEid;
+	}
+	public String getItemDelegateName() {
+		return itemDelegateName;
 	}
 	public boolean getItemCanEdit() {
 		return itemCanEdit;

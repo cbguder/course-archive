@@ -46,6 +46,9 @@
 
 					<h:outputText value="#{msgs.item_public}"/>
 					<h:selectBooleanCheckbox value="#{CourseArchiveBean.itemPublic}"/>
+
+					<h:outputText value="#{msgs.item_delegate}"/>
+					<h:inputText value="#{CourseArchiveBean.itemDelegateEid}"/>
 				</sakai:panel_edit>
 
 				<sakai:view_title value="Letter Grades"/>

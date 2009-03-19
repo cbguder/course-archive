@@ -7,7 +7,8 @@ import java.util.List;
 public class CourseArchiveItem {
 
 	private Long id;
-	private String ownerId; // Sakai userId
+	private String ownerId;    // Sakai userId
+	private String delegateId; // Sakai userId
 	private Date dateCreated;
 
 	private String code;
@@ -109,6 +110,12 @@ public class CourseArchiveItem {
 	}
 	public void setOwnerId(String ownerId) {
 		this.ownerId = ownerId;
+	}
+	public String getDelegateId() {
+		return delegateId;
+	}
+	public void setDelegateId(String delegateId) {
+		this.delegateId = delegateId;
 	}
 	public Date getDateCreated() {
 		return dateCreated;

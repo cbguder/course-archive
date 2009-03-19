@@ -127,6 +127,30 @@ public class ExternalLogicImpl implements ExternalLogic {
 		return name;
 	}
 
+	public String getUserId(String eid) {
+		String id = "";
+
+		try {
+			id = userDirectoryService.getUserByEid(eid).getId();
+		} catch(UserNotDefinedException e) {
+			log.warn("Cannot get user ID for EID: " + eid);
+		}
+
+		return id;
+	}
+
+	public String getUserEid(String userId) {
+		String eid = "";
+
+		try {
+			eid = userDirectoryService.getUser(userId).getEid();
+		} catch(UserNotDefinedException e) {
+			log.warn("Cannot get user EID for ID: " + userId);
+		}
+
+		return eid;
+	}
+
 	/* (non-Javadoc)
 	 * @see org.sakaiproject.coursearchive.logic.ExternalLogic#isUserAdmin(java.lang.String)
 	 */

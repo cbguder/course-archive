@@ -52,6 +52,9 @@
 
 					<h:outputText value="#{msgs.item_public}"/>
 					<h:outputText value="#{CourseArchiveBean.itemPublic}"/>
+
+					<h:outputText value="#{msgs.item_delegate}"/>
+					<h:outputText value="#{CourseArchiveBean.itemDelegateName}"/>
 				</sakai:panel_edit>
 
 				<sakai:view_title value="Letter Grades"/>

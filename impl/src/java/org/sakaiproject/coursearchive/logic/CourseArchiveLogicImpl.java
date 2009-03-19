@@ -67,8 +67,8 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 	public boolean canWriteItem(CourseArchiveItem item, String userId) {
 		log.debug("checking if can write for: " + userId + " and item=" + item.getCode() );
 
-		if(item.getOwnerId().equals(userId)) {
-			// owner can only modify last term's items
+		if(item.getOwnerId().equals(userId) || item.getDelegateId().equals(userId)) {
+			// owner or delegate can only modify last term's items
 			return item.getTerm().equals(getTerm(-1));
 		} else if(externalLogic.isUserAdmin(userId)) {
 			// the system super user can modify any item
@@ -139,16 +139,11 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 	public List<CourseArchiveItem> getUserItems(boolean includeOlder) {
 		log.debug("Fetching user items");
 
-		Search search = new Search();
-		search.addRestriction(new Restriction("ownerId", externalLogic.getCurrentUserId()));
-
-		if(!includeOlder) {
-			search.addRestriction(new Restriction("term", getLimitTerm(), Restriction.GREATER));
+		if(includeOlder) {
+			return dao.getUserItems(externalLogic.getCurrentUserId());
+		} else {
+			return dao.getUserItems(externalLogic.getCurrentUserId(), getLimitTerm());
 		}
-
-		search.addOrder(new Order("term", false));
-
-		return dao.findBySearch(CourseArchiveItem.class, search);
 	}
 
 	public List<CourseArchiveItem> searchItems(String query) {

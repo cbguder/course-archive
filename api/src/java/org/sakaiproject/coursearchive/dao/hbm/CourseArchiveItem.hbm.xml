@@ -6,8 +6,9 @@
 		<id name="id" type="long">
 			<generator class="native"/>
 		</id>
-		<property name="ownerId" type="string" length="255" not-null="true" />
-		<property name="dateCreated" type="java.util.Date" />
+		<property name="ownerId" type="string" length="255" not-null="true"/>
+		<property name="delegateId" type="string" length="255" not-null="true"/>
+		<property name="dateCreated" type="java.util.Date"/>
 		<property name="code" type="string" length="255" not-null="true" />
 		<property name="name" type="string" length="255" not-null="true" />
 		<property name="term" type="string" length="255" not-null="true" />

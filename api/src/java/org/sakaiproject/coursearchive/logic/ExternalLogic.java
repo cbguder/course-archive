@@ -23,6 +23,9 @@ public interface ExternalLogic {
 	public final static String ITEM_WRITE_ANY = "coursearchive.write.any";
 	public final static String ITEM_READ_HIDDEN = "coursearchive.read.hidden";
 
+	public String getUserId(String eid);
+	public String getUserEid(String userId);
+
 	/**
 	 * @return the current sakai user id (not username)
 	 */
