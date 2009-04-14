@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="org.sakaiproject.coursearchive.model.CourseArchiveSyllabus" table="course_archive_syllabi">
+		<id name="id" type="long">
+			<generator class="native"/>
+		</id>
+		<many-to-one name="item" column="itemId" not-null="true"
+			class="org.sakaiproject.coursearchive.model.CourseArchiveItem"/>
+		<property name="title" type="text" length="256" />
+		<property name="asset" type="text" length="16777215" />
+	</class>
+</hibernate-mapping>
