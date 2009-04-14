@@ -11,8 +11,14 @@
 
 package org.sakaiproject.coursearchive.logic;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.sakaiproject.authz.api.FunctionManager;
 import org.sakaiproject.authz.api.SecurityService;
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
@@ -174,5 +180,30 @@ public class ExternalLogicImpl implements ExternalLogic {
 			return true;
 		}
 		return false;
+	}
+
+	public String getSyllabusURLForSiteId(String siteId) {
+		SyllabusItem syllabusItem = syllabusManager.getSyllabusItemByContextId(siteId);
+
+		if(syllabusItem != null)
+			return syllabusItem.getRedirectURL();
+
+		return null;
+	}
+
+	public List<String> getSyllabusDataForSiteId(String siteId) {
+		SyllabusItem syllabusItem = syllabusManager.getSyllabusItemByContextId(siteId);
+		ArrayList<String> list = new ArrayList<String>();
+
+		if(syllabusItem != null) {
+			Set syllabi = syllabusManager.getSyllabiForSyllabusItem(syllabusItem);
+			for(Iterator iter = syllabi.iterator(); iter.hasNext();) {
+				SyllabusData syllabusData = (SyllabusData)iter.next();
+				list.add(syllabusData.getTitle());
+				list.add(syllabusData.getAsset());
+			}
+		}
+
+		return list;
 	}
 }

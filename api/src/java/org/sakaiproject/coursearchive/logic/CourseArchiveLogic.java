@@ -75,4 +75,6 @@ public interface CourseArchiveLogic {
 	public long getItemEnrollment(CourseArchiveItem item);
 
 	public void mergeItems(List<CourseArchiveItem> items);
+
+	public void archiveSyllabus(CourseArchiveItem item);
 }

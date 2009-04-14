@@ -28,6 +28,7 @@ import org.sakaiproject.coursearchive.logic.ExternalLogic;
 import org.sakaiproject.coursearchive.model.CourseArchiveAssignment;
 import org.sakaiproject.coursearchive.model.CourseArchiveItem;
 import org.sakaiproject.coursearchive.model.CourseArchiveStudent;
+import org.sakaiproject.coursearchive.model.CourseArchiveSyllabus;
 
 import org.sakaiproject.genericdao.api.search.Order;
 import org.sakaiproject.genericdao.api.search.Restriction;
@@ -323,6 +324,24 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 			}
 		} else {
 			throw new SecurityException("Current user cannot merge items because they do not have permission");
+		}
+	}
+
+	public void archiveSyllabus(CourseArchiveItem item) {
+		if(!canWriteItem(item, externalLogic.getCurrentUserId())) {
+			throw new SecurityException("Current user cannot update item " + item.getId() + " because they do not have permission");
+		}
+
+		item.setSyllabusURL(externalLogic.getSyllabusURLForSiteId(item.getSiteId()));
+		dao.save(item);
+
+		List<String> syllabusData = externalLogic.getSyllabusDataForSiteId(item.getSiteId());
+
+		for(Iterator<String> iter = syllabusData.iterator(); iter.hasNext();) {
+			String title = iter.next();
+			String asset = iter.next();
+			CourseArchiveSyllabus syllabus = new CourseArchiveSyllabus(item, title, asset);
+			dao.save(syllabus);
 		}
 	}
 

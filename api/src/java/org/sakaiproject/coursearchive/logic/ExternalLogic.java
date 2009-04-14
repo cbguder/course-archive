@@ -11,6 +11,8 @@
 
 package org.sakaiproject.coursearchive.logic;
 
+import java.util.List;
+
 /**
  * This is the interface for logic which is external to our app logic
  * @author Sakai App Builder -AZ
@@ -66,4 +68,7 @@ public interface ExternalLogic {
 	 * @return true if allowed, false otherwise
 	 */
 	public boolean isUserAllowedInLocation(String userId, String permission, String locationId);
+
+	public String getSyllabusURLForSiteId(String siteId);
+	public List<String> getSyllabusDataForSiteId(String siteId);
 }
