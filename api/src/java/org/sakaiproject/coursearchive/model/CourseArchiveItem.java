@@ -10,6 +10,7 @@ public class CourseArchiveItem {
 	private String ownerId;    // Sakai userId
 	private String delegateId; // Sakai userId
 	private Date dateCreated;
+	private String siteId;
 
 	private String code;
 	private String name;
@@ -18,6 +19,7 @@ public class CourseArchiveItem {
 	private String otherInstructors;
 	private String assistants;
 	private String comments;
+	private String syllabusURL;
 	private long enrollment;
 	private boolean _public;
 
@@ -123,6 +125,12 @@ public class CourseArchiveItem {
 	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
+	public String getSiteId() {
+		return siteId;
+	}
+	public void setSiteId(String siteId) {
+		this.siteId = siteId;
+	}
 	public String getCode() {
 		return code;
 	}
@@ -164,6 +172,12 @@ public class CourseArchiveItem {
 	}
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+	public String getSyllabusURL() {
+		return syllabusURL;
+	}
+	public void setSyllabusURL(String syllabusURL) {
+		this.syllabusURL = syllabusURL;
 	}
 	public long getEnrollment() {
 		return enrollment;

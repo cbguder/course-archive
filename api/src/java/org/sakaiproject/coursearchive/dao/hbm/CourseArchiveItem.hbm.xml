@@ -9,6 +9,7 @@
 		<property name="ownerId" type="string" length="255" not-null="true"/>
 		<property name="delegateId" type="string" length="255" not-null="true"/>
 		<property name="dateCreated" type="java.util.Date"/>
+		<property name="siteId" type="string" length="255" not-null="true" />
 		<property name="code" type="string" length="255" not-null="true" />
 		<property name="name" type="string" length="255" not-null="true" />
 		<property name="term" type="string" length="255" not-null="true" />
@@ -16,6 +17,7 @@
 		<property name="otherInstructors" type="text" not-null="true"/>
 		<property name="assistants" type="text" not-null="true"/>
 		<property name="comments" type="text" not-null="true"/>
+		<property name="syllabusURL" type="text" length="512" />
 		<property name="public" type="boolean" not-null="true"/>
 
 		<property name="A"       type="integer" not-null="true"/>
