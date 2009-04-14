@@ -97,6 +97,11 @@
 			<artifactId>sakai-util-api</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.sakaiproject</groupId>
+			<artifactId>sakai-syllabus-api</artifactId>
+		</dependency>
+
 		<!-- testing dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>

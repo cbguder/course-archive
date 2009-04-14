@@ -23,6 +23,9 @@ import org.sakaiproject.tool.api.SessionManager;
 import org.sakaiproject.tool.api.ToolManager;
 import org.sakaiproject.user.api.UserDirectoryService;
 import org.sakaiproject.user.api.UserNotDefinedException;
+import org.sakaiproject.api.app.syllabus.SyllabusData;
+import org.sakaiproject.api.app.syllabus.SyllabusItem;
+import org.sakaiproject.api.app.syllabus.SyllabusManager;
 
 /**
  * This is the implementation for logic which is external to our app logic
@@ -60,6 +63,11 @@ public class ExternalLogicImpl implements ExternalLogic {
 	private UserDirectoryService userDirectoryService;
 	public void setUserDirectoryService(UserDirectoryService userDirectoryService) {
 		this.userDirectoryService = userDirectoryService;
+	}
+
+	private SyllabusManager syllabusManager;
+	public void setSyllabusManager(SyllabusManager syllabusManager) {
+		this.syllabusManager = syllabusManager;
 	}
 
 
