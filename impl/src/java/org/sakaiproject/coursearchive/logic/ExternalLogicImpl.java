@@ -182,28 +182,15 @@ public class ExternalLogicImpl implements ExternalLogic {
 		return false;
 	}
 
-	public String getSyllabusURLForSiteId(String siteId) {
-		SyllabusItem syllabusItem = syllabusManager.getSyllabusItemByContextId(siteId);
-
-		if(syllabusItem != null)
-			return syllabusItem.getRedirectURL();
-
-		return null;
+	public SyllabusItem getSyllabusItemBySiteId(String siteId) {
+		return syllabusManager.getSyllabusItemByContextId(siteId);
 	}
 
-	public List<String> getSyllabusDataForSiteId(String siteId) {
-		SyllabusItem syllabusItem = syllabusManager.getSyllabusItemByContextId(siteId);
-		ArrayList<String> list = new ArrayList<String>();
+	public Set getSyllabiForSyllabusItem(SyllabusItem syllabusItem) {
+		return syllabusManager.getSyllabiForSyllabusItem(syllabusItem);
+	}
 
-		if(syllabusItem != null) {
-			Set syllabi = syllabusManager.getSyllabiForSyllabusItem(syllabusItem);
-			for(Iterator iter = syllabi.iterator(); iter.hasNext();) {
-				SyllabusData syllabusData = (SyllabusData)iter.next();
-				list.add(syllabusData.getTitle());
-				list.add(syllabusData.getAsset());
-			}
-		}
-
-		return list;
+	public Set getSyllabusAttachmentsForSyllabusData(SyllabusData syllabusData) {
+		return syllabusManager.getSyllabusAttachmentsForSyllabusData(syllabusData);
 	}
 }

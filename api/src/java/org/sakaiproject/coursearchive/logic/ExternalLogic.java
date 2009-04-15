@@ -11,7 +11,10 @@
 
 package org.sakaiproject.coursearchive.logic;
 
-import java.util.List;
+import java.util.Set;
+
+import org.sakaiproject.api.app.syllabus.SyllabusData;
+import org.sakaiproject.api.app.syllabus.SyllabusItem;
 
 /**
  * This is the interface for logic which is external to our app logic
@@ -69,6 +72,7 @@ public interface ExternalLogic {
 	 */
 	public boolean isUserAllowedInLocation(String userId, String permission, String locationId);
 
-	public String getSyllabusURLForSiteId(String siteId);
-	public List<String> getSyllabusDataForSiteId(String siteId);
+	public SyllabusItem getSyllabusItemBySiteId(String siteId);
+	public Set getSyllabiForSyllabusItem(SyllabusItem syllabusItem);
+	public Set getSyllabusAttachmentsForSyllabusData(SyllabusData syllabusData);
 }
