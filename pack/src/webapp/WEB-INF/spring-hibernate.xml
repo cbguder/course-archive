@@ -10,6 +10,7 @@
 			<list>
 				<value>org/sakaiproject/coursearchive/dao/hbm/CourseArchiveItem.hbm.xml</value>
 				<value>org/sakaiproject/coursearchive/dao/hbm/CourseArchiveAssignment.hbm.xml</value>
+				<value>org/sakaiproject/coursearchive/dao/hbm/CourseArchiveAttachment.hbm.xml</value>
 				<value>org/sakaiproject/coursearchive/dao/hbm/CourseArchiveStudent.hbm.xml</value>
 				<value>org/sakaiproject/coursearchive/dao/hbm/CourseArchiveSyllabus.hbm.xml</value>
 			</list>
@@ -25,6 +26,7 @@
 			<list>
 				<value>org.sakaiproject.coursearchive.model.CourseArchiveItem</value>
 				<value>org.sakaiproject.coursearchive.model.CourseArchiveAssignment</value>
+				<value>org.sakaiproject.coursearchive.model.CourseArchiveAttachment</value>
 				<value>org.sakaiproject.coursearchive.model.CourseArchiveStudent</value>
 				<value>org.sakaiproject.coursearchive.model.CourseArchiveSyllabus</value>
 			</list>
