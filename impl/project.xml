@@ -114,12 +114,6 @@
 			<version>${sakai.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>sakaiproject</groupId>
-			<artifactId>sakai-syllabus-api</artifactId>
-			<version>${sakai.version}</version>
-		</dependency>
-
 		<!-- Apache commons dependencies -->
 		<dependency>
 			<groupId>commons-logging</groupId>
