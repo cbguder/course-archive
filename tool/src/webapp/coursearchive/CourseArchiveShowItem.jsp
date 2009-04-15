@@ -157,6 +157,23 @@
 					</h:column>
 				</h:dataTable>
 
+				<sakai:view_title value="Syllabi"/>
+
+				<h:dataTable
+					value="#{CourseArchiveBean.itemSyllabi}"
+					var="entry"
+					headerClass="headerAlignment"
+					styleClass="listHier">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.syllabus_title}"/>
+						</f:facet>
+						<h:commandLink id="showlink" action="#{CourseArchiveBean.processActionShowSyllabus}">
+							<h:outputText value="#{entry.title}"/>
+						</h:commandLink>
+					</h:column>
+				</h:dataTable>
+
 				<sakai:button_bar>
 					<h:commandButton value="#{msgs.edit}" action="#{CourseArchiveBean.processActionEdit}" rendered="#{CourseArchiveBean.itemCanEdit}"/>
 					<h:commandButton value="Archive Syllabi" action="#{CourseArchiveBean.processActionArchiveSyllabi}" rendered="#{CourseArchiveBean.itemCanEdit}"/>

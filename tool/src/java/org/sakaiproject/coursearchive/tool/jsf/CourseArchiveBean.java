@@ -22,10 +22,13 @@ import javax.faces.model.ListDataModel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.sakaiproject.coursearchive.logic.ExternalLogic;
+
 import org.sakaiproject.coursearchive.logic.CourseArchiveLogic;
-import org.sakaiproject.coursearchive.model.CourseArchiveItem;
+import org.sakaiproject.coursearchive.logic.ExternalLogic;
+
 import org.sakaiproject.coursearchive.model.CourseArchiveAssignment;
+import org.sakaiproject.coursearchive.model.CourseArchiveItem;
+import org.sakaiproject.coursearchive.model.CourseArchiveSyllabus;
 
 /**
  * This is a backing bean for the JSF app which handles the events and
@@ -39,6 +42,7 @@ public class CourseArchiveBean {
 	private DataModel itemsModel;
 	private DataModel itemStudents;
 	private DataModel itemAssignments;
+	private DataModel itemSyllabi;
 
 	private CourseArchiveItemWrapper currentItem = null;
 	private CourseArchiveLogic logic;
@@ -57,6 +61,8 @@ public class CourseArchiveBean {
 	private long itemEnrollment;
 	private boolean itemPublic;
 	private boolean itemCanEdit;
+
+	private CourseArchiveSyllabus currentSyllabus;
 
 	private int itemA;
 	private int itemA_MINUS;
@@ -140,6 +146,7 @@ public class CourseArchiveBean {
 	public String processActionShow() {
 		if(currentItem == null) { loadCurrentItem(); }
 		itemAssignments = wrapAssignments(logic.getItemAssignments(currentItem.getItem()));
+		itemSyllabi = new ListDataModel(logic.getItemSyllabi(currentItem.getItem()));
 		return "showItem";
 	}
 
@@ -153,6 +160,11 @@ public class CourseArchiveBean {
 	public String processActionShowRoster() {
 		itemStudents = new ListDataModel(logic.getItemStudents(currentItem.getItem()));
 		return "showRoster";
+	}
+
+	public String processActionShowSyllabus() {
+		currentSyllabus = (CourseArchiveSyllabus)itemSyllabi.getRowData();
+		return "showSyllabus";
 	}
 
 	public String processActionUpdate() {
@@ -335,6 +347,7 @@ public class CourseArchiveBean {
 		itemDelegateName = "";
 		itemPublic = false;
 		itemStudents = null;
+		itemSyllabi = null;
 	}
 
 	private void loadCurrentItem() {
@@ -471,6 +484,12 @@ public class CourseArchiveBean {
 	}
 	public DataModel getItemAssignments() {
 		return itemAssignments;
+	}
+	public DataModel getItemSyllabi() {
+		return itemSyllabi;
+	}
+	public CourseArchiveSyllabus getCurrentSyllabus() {
+		return currentSyllabus;
 	}
 	public boolean isHasMore() {
 		return hasMore;

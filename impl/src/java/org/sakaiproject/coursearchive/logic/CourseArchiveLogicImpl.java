@@ -177,6 +177,10 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		return dao.findBySearch(CourseArchiveStudent.class, new Search("item.id", item.getId()));
 	}
 
+	public List<CourseArchiveSyllabus> getItemSyllabi(CourseArchiveItem item) {
+		return dao.findBySearch(CourseArchiveSyllabus.class, new Search("item.id", item.getId()));
+	}
+
 	/* (non-Javadoc)
 	 * @see org.sakaiproject.coursearchive.logic.CourseArchiveLogic#removeItem(org.sakaiproject.coursearchive.model.CourseArchiveItem)
 	 */
@@ -186,6 +190,7 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		if(canDeleteItems(externalLogic.getCurrentUserId())) {
 			dao.deleteByItemId(CourseArchiveAssignment.class, item.getId());
 			dao.deleteByItemId(CourseArchiveStudent.class,    item.getId());
+			dao.deleteByItemId(CourseArchiveSyllabus.class,   item.getId());
 			dao.delete(item);
 			log.info("Removing item: " + item.getId() + ":" + item.getCode());
 		} else {
