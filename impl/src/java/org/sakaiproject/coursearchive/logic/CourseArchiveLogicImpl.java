@@ -18,9 +18,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import org.sakaiproject.api.app.syllabus.SyllabusAttachment;
+import org.sakaiproject.api.app.syllabus.SyllabusData;
+import org.sakaiproject.api.app.syllabus.SyllabusItem;
 
 import org.sakaiproject.coursearchive.dao.CourseArchiveDao;
 import org.sakaiproject.coursearchive.logic.CourseArchiveLogic;
@@ -327,21 +332,24 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		}
 	}
 
-	public void archiveSyllabus(CourseArchiveItem item) {
+	public void archiveSyllabi(CourseArchiveItem item) {
 		if(!canWriteItem(item, externalLogic.getCurrentUserId())) {
 			throw new SecurityException("Current user cannot update item " + item.getId() + " because they do not have permission");
 		}
 
-		item.setSyllabusURL(externalLogic.getSyllabusURLForSiteId(item.getSiteId()));
-		dao.save(item);
+		SyllabusItem syllabusItem = externalLogic.getSyllabusItemBySiteId(item.getSiteId());
 
-		List<String> syllabusData = externalLogic.getSyllabusDataForSiteId(item.getSiteId());
+		if(syllabusItem != null) {
+			item.setSyllabusURL(syllabusItem.getRedirectURL());
+			dao.save(item);
 
-		for(Iterator<String> iter = syllabusData.iterator(); iter.hasNext();) {
-			String title = iter.next();
-			String asset = iter.next();
-			CourseArchiveSyllabus syllabus = new CourseArchiveSyllabus(item, title, asset);
-			dao.save(syllabus);
+			Set syllabi = externalLogic.getSyllabiForSyllabusItem(syllabusItem);
+
+			for(Iterator iter = syllabi.iterator(); iter.hasNext();) {
+				SyllabusData syllabusData = (SyllabusData)iter.next();
+				CourseArchiveSyllabus syllabus = new CourseArchiveSyllabus(item, syllabusData.getTitle(), syllabusData.getAsset());
+				dao.save(syllabus);
+			}
 		}
 	}
 

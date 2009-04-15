@@ -76,5 +76,5 @@ public interface CourseArchiveLogic {
 
 	public void mergeItems(List<CourseArchiveItem> items);
 
-	public void archiveSyllabus(CourseArchiveItem item);
+	public void archiveSyllabi(CourseArchiveItem item);
 }

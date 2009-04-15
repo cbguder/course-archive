@@ -262,6 +262,11 @@ public class CourseArchiveBean {
 		return "mergedItems";
 	}
 
+	public String processActionArchiveSyllabi() {
+		logic.archiveSyllabi(currentItem.getItem());
+		return "archivedSyllabi";
+	}
+
 	/**
 	 * Item Management
 	 */
