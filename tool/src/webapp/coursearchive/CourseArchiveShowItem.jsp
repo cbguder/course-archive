@@ -18,8 +18,10 @@
 		</h:form>
 
 		<sakai:view_content>
-			<h:form>
+			<h:form id="itemDetails">
 				<sakai:view_title value="#{CourseArchiveBean.itemTitle}"/>
+
+				<sakai:messages />
 
 				<sakai:panel_edit>
 					<h:outputText value="#{msgs.item_code}"/>

@@ -278,6 +278,13 @@ public class CourseArchiveBean {
 
 	public String processActionArchiveSyllabi() {
 		logic.archiveSyllabi(currentItem.getItem());
+		itemSyllabi = new ListDataModel(logic.getItemSyllabi(currentItem.getItem()));
+
+		String message = "Archived " + itemSyllabi.getRowCount() + " syllabus items.";
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		fc.addMessage("itemDetails", new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
+
 		return "archivedSyllabi";
 	}
 
