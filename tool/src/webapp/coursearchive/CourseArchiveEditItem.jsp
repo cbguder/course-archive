@@ -44,11 +44,14 @@
 					<h:outputText value="#{msgs.item_comments}"/>
 					<h:inputTextarea value="#{CourseArchiveBean.itemComments}" rows="5" cols="40"/>
 
-					<h:outputText value="#{msgs.item_public}"/>
-					<h:selectBooleanCheckbox value="#{CourseArchiveBean.itemPublic}"/>
+					<h:outputText value="#{msgs.item_syllabus_url}"/>
+					<h:inputText value="#{CourseArchiveBean.itemSyllabusURL}"/>
 
 					<h:outputText value="#{msgs.item_delegate}"/>
 					<h:inputText value="#{CourseArchiveBean.itemDelegateEid}"/>
+
+					<h:outputText value="#{msgs.item_public}"/>
+					<h:selectBooleanCheckbox value="#{CourseArchiveBean.itemPublic}"/>
 				</sakai:panel_edit>
 
 				<sakai:view_title value="Letter Grades"/>

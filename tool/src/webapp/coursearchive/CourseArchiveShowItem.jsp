@@ -50,11 +50,16 @@
 					<h:outputText value="#{msgs.item_comments}"/>
 					<h:outputText value="#{CourseArchiveBean.itemComments}"/>
 
-					<h:outputText value="#{msgs.item_public}"/>
-					<h:outputText value="#{CourseArchiveBean.itemPublic}"/>
+					<h:outputText value="#{msgs.item_syllabus_url}"/>
+					<h:outputLink value="#{CourseArchiveBean.itemSyllabusURL}">
+						<h:outputText value="#{CourseArchiveBean.itemSyllabusURL}"/>
+					</h:outputLink>
 
 					<h:outputText value="#{msgs.item_delegate}"/>
 					<h:outputText value="#{CourseArchiveBean.itemDelegateName}"/>
+
+					<h:outputText value="#{msgs.item_public}"/>
+					<h:outputText value="#{CourseArchiveBean.itemPublic}"/>
 				</sakai:panel_edit>
 
 				<sakai:view_title value="Letter Grades"/>

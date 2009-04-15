@@ -51,6 +51,7 @@ public class CourseArchiveBean {
 	private String itemOtherInstructors;
 	private String itemAssistants;
 	private String itemComments;
+	private String itemSyllabusURL;
 	private String itemDelegateEid;
 	private String itemDelegateName;
 	private long itemEnrollment;
@@ -170,6 +171,7 @@ public class CourseArchiveBean {
 			item.setOtherInstructors(itemOtherInstructors);
 			item.setAssistants(itemAssistants);
 			item.setComments(itemComments);
+			item.setSyllabusURL(itemSyllabusURL);
 			item.setDelegateId(externalLogic.getUserId(itemDelegateEid));
 			item.setPublic(itemPublic);
 
@@ -328,6 +330,7 @@ public class CourseArchiveBean {
 		itemAssistants = "";
 		itemEnrollment = 0;
 		itemComments = "";
+		itemSyllabusURL = "";
 		itemDelegateEid = "";
 		itemDelegateName = "";
 		itemPublic = false;
@@ -343,6 +346,7 @@ public class CourseArchiveBean {
 		itemTerm         = item.getTerm();
 		itemEnrollment   = item.getEnrollment();
 		itemComments     = item.getComments();
+		itemSyllabusURL  = item.getSyllabusURL();
 		itemDelegateEid  = externalLogic.getUserEid(item.getDelegateId());
 		itemDelegateName = externalLogic.getUserDisplayName(item.getDelegateId());
 		itemPublic       = item.isPublic();
@@ -437,6 +441,12 @@ public class CourseArchiveBean {
 	}
 	public void setItemComments(String itemComments) {
 		this.itemComments = itemComments;
+	}
+	public String getItemSyllabusURL() {
+		return itemSyllabusURL;
+	}
+	public void setItemSyllabusURL(String itemSyllabusURL) {
+		this.itemSyllabusURL = itemSyllabusURL;
 	}
 	public String getItemDelegateEid() {
 		return itemDelegateEid;
