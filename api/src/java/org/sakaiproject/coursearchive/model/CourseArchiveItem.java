@@ -60,6 +60,8 @@ public class CourseArchiveItem {
 		this.otherInstructors  = "";
 		this.assistants        = "";
 		this.comments          = "";
+		this.syllabusURL       = "";
+		this.delegateId        = "";
 		this._public           = false;
 	}
 
