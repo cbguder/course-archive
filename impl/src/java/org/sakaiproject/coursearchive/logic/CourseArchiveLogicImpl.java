@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -407,40 +408,37 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		}
 	}
 
-	public void archiveSyllabi(CourseArchiveItem item) {
+	public Set getSyllabiForSiteId(String siteId) {
+		SyllabusItem syllabusItem = externalLogic.getSyllabusItemBySiteId(siteId);
+		if(syllabusItem != null) {
+			return externalLogic.getSyllabiForSyllabusItem(syllabusItem);
+		} else {
+			return new HashSet();
+		}
+	}
+
+	public void archiveSyllabi(CourseArchiveItem item, SyllabusData syllabusData) {
 		if(!canWriteItem(item, externalLogic.getCurrentUserId())) {
 			throw new SecurityException("Current user cannot update item " + item.getId() + " because they do not have permission");
 		}
 
-		SyllabusItem syllabusItem = externalLogic.getSyllabusItemBySiteId(item.getSiteId());
+		CourseArchiveSyllabus syllabus = new CourseArchiveSyllabus(item, syllabusData.getTitle(), syllabusData.getAsset());
+		dao.save(syllabus);
 
-		if(syllabusItem != null) {
-			item.setSyllabusURL(syllabusItem.getRedirectURL());
-			dao.save(item);
+		Set attachments = externalLogic.getSyllabusAttachmentsForSyllabusData(syllabusData);
 
-			Set syllabi = externalLogic.getSyllabiForSyllabusItem(syllabusItem);
+		for(Iterator iter = attachments.iterator(); iter.hasNext();) {
+			SyllabusAttachment syllabusAttachment = (SyllabusAttachment)iter.next();
+			String oldId = syllabusAttachment.getAttachmentId();
+			ContentResource newAttachment = externalLogic.copyAttachment(oldId);
 
-			for(Iterator iter = syllabi.iterator(); iter.hasNext();) {
-				SyllabusData syllabusData = (SyllabusData)iter.next();
-				CourseArchiveSyllabus syllabus = new CourseArchiveSyllabus(item, syllabusData.getTitle(), syllabusData.getAsset());
-				dao.save(syllabus);
-
-				Set attachments = externalLogic.getSyllabusAttachmentsForSyllabusData(syllabusData);
-
-				for(Iterator iter2 = attachments.iterator(); iter2.hasNext();) {
-					SyllabusAttachment syllabusAttachment = (SyllabusAttachment)iter2.next();
-					String oldId = syllabusAttachment.getAttachmentId();
-					ContentResource newAttachment = externalLogic.copyAttachment(oldId);
-
-					if(newAttachment != null) {
-						CourseArchiveAttachment attachment = new CourseArchiveAttachment(syllabus);
-						attachment.setName(newAttachment.getProperties().getProperty(ResourceProperties.PROP_DISPLAY_NAME));
-						attachment.setType(newAttachment.getContentType());
-						attachment.setResourceId(newAttachment.getId());
-						attachment.setResourceURL(newAttachment.getUrl());
-						dao.save(attachment);
-					}
-				}
+			if(newAttachment != null) {
+				CourseArchiveAttachment attachment = new CourseArchiveAttachment(syllabus);
+				attachment.setName(newAttachment.getProperties().getProperty(ResourceProperties.PROP_DISPLAY_NAME));
+				attachment.setType(newAttachment.getContentType());
+				attachment.setResourceId(newAttachment.getId());
+				attachment.setResourceURL(newAttachment.getUrl());
+				dao.save(attachment);
 			}
 		}
 	}

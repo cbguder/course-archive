@@ -178,7 +178,7 @@
 
 				<sakai:button_bar>
 					<h:commandButton value="#{msgs.edit}" action="#{CourseArchiveBean.processActionEdit}" rendered="#{CourseArchiveBean.itemCanEdit}"/>
-					<h:commandButton value="Archive Syllabi" action="#{CourseArchiveBean.processActionArchiveSyllabi}" rendered="#{CourseArchiveBean.itemCanEdit}"/>
+					<h:commandButton value="Archive Syllabi" action="#{CourseArchiveBean.processActionSelectSyllabi}" rendered="#{CourseArchiveBean.itemCanEdit}"/>
 				</sakai:button_bar>
 			</h:form>
 		</sakai:view_content>

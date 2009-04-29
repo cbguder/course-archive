@@ -12,6 +12,9 @@
 package org.sakaiproject.coursearchive.logic;
 
 import java.util.List;
+import java.util.Set;
+
+import org.sakaiproject.api.app.syllabus.SyllabusData;
 
 import org.sakaiproject.coursearchive.model.CourseArchiveAssignment;
 import org.sakaiproject.coursearchive.model.CourseArchiveAttachment;
@@ -82,5 +85,7 @@ public interface CourseArchiveLogic {
 
 	public void mergeItems(List<CourseArchiveItem> items);
 
-	public void archiveSyllabi(CourseArchiveItem item);
+	public Set getSyllabiForSiteId(String siteId);
+
+	public void archiveSyllabi(CourseArchiveItem item, SyllabusData syllabusData);
 }

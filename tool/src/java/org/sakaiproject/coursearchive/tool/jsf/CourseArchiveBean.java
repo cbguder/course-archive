@@ -14,6 +14,7 @@ package org.sakaiproject.coursearchive.tool.jsf;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -22,6 +23,8 @@ import javax.faces.model.ListDataModel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import org.sakaiproject.api.app.syllabus.SyllabusData;
 
 import org.sakaiproject.coursearchive.logic.CourseArchiveLogic;
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
@@ -43,6 +46,7 @@ public class CourseArchiveBean {
 	private DataModel itemStudents;
 	private DataModel itemAssignments;
 	private DataModel itemSyllabi;
+	private DataModel siteSyllabi;
 	private DataModel syllabusAttachments;
 
 	private CourseArchiveItemWrapper currentItem = null;
@@ -261,11 +265,30 @@ public class CourseArchiveBean {
 		return "mergedItems";
 	}
 
-	public String processActionArchiveSyllabi() {
-		logic.archiveSyllabi(currentItem.getItem());
-		itemSyllabi = new ListDataModel(logic.getItemSyllabi(currentItem.getItem()));
+	public String processActionSelectSyllabi() {
+		ArrayList siteSyllabiList = new ArrayList();
+		Set siteSyllabiSet = logic.getSyllabiForSiteId(currentItem.getItem().getSiteId());
+		for(Iterator iter = siteSyllabiSet.iterator(); iter.hasNext();) {
+			siteSyllabiList.add(new SyllabusDataWrapper((SyllabusData)iter.next()));
+		}
+		siteSyllabi = new ListDataModel(siteSyllabiList);
+		return "selectSyllabi";
+	}
 
-		String message = "Archived " + itemSyllabi.getRowCount() + " syllabus items.";
+	public String processActionArchiveSyllabi() {
+		int archivedCount = 0;
+
+		List syllabi = (List)siteSyllabi.getWrappedData();
+		for(Iterator iter = syllabi.iterator(); iter.hasNext();) {
+			SyllabusDataWrapper wrapper = (SyllabusDataWrapper)iter.next();
+			if(wrapper.isSelected()) {
+				logic.archiveSyllabi(currentItem.getItem(), wrapper.getData());
+				archivedCount++;
+			}
+		}
+
+		itemSyllabi = new ListDataModel(logic.getItemSyllabi(currentItem.getItem()));
+		String message = "Archived " + archivedCount + " syllabus items.";
 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		fc.addMessage("itemDetails", new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
@@ -479,6 +502,9 @@ public class CourseArchiveBean {
 	}
 	public DataModel getItemSyllabi() {
 		return itemSyllabi;
+	}
+	public DataModel getSiteSyllabi() {
+		return siteSyllabi;
 	}
 	public DataModel getSyllabusAttachments() {
 		return syllabusAttachments;
