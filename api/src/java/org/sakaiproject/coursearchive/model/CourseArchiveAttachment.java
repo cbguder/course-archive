@@ -25,7 +25,7 @@ public class CourseArchiveAttachment {
 	/**
 	 * Full constructor
 	 */
-	public CourseArchiveAttachment(CourseArchiveSyllabus item, String name, String type, String resourceId, String resourceURL) {
+	public CourseArchiveAttachment(CourseArchiveSyllabus syllabus, String name, String type, String resourceId, String resourceURL) {
 		this.syllabus    = syllabus;
 		this.name        = name;
 		this.type        = type;
