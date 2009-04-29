@@ -19,6 +19,7 @@
 		<property name="toolManager" ref="org.sakaiproject.tool.api.ToolManager" />
 		<property name="userDirectoryService" ref="org.sakaiproject.user.api.UserDirectoryService" />
 		<property name="syllabusManager" ref="org.sakaiproject.api.app.syllabus.SyllabusManager" />
+		<property name="contentHostingService" ref="org.sakaiproject.content.api.ContentHostingService" />
 	</bean>
 
 	<!-- create a logic bean, give it the dao from above -->

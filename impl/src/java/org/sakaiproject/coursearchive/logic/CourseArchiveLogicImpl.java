@@ -27,6 +27,8 @@ import org.sakaiproject.api.app.syllabus.SyllabusAttachment;
 import org.sakaiproject.api.app.syllabus.SyllabusData;
 import org.sakaiproject.api.app.syllabus.SyllabusItem;
 
+import org.sakaiproject.content.api.ContentHostingService;
+
 import org.sakaiproject.coursearchive.dao.CourseArchiveDao;
 import org.sakaiproject.coursearchive.logic.CourseArchiveLogic;
 import org.sakaiproject.coursearchive.logic.ExternalLogic;

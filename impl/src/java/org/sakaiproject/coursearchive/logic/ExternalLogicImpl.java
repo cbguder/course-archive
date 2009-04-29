@@ -21,6 +21,9 @@ import org.apache.commons.logging.LogFactory;
 
 import org.sakaiproject.authz.api.FunctionManager;
 import org.sakaiproject.authz.api.SecurityService;
+
+import org.sakaiproject.content.api.ContentHostingService;
+
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
 import org.sakaiproject.exception.IdUnusedException;
 import org.sakaiproject.site.api.Site;
@@ -74,6 +77,11 @@ public class ExternalLogicImpl implements ExternalLogic {
 	private SyllabusManager syllabusManager;
 	public void setSyllabusManager(SyllabusManager syllabusManager) {
 		this.syllabusManager = syllabusManager;
+	}
+
+	private ContentHostingService contentHostingService;
+	public void setContentHostingService(ContentHostingService contentHostingService) {
+		this.contentHostingService = contentHostingService;
 	}
 
 

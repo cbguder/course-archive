@@ -62,6 +62,11 @@
 
 		<dependency>
 			<groupId>org.sakaiproject</groupId>
+			<artifactId>sakai-content-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.sakaiproject</groupId>
 			<artifactId>sakai-entity-api</artifactId>
 		</dependency>
 
