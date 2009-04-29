@@ -39,7 +39,7 @@
 						<f:facet name="header">
 							<h:outputText value="Title"/>
 						</f:facet>
-						<h:outputText value="#{entry.data.title}"/>
+						<h:outputText value="#{entry.item.title}"/>
 					</h:column>
 				</h:dataTable>
 

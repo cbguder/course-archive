@@ -95,7 +95,7 @@ public class CourseArchiveBean {
 	public String processActionAddAssignment() {
 		List assignments = (List)itemAssignments.getWrappedData();
 		CourseArchiveAssignment assignment = new CourseArchiveAssignment(currentItem.getItem());
-		CourseArchiveAssignmentWrapper wrapper = new CourseArchiveAssignmentWrapper(assignment);
+		CourseArchiveWrapper<CourseArchiveAssignment> wrapper = new CourseArchiveWrapper<CourseArchiveAssignment>(assignment);
 		assignments.add(wrapper);
 		itemAssignments.setWrappedData(assignments);
 
@@ -210,7 +210,7 @@ public class CourseArchiveBean {
 			List items = (List)itemAssignments.getWrappedData();
 
 			for(Iterator iter = items.iterator(); iter.hasNext();) {
-				CourseArchiveAssignmentWrapper wrapper = (CourseArchiveAssignmentWrapper)iter.next();
+				CourseArchiveWrapper<CourseArchiveAssignment> wrapper = (CourseArchiveWrapper<CourseArchiveAssignment>)iter.next();
 				CourseArchiveAssignment assignment = wrapper.getItem();
 
 				if(wrapper.isSelected()) {
@@ -269,7 +269,7 @@ public class CourseArchiveBean {
 		ArrayList siteSyllabiList = new ArrayList();
 		Set siteSyllabiSet = logic.getSyllabiForSiteId(currentItem.getItem().getSiteId());
 		for(Iterator iter = siteSyllabiSet.iterator(); iter.hasNext();) {
-			siteSyllabiList.add(new SyllabusDataWrapper((SyllabusData)iter.next()));
+			siteSyllabiList.add(new CourseArchiveWrapper<SyllabusData>((SyllabusData)iter.next()));
 		}
 		siteSyllabi = new ListDataModel(siteSyllabiList);
 		return "selectSyllabi";
@@ -280,9 +280,9 @@ public class CourseArchiveBean {
 
 		List syllabi = (List)siteSyllabi.getWrappedData();
 		for(Iterator iter = syllabi.iterator(); iter.hasNext();) {
-			SyllabusDataWrapper wrapper = (SyllabusDataWrapper)iter.next();
+			CourseArchiveWrapper<SyllabusData> wrapper = (CourseArchiveWrapper<SyllabusData>)iter.next();
 			if(wrapper.isSelected()) {
-				logic.archiveSyllabi(currentItem.getItem(), wrapper.getData());
+				logic.archiveSyllabi(currentItem.getItem(), wrapper.getItem());
 				archivedCount++;
 			}
 		}
@@ -336,11 +336,11 @@ public class CourseArchiveBean {
 
 	public DataModel wrapAssignments(List assignments) {
 		log.debug("wrapping assignments for JSF datatable...");
-		List<CourseArchiveAssignmentWrapper> wrappedAssignments = new ArrayList<CourseArchiveAssignmentWrapper>();
+		List<CourseArchiveWrapper> wrappedAssignments = new ArrayList<CourseArchiveWrapper>();
 
 		for(Iterator iter = assignments.iterator(); iter.hasNext();) {
 			CourseArchiveAssignment item = (CourseArchiveAssignment)iter.next();
-			CourseArchiveAssignmentWrapper wrapper = new CourseArchiveAssignmentWrapper(item);
+			CourseArchiveWrapper<CourseArchiveAssignment> wrapper = new CourseArchiveWrapper<CourseArchiveAssignment>(item);
 			wrappedAssignments.add(wrapper);
 		}
 
