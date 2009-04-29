@@ -71,6 +71,8 @@ public interface CourseArchiveLogic {
 
 	public void removeAssignment(CourseArchiveAssignment assignment);
 
+	public void removeSyllabus(CourseArchiveSyllabus syllabus);
+
 	public List<CourseArchiveItem> searchItems(String query);
 
 	public List<CourseArchiveAssignment> getItemAssignments(CourseArchiveItem item);

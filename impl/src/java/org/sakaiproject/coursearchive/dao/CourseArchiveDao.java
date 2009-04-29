@@ -25,6 +25,7 @@ import org.sakaiproject.coursearchive.model.CourseArchiveItem;
 public interface CourseArchiveDao extends GeneralGenericDao {
 	public int updateItemId(Class<?> type, Long oldItemId, Long newItemId);
 	public int deleteByItemId(Class<?> type, Long itemId);
+	public int deleteBySyllabusId(Class<?> type, Long syllabusId);
 	public List<CourseArchiveItem> getUserItems(String userId);
 	public List<CourseArchiveItem> getUserItems(String userId, String term);
 }

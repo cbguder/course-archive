@@ -55,6 +55,15 @@ public class CourseArchiveDaoImpl extends HibernateGeneralGenericDao implements 
 		return query.executeUpdate();
 	}
 
+	public int deleteBySyllabusId(Class<?> type, Long syllabusId) {
+		String hql = "delete " + type.getName() + " where syllabusId = :syllabusId";
+
+		Query query = getSession().createQuery(hql);
+		query.setLong("syllabusId", syllabusId);
+
+		return query.executeUpdate();
+	}
+
 	public List<CourseArchiveItem> getUserItems(String userId) {
 		return getUserItems(userId, null);
 	}

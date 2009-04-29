@@ -202,7 +202,11 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		if(canDeleteItems(externalLogic.getCurrentUserId())) {
 			dao.deleteByItemId(CourseArchiveAssignment.class, item.getId());
 			dao.deleteByItemId(CourseArchiveStudent.class,    item.getId());
-			dao.deleteByItemId(CourseArchiveSyllabus.class,   item.getId());
+
+			List<CourseArchiveSyllabus> syllabi = getItemSyllabi(item);
+			for(Iterator<CourseArchiveSyllabus> iter = syllabi.iterator(); iter.hasNext();)
+				removeSyllabus(iter.next());
+
 			dao.delete(item);
 			log.info("Removing item: " + item.getId() + ":" + item.getCode());
 		} else {
@@ -216,7 +220,18 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		if(canWriteItem(item, externalLogic.getCurrentUserId())) {
 			dao.delete(assignment);
 		} else {
-			throw new SecurityException("Current user cannot uptade item " + item.getId() + " because they do not have permission");
+			throw new SecurityException("Current user cannot update item " + item.getId() + " because they do not have permission");
+		}
+	}
+
+	public void removeSyllabus(CourseArchiveSyllabus syllabus) {
+		CourseArchiveItem item = getItemById(syllabus.getItem().getId());
+
+		if(canWriteItem(item, externalLogic.getCurrentUserId())) {
+			dao.deleteBySyllabusId(CourseArchiveAttachment.class, syllabus.getId());
+			dao.delete(syllabus);
+		} else {
+			throw new SecurityException("Current user cannot update item " + item.getId() + " because they do not have permission");
 		}
 	}
 
