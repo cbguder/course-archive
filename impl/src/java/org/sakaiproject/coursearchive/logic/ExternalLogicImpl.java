@@ -19,22 +19,27 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.sakaiproject.api.app.syllabus.SyllabusData;
+import org.sakaiproject.api.app.syllabus.SyllabusItem;
+import org.sakaiproject.api.app.syllabus.SyllabusManager;
+
 import org.sakaiproject.authz.api.FunctionManager;
 import org.sakaiproject.authz.api.SecurityService;
 
 import org.sakaiproject.content.api.ContentHostingService;
 
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
+
 import org.sakaiproject.exception.IdUnusedException;
+
 import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService;
+
 import org.sakaiproject.tool.api.SessionManager;
 import org.sakaiproject.tool.api.ToolManager;
+
 import org.sakaiproject.user.api.UserDirectoryService;
 import org.sakaiproject.user.api.UserNotDefinedException;
-import org.sakaiproject.api.app.syllabus.SyllabusData;
-import org.sakaiproject.api.app.syllabus.SyllabusItem;
-import org.sakaiproject.api.app.syllabus.SyllabusManager;
 
 /**
  * This is the implementation for logic which is external to our app logic
