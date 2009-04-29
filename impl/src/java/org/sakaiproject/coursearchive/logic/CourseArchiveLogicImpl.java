@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -304,29 +305,87 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		if(externalLogic.isUserAdmin(externalLogic.getCurrentUserId())) {
 			CourseArchiveItem first   = items.get(0);
 			CourseArchiveItem newItem = new CourseArchiveItem(first);
-
 			ArrayList<String> codes   = new ArrayList<String>(items.size());
-			codes.add(first.getCode());
+
+			TreeSet<String> otherInstructors = new TreeSet<String>();
+			TreeSet<String> assistants       = new TreeSet<String>();
+
+			int A       = 0;
+			int A_MINUS = 0;
+			int B_PLUS  = 0;
+			int B       = 0;
+			int B_MINUS = 0;
+			int C_PLUS  = 0;
+			int C       = 0;
+			int C_MINUS = 0;
+			int D_PLUS  = 0;
+			int D       = 0;
+			int F       = 0;
 
 			Iterator<CourseArchiveItem> iter = items.iterator();
-			iter.next();
-
 			while(iter.hasNext()) {
 				CourseArchiveItem item = iter.next();
 				codes.add(item.getCode());
 
-				newItem.setA      (newItem.getA()       + item.getA());
-				newItem.setA_MINUS(newItem.getA_MINUS() + item.getA_MINUS());
-				newItem.setB_PLUS (newItem.getB_PLUS()  + item.getB_PLUS());
-				newItem.setB      (newItem.getB()       + item.getB());
-				newItem.setB_MINUS(newItem.getB_MINUS() + item.getB_MINUS());
-				newItem.setC_PLUS (newItem.getC_PLUS()  + item.getC_PLUS());
-				newItem.setC      (newItem.getC()       + item.getC());
-				newItem.setC_MINUS(newItem.getC_MINUS() + item.getC_MINUS());
-				newItem.setD_PLUS (newItem.getD_PLUS()  + item.getD_PLUS());
-				newItem.setD      (newItem.getD()       + item.getD());
-				newItem.setF      (newItem.getF()       + item.getF());
+				if(!item.getPrimaryInstructor().equals("") &&
+				   !item.getPrimaryInstructor().equals(first.getPrimaryInstructor())) {
+					otherInstructors.add(item.getPrimaryInstructor());
+				}
+
+				String[] itemOtherInstructors = item.getOtherInstructors().split("\r\n|\r|\n");
+				for(int i = 0; i < itemOtherInstructors.length; i++) {
+					String instructor = itemOtherInstructors[i].trim();
+					if(!instructor.equals("")) {
+						otherInstructors.add(instructor);
+					}
+				}
+
+				String[] itemAssistants = item.getAssistants().split("\r\n|\r|\n");
+				for(int i = 0; i < itemAssistants.length; i++) {
+					String assistant = itemAssistants[i].trim();
+					if(!assistant.equals("")) {
+						assistants.add(assistant);
+					}
+				}
+
+				A       += item.getA();
+				A_MINUS += item.getA_MINUS();
+				B_PLUS  += item.getB_PLUS();
+				B       += item.getB();
+				B_MINUS += item.getB_MINUS();
+				C_PLUS  += item.getC_PLUS();
+				C       += item.getC();
+				C_MINUS += item.getC_MINUS();
+				D_PLUS  += item.getD_PLUS();
+				D       += item.getD();
+				F       += item.getF();
 			}
+
+			StringBuilder itemOtherInstructors = new StringBuilder();
+			for(Iterator i = otherInstructors.iterator(); i.hasNext();) {
+				itemOtherInstructors.append(i.next());
+				itemOtherInstructors.append("\n");
+			}
+			newItem.setOtherInstructors(itemOtherInstructors.toString().trim());
+
+			StringBuilder itemAssistants = new StringBuilder();
+			for(Iterator i = assistants.iterator(); i.hasNext();) {
+				itemAssistants.append(i.next());
+				itemAssistants.append("\n");
+			}
+			newItem.setAssistants(itemAssistants.toString().trim());
+
+			newItem.setA      (A);
+			newItem.setA_MINUS(A_MINUS);
+			newItem.setB_PLUS (B_PLUS);
+			newItem.setB      (B);
+			newItem.setB_MINUS(B_MINUS);
+			newItem.setC_PLUS (C_PLUS);
+			newItem.setC      (C);
+			newItem.setC_MINUS(C_MINUS);
+			newItem.setD_PLUS (D_PLUS);
+			newItem.setD      (D);
+			newItem.setF      (F);
 
 			newItem.setCode(mergeCodes(codes));
 			newItem.setDateCreated(new Date());
@@ -337,6 +396,7 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 				CourseArchiveItem item = iter.next();
 				dao.updateItemId(CourseArchiveStudent.class,    item.getId(), newItem.getId());
 				dao.updateItemId(CourseArchiveAssignment.class, item.getId(), newItem.getId());
+				dao.updateItemId(CourseArchiveSyllabus.class,   item.getId(), newItem.getId());
 				dao.delete(item);
 			}
 		} else {

@@ -53,6 +53,7 @@ public class CourseArchiveItem {
 		this.ownerId           = ownerId;
 		this.dateCreated       = dateCreated;
 
+		this.siteId            = "";
 		this.code              = "";
 		this.name              = "";
 		this.term              = "";
@@ -69,6 +70,8 @@ public class CourseArchiveItem {
 	 * Copy constructor
 	 */
 	public CourseArchiveItem(CourseArchiveItem item) {
+		this();
+
 		this.ownerId = item.ownerId;
 
 		this.code = item.code;
