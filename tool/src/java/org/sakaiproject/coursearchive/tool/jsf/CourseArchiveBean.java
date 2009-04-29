@@ -252,23 +252,6 @@ public class CourseArchiveBean {
 			return "mergedItems";
 		}
 
-		String ownerId = toMerge.get(0).getOwnerId();
-		boolean ownersMatch = true;
-
-		for(Iterator iter = toMerge.iterator(); iter.hasNext();) {
-			CourseArchiveItem item = (CourseArchiveItem)iter.next();
-			if(!item.getOwnerId().equals(ownerId)) {
-				ownersMatch = false;
-				break;
-			}
-		}
-
-		if(!ownersMatch) {
-			String message = "Items to merge must belong to the same user.";
-			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
-			return "mergedItems";
-		}
-
 		logic.mergeItems(toMerge);
 
 		String message = "Merged " + toMerge.size() + " items";
