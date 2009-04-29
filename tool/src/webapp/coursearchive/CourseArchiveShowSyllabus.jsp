@@ -21,6 +21,24 @@
 			<sakai:view_title value="#{CourseArchiveBean.currentSyllabus.title}"/>
 
 			<h:outputText value="#{CourseArchiveBean.currentSyllabus.asset}" escape="false"/>
+
+			<sakai:view_title value="Attachments"/>
+
+			<h:dataTable
+				value="#{CourseArchiveBean.syllabusAttachments}"
+				var="entry"
+				headerClass="headerAlignment"
+				styleClass="listHier">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="#{msgs.attachment_name}"/>
+					</f:facet>
+					<h:outputLink value="#{entry.resourceURL}">
+						<h:outputText value="#{entry.name}"/>
+					</h:outputLink>
+				</h:column>
+			</h:dataTable>
+
 		</sakai:view_content>
 	</sakai:view_container>
 </f:view>

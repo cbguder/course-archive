@@ -14,6 +14,7 @@ package org.sakaiproject.coursearchive.logic;
 import java.util.List;
 
 import org.sakaiproject.coursearchive.model.CourseArchiveAssignment;
+import org.sakaiproject.coursearchive.model.CourseArchiveAttachment;
 import org.sakaiproject.coursearchive.model.CourseArchiveItem;
 import org.sakaiproject.coursearchive.model.CourseArchiveStudent;
 import org.sakaiproject.coursearchive.model.CourseArchiveSyllabus;
@@ -74,6 +75,8 @@ public interface CourseArchiveLogic {
 	public List<CourseArchiveStudent> getItemStudents(CourseArchiveItem item);
 
 	public List<CourseArchiveSyllabus> getItemSyllabi(CourseArchiveItem item);
+
+	public List<CourseArchiveAttachment> getSyllabusAttachments(CourseArchiveSyllabus syllabus);
 
 	public long getItemEnrollment(CourseArchiveItem item);
 

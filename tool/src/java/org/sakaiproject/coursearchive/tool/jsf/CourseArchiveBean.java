@@ -43,6 +43,7 @@ public class CourseArchiveBean {
 	private DataModel itemStudents;
 	private DataModel itemAssignments;
 	private DataModel itemSyllabi;
+	private DataModel syllabusAttachments;
 
 	private CourseArchiveItemWrapper currentItem = null;
 	private CourseArchiveLogic logic;
@@ -164,6 +165,7 @@ public class CourseArchiveBean {
 
 	public String processActionShowSyllabus() {
 		currentSyllabus = (CourseArchiveSyllabus)itemSyllabi.getRowData();
+		syllabusAttachments = new ListDataModel(logic.getSyllabusAttachments(currentSyllabus));
 		return "showSyllabus";
 	}
 
@@ -494,6 +496,9 @@ public class CourseArchiveBean {
 	}
 	public DataModel getItemSyllabi() {
 		return itemSyllabi;
+	}
+	public DataModel getSyllabusAttachments() {
+		return syllabusAttachments;
 	}
 	public CourseArchiveSyllabus getCurrentSyllabus() {
 		return currentSyllabus;

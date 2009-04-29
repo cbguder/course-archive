@@ -31,6 +31,7 @@ import org.sakaiproject.coursearchive.dao.CourseArchiveDao;
 import org.sakaiproject.coursearchive.logic.CourseArchiveLogic;
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
 import org.sakaiproject.coursearchive.model.CourseArchiveAssignment;
+import org.sakaiproject.coursearchive.model.CourseArchiveAttachment;
 import org.sakaiproject.coursearchive.model.CourseArchiveItem;
 import org.sakaiproject.coursearchive.model.CourseArchiveStudent;
 import org.sakaiproject.coursearchive.model.CourseArchiveSyllabus;
@@ -179,6 +180,10 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 
 	public List<CourseArchiveSyllabus> getItemSyllabi(CourseArchiveItem item) {
 		return dao.findBySearch(CourseArchiveSyllabus.class, new Search("item.id", item.getId()));
+	}
+
+	public List<CourseArchiveAttachment> getSyllabusAttachments(CourseArchiveSyllabus syllabus) {
+		return dao.findBySearch(CourseArchiveAttachment.class, new Search("syllabus.id", syllabus.getId()));
 	}
 
 	/* (non-Javadoc)
