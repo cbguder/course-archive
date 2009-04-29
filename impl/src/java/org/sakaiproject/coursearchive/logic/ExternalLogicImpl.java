@@ -27,8 +27,11 @@ import org.sakaiproject.authz.api.FunctionManager;
 import org.sakaiproject.authz.api.SecurityService;
 
 import org.sakaiproject.content.api.ContentHostingService;
+import org.sakaiproject.content.api.ContentResource;
 
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
+
+import org.sakaiproject.entity.api.ResourceProperties;
 
 import org.sakaiproject.exception.IdUnusedException;
 
@@ -205,5 +208,22 @@ public class ExternalLogicImpl implements ExternalLogic {
 
 	public Set getSyllabusAttachmentsForSyllabusData(SyllabusData syllabusData) {
 		return syllabusManager.getSyllabusAttachmentsForSyllabusData(syllabusData);
+	}
+
+	public ContentResource copyAttachment(String oldId) {
+		try {
+			ContentResource oldAttachment = contentHostingService.getResource(oldId);
+			ContentResource newAttachment = contentHostingService.addAttachmentResource(
+				oldAttachment.getProperties().getProperty(ResourceProperties.PROP_DISPLAY_NAME),
+				"course-archive",
+				"syllabus",
+				oldAttachment.getContentType(),
+				oldAttachment.getContent(),
+				oldAttachment.getProperties());
+
+			return newAttachment;
+		} catch(Exception e) {
+			return null;
+		}
 	}
 }

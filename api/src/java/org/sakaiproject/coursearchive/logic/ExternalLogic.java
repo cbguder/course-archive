@@ -13,6 +13,8 @@ package org.sakaiproject.coursearchive.logic;
 
 import java.util.Set;
 
+import org.sakaiproject.content.api.ContentResource;
+
 import org.sakaiproject.api.app.syllabus.SyllabusData;
 import org.sakaiproject.api.app.syllabus.SyllabusItem;
 
@@ -75,4 +77,5 @@ public interface ExternalLogic {
 	public SyllabusItem getSyllabusItemBySiteId(String siteId);
 	public Set getSyllabiForSyllabusItem(SyllabusItem syllabusItem);
 	public Set getSyllabusAttachmentsForSyllabusData(SyllabusData syllabusData);
+	public ContentResource copyAttachment(String oldId);
 }

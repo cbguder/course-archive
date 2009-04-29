@@ -29,6 +29,7 @@ import org.sakaiproject.api.app.syllabus.SyllabusData;
 import org.sakaiproject.api.app.syllabus.SyllabusItem;
 
 import org.sakaiproject.content.api.ContentHostingService;
+import org.sakaiproject.content.api.ContentResource;
 
 import org.sakaiproject.coursearchive.dao.CourseArchiveDao;
 import org.sakaiproject.coursearchive.logic.CourseArchiveLogic;
@@ -38,6 +39,8 @@ import org.sakaiproject.coursearchive.model.CourseArchiveAttachment;
 import org.sakaiproject.coursearchive.model.CourseArchiveItem;
 import org.sakaiproject.coursearchive.model.CourseArchiveStudent;
 import org.sakaiproject.coursearchive.model.CourseArchiveSyllabus;
+
+import org.sakaiproject.entity.api.ResourceProperties;
 
 import org.sakaiproject.genericdao.api.search.Order;
 import org.sakaiproject.genericdao.api.search.Restriction;
@@ -421,6 +424,23 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 				SyllabusData syllabusData = (SyllabusData)iter.next();
 				CourseArchiveSyllabus syllabus = new CourseArchiveSyllabus(item, syllabusData.getTitle(), syllabusData.getAsset());
 				dao.save(syllabus);
+
+				Set attachments = externalLogic.getSyllabusAttachmentsForSyllabusData(syllabusData);
+
+				for(Iterator iter2 = attachments.iterator(); iter2.hasNext();) {
+					SyllabusAttachment syllabusAttachment = (SyllabusAttachment)iter2.next();
+					String oldId = syllabusAttachment.getAttachmentId();
+					ContentResource newAttachment = externalLogic.copyAttachment(oldId);
+
+					if(newAttachment != null) {
+						CourseArchiveAttachment attachment = new CourseArchiveAttachment(syllabus);
+						attachment.setName(newAttachment.getProperties().getProperty(ResourceProperties.PROP_DISPLAY_NAME));
+						attachment.setType(newAttachment.getContentType());
+						attachment.setResourceId(newAttachment.getId());
+						attachment.setResourceURL(newAttachment.getUrl());
+						dao.save(attachment);
+					}
+				}
 			}
 		}
 	}
