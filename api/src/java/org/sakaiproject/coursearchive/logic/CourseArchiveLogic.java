@@ -63,6 +63,8 @@ public interface CourseArchiveLogic {
 
 	public void saveAssignment(CourseArchiveAssignment assignment);
 
+	public void saveSyllabus(CourseArchiveSyllabus syllabus);
+
 	/**
 	 * Remove an item
 	 * @param item the CourseArchiveItem to remove

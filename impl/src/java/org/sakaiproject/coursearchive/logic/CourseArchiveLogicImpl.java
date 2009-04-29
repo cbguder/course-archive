@@ -266,6 +266,16 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		}
 	}
 
+	public void saveSyllabus(CourseArchiveSyllabus syllabus) {
+		CourseArchiveItem item = getItemById(syllabus.getItem().getId());
+
+		if(canWriteItem(item, externalLogic.getCurrentUserId())) {
+			dao.save(syllabus);
+		} else {
+			throw new SecurityException("Current user cannot update item " + item.getId() + " because they do not have permission");
+		}
+	}
+
 	protected String commonPrefix(List<String> strings) {
 		int stringCount = strings.size();
 

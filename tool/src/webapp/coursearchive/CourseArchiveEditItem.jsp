@@ -158,6 +158,29 @@
 
 				<h:commandButton value="Add New Grade" action="#{CourseArchiveBean.processActionAddAssignment}"/>
 
+				<sakai:view_title value="Syllabi"/>
+
+				<h:dataTable
+					value="#{CourseArchiveBean.itemSyllabi}"
+					var="entry"
+					headerClass="headerAlignment"
+					columnClasses="deleteCol,titleCol"
+					styleClass="listHier">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.assignment_delete}"/>
+						</f:facet>
+						<h:selectBooleanCheckbox id="itemSelect" value="#{entry.selected}"/>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="#{msgs.assignment_title}"/>
+						</f:facet>
+						<h:inputText value="#{entry.item.title}"/>
+					</h:column>
+				</h:dataTable>
+
 				<sakai:button_bar>
 					<h:commandButton styleClass="active" accesskey="s" value="#{msgs.save}" action="#{CourseArchiveBean.processActionUpdate}"/>
 					<h:commandButton accesskey="x" value="#{msgs.cancel}" action="#{CourseArchiveBean.processActionShow}"/>

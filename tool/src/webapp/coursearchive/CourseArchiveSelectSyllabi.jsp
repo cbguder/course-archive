@@ -26,8 +26,8 @@
 					value="#{CourseArchiveBean.siteSyllabi}"
 					var="entry"
 					headerClass="headerAlignment"
-					columnClasses="deleteCol,nameCol"
-					styleClass="listHier assignmentsTable">
+					columnClasses="deleteCol,titleCol"
+					styleClass="listHier">
 					<h:column>
 						<f:facet name="header">
 							<h:outputText value="Archive?"/>

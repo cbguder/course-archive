@@ -171,7 +171,7 @@
 							<h:outputText value="#{msgs.syllabus_title}"/>
 						</f:facet>
 						<h:commandLink id="showlink" action="#{CourseArchiveBean.processActionShowSyllabus}">
-							<h:outputText value="#{entry.title}"/>
+							<h:outputText value="#{entry.item.title}"/>
 						</h:commandLink>
 					</h:column>
 				</h:dataTable>

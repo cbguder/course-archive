@@ -151,7 +151,7 @@ public class CourseArchiveBean {
 	public String processActionShow() {
 		if(currentItem == null) { loadCurrentItem(); }
 		itemAssignments = wrapAssignments(logic.getItemAssignments(currentItem.getItem()));
-		itemSyllabi = new ListDataModel(logic.getItemSyllabi(currentItem.getItem()));
+		itemSyllabi = wrapSyllabi(logic.getItemSyllabi(currentItem.getItem()));
 		return "showItem";
 	}
 
@@ -168,7 +168,7 @@ public class CourseArchiveBean {
 	}
 
 	public String processActionShowSyllabus() {
-		currentSyllabus = (CourseArchiveSyllabus)itemSyllabi.getRowData();
+		currentSyllabus = ((CourseArchiveWrapper<CourseArchiveSyllabus>)itemSyllabi.getRowData()).getItem();
 		syllabusAttachments = new ListDataModel(logic.getSyllabusAttachments(currentSyllabus));
 		return "showSyllabus";
 	}
@@ -207,9 +207,9 @@ public class CourseArchiveBean {
 
 			logic.saveItem(item);
 
-			List items = (List)itemAssignments.getWrappedData();
+			List assignments = (List)itemAssignments.getWrappedData();
 
-			for(Iterator iter = items.iterator(); iter.hasNext();) {
+			for(Iterator iter = assignments.iterator(); iter.hasNext();) {
 				CourseArchiveWrapper<CourseArchiveAssignment> wrapper = (CourseArchiveWrapper<CourseArchiveAssignment>)iter.next();
 				CourseArchiveAssignment assignment = wrapper.getItem();
 
@@ -222,6 +222,21 @@ public class CourseArchiveBean {
 					String title = assignment.getTitle();
 					if(title != null && !title.equals("")) {
 						logic.saveAssignment(assignment);
+					}
+				}
+			}
+
+			List syllabi = (List)itemSyllabi.getWrappedData();
+			for(Iterator iter = syllabi.iterator(); iter.hasNext();) {
+				CourseArchiveWrapper<CourseArchiveSyllabus> wrapper = (CourseArchiveWrapper<CourseArchiveSyllabus>)iter.next();
+				CourseArchiveSyllabus syllabus = wrapper.getItem();
+
+				if(wrapper.isSelected()) {
+					logic.removeSyllabus(syllabus);
+				} else {
+					String title = syllabus.getTitle();
+					if(title != null && !title.equals("")) {
+						logic.saveSyllabus(syllabus);
 					}
 				}
 			}
@@ -287,7 +302,7 @@ public class CourseArchiveBean {
 			}
 		}
 
-		itemSyllabi = new ListDataModel(logic.getItemSyllabi(currentItem.getItem()));
+		itemSyllabi = wrapSyllabi(logic.getItemSyllabi(currentItem.getItem()));
 		String message = "Archived " + archivedCount + " syllabus items.";
 
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -345,6 +360,19 @@ public class CourseArchiveBean {
 		}
 
 		return new ListDataModel(wrappedAssignments);
+	}
+
+	public DataModel wrapSyllabi(List syllabi) {
+		log.debug("wrapping syllabi for JSF datatable...");
+		List<CourseArchiveWrapper> wrappedSyllabi = new ArrayList<CourseArchiveWrapper>();
+
+		for(Iterator iter = syllabi.iterator(); iter.hasNext();) {
+			CourseArchiveSyllabus item = (CourseArchiveSyllabus)iter.next();
+			CourseArchiveWrapper<CourseArchiveSyllabus> wrapper = new CourseArchiveWrapper<CourseArchiveSyllabus>(item);
+			wrappedSyllabi.add(wrapper);
+		}
+
+		return new ListDataModel(wrappedSyllabi);
 	}
 
 	public void resetItem() {
