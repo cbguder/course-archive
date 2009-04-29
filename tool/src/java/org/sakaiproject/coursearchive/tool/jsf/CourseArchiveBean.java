@@ -133,7 +133,7 @@ public class CourseArchiveBean {
 	public String processActionSearch() {
 		currentItem = null;
 
-		if(searchQuery == null || searchQuery == "") {
+		if(searchQuery == null || searchQuery.equals("")) {
 			itemsModel = wrapItems(logic.getUserItems());
 			hasMore    = true;
 		} else {
