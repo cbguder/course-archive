@@ -226,4 +226,11 @@ public class ExternalLogicImpl implements ExternalLogic {
 			return null;
 		}
 	}
+
+	public void removeAttachment(String resourceId) {
+		try {
+			contentHostingService.removeResource(resourceId);
+		} catch(Exception e) {
+		}
+	}
 }

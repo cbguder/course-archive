@@ -228,6 +228,10 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		CourseArchiveItem item = getItemById(syllabus.getItem().getId());
 
 		if(canWriteItem(item, externalLogic.getCurrentUserId())) {
+			List<CourseArchiveAttachment> attachments = getSyllabusAttachments(syllabus);
+			for(Iterator<CourseArchiveAttachment> iter = attachments.iterator(); iter.hasNext();)
+				externalLogic.removeAttachment(iter.next().getResourceId());
+
 			dao.deleteBySyllabusId(CourseArchiveAttachment.class, syllabus.getId());
 			dao.delete(syllabus);
 		} else {
