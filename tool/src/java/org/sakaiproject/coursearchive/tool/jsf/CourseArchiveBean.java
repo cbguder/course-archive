@@ -14,12 +14,15 @@ package org.sakaiproject.coursearchive.tool.jsf;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.faces.model.SelectItem;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -30,6 +33,7 @@ import org.sakaiproject.coursearchive.logic.CourseArchiveLogic;
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
 
 import org.sakaiproject.coursearchive.model.CourseArchiveAssignment;
+import org.sakaiproject.coursearchive.model.CourseArchiveAssignmentType;
 import org.sakaiproject.coursearchive.model.CourseArchiveItem;
 import org.sakaiproject.coursearchive.model.CourseArchiveSyllabus;
 
@@ -41,6 +45,8 @@ import org.sakaiproject.coursearchive.model.CourseArchiveSyllabus;
 public class CourseArchiveBean {
 
 	private static Log log = LogFactory.getLog(CourseArchiveBean.class);
+
+	private List<SelectItem> assignmentTypes;
 
 	private DataModel itemsModel;
 	private DataModel itemStudents;
@@ -124,6 +130,16 @@ public class CourseArchiveBean {
 
 	public String processActionEdit() {
 		if(currentItem == null) { loadCurrentItem(); }
+
+		if(assignmentTypes == null) {
+			assignmentTypes = new ArrayList<SelectItem>();
+			List<CourseArchiveAssignmentType> types = logic.getAssignmentTypes();
+
+			for(CourseArchiveAssignmentType type:types) {
+				assignmentTypes.add(new SelectItem(type, type.getName()));
+			}
+		}
+
 		return "editItem";
 	}
 
@@ -219,8 +235,7 @@ public class CourseArchiveBean {
 						logic.removeAssignment(assignment);
 					}
 				} else {
-					String title = assignment.getTitle();
-					if(title != null && !title.equals("")) {
+					if(assignment.getType() != null) {
 						logic.saveAssignment(assignment);
 					}
 				}
@@ -426,6 +441,10 @@ public class CourseArchiveBean {
 		itemCanEdit = currentItem.isCanEdit();
 	}
 
+	public CourseArchiveAssignmentType getAssignmentTypeById(Long id) {
+		return logic.getAssignmentTypeById(id);
+	}
+
 	/**
 	 * User Management
 	 */
@@ -441,6 +460,9 @@ public class CourseArchiveBean {
 	/**
 	 * Getters and Setters
 	 */
+	public List<SelectItem> getAssignmentTypes() {
+		return assignmentTypes;
+	}
 	public void setLogic(CourseArchiveLogic logic) {
 		this.logic = logic;
 	}

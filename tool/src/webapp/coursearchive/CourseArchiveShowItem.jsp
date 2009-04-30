@@ -109,9 +109,9 @@
 					styleClass="listHier">
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="#{msgs.assignment_title}"/>
+							<h:outputText value="#{msgs.assignment_type}"/>
 						</f:facet>
-						<h:outputText value="#{entry.item.title}"/>
+						<h:outputText value="#{entry.item.type.name}"/>
 					</h:column>
 
 					<h:column>

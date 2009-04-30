@@ -17,6 +17,7 @@ import java.util.Set;
 import org.sakaiproject.api.app.syllabus.SyllabusData;
 
 import org.sakaiproject.coursearchive.model.CourseArchiveAssignment;
+import org.sakaiproject.coursearchive.model.CourseArchiveAssignmentType;
 import org.sakaiproject.coursearchive.model.CourseArchiveAttachment;
 import org.sakaiproject.coursearchive.model.CourseArchiveItem;
 import org.sakaiproject.coursearchive.model.CourseArchiveStudent;
@@ -84,6 +85,10 @@ public interface CourseArchiveLogic {
 	public List<CourseArchiveSyllabus> getItemSyllabi(CourseArchiveItem item);
 
 	public List<CourseArchiveAttachment> getSyllabusAttachments(CourseArchiveSyllabus syllabus);
+
+	public CourseArchiveAssignmentType getAssignmentTypeById(Long id);
+
+	public List<CourseArchiveAssignmentType> getAssignmentTypes();
 
 	public long getItemEnrollment(CourseArchiveItem item);
 

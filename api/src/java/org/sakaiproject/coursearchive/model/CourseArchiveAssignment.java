@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class CourseArchiveAssignment {
 	private Long id;
-	private String title;
+	private CourseArchiveAssignmentType type;
 	private double maxGrade;
 	private double meanGrade;
 	private double medianGrade;
@@ -18,19 +18,19 @@ public class CourseArchiveAssignment {
 	 * Default constructor
 	 */
 	public CourseArchiveAssignment() {
-		this(null, "", 100.0, 0.0, 0.0, 0.0, 0.0, new Date());
+		this(null);
 	}
 
 	public CourseArchiveAssignment(CourseArchiveItem item) {
-		this(item, "", 100.0, 0.0, 0.0, 0.0, 0.0, new Date());
+		this(item, null, 100.0, 0.0, 0.0, 0.0, 0.0, new Date());
 	}
 
 	/**
 	 * Full constructor
 	 */
-	public CourseArchiveAssignment(CourseArchiveItem item, String title, double maxGrade, double meanGrade, double medianGrade, double standardDeviation, double weight, Date date) {
+	public CourseArchiveAssignment(CourseArchiveItem item, CourseArchiveAssignmentType type, double maxGrade, double meanGrade, double medianGrade, double standardDeviation, double weight, Date date) {
 		this.item              = item;
-		this.title             = title;
+		this.type              = type;
 		this.maxGrade          = maxGrade;
 		this.meanGrade         = meanGrade;
 		this.medianGrade       = medianGrade;
@@ -47,11 +47,11 @@ public class CourseArchiveAssignment {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getTitle() {
-		return title;
+	public CourseArchiveAssignmentType getType() {
+		return type;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setType(CourseArchiveAssignmentType type) {
+		this.type = type;
 	}
 	public double getMaxGrade() {
 		return maxGrade;

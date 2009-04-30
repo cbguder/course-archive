@@ -106,9 +106,11 @@
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="#{msgs.assignment_title}"/>
+							<h:outputText value="#{msgs.assignment_type}"/>
 						</f:facet>
-						<h:inputText value="#{entry.item.title}"/>
+						<h:selectOneMenu value="#{entry.item.type}" converter="AssignmentTypeConverter">
+							<f:selectItems value="#{CourseArchiveBean.assignmentTypes}"/>
+						</h:selectOneMenu>
 					</h:column>
 
 					<h:column>
@@ -175,7 +177,7 @@
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText value="#{msgs.assignment_title}"/>
+							<h:outputText value="#{msgs.syllabus_title}"/>
 						</f:facet>
 						<h:inputText value="#{entry.item.title}"/>
 					</h:column>

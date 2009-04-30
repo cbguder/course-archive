@@ -36,6 +36,7 @@ import org.sakaiproject.coursearchive.dao.CourseArchiveDao;
 import org.sakaiproject.coursearchive.logic.CourseArchiveLogic;
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
 import org.sakaiproject.coursearchive.model.CourseArchiveAssignment;
+import org.sakaiproject.coursearchive.model.CourseArchiveAssignmentType;
 import org.sakaiproject.coursearchive.model.CourseArchiveAttachment;
 import org.sakaiproject.coursearchive.model.CourseArchiveItem;
 import org.sakaiproject.coursearchive.model.CourseArchiveStudent;
@@ -176,7 +177,14 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 	}
 
 	public List<CourseArchiveAssignment> getItemAssignments(CourseArchiveItem item) {
-		return dao.findBySearch(CourseArchiveAssignment.class, new Search("item.id", item.getId()));
+		List<CourseArchiveAssignment> assignments = dao.findBySearch(CourseArchiveAssignment.class, new Search("item.id", item.getId()));
+
+		for(Iterator<CourseArchiveAssignment> iter = assignments.iterator(); iter.hasNext();) {
+			CourseArchiveAssignment assignment = iter.next();
+			assignment.setType(dao.findById(CourseArchiveAssignmentType.class, assignment.getType().getId()));
+		}
+
+		return assignments;
 	}
 
 	public long getItemEnrollment(CourseArchiveItem item) {
@@ -193,6 +201,14 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 
 	public List<CourseArchiveAttachment> getSyllabusAttachments(CourseArchiveSyllabus syllabus) {
 		return dao.findBySearch(CourseArchiveAttachment.class, new Search("syllabus.id", syllabus.getId()));
+	}
+
+	public CourseArchiveAssignmentType getAssignmentTypeById(Long id) {
+		return dao.findById(CourseArchiveAssignmentType.class, id);
+	}
+
+	public List<CourseArchiveAssignmentType> getAssignmentTypes() {
+		return dao.findAll(CourseArchiveAssignmentType.class);
 	}
 
 	/* (non-Javadoc)

@@ -8,7 +8,8 @@
 		</id>
 		<many-to-one name="item" column="itemId" not-null="true"
 			class="org.sakaiproject.coursearchive.model.CourseArchiveItem"/>
-		<property name="title" type="string" length="255" not-null="true"/>
+		<many-to-one name="type" column="typeId" not-null="true"
+			class="org.sakaiproject.coursearchive.model.CourseArchiveAssignmentType"/>
 		<property name="maxGrade" type="double" not-null="true"/>
 		<property name="meanGrade" type="double" not-null="true"/>
 		<property name="medianGrade" type="double" not-null="true"/>

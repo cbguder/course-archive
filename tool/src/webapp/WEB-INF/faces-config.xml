@@ -152,4 +152,10 @@
 		<converter-id>NewlineConverter</converter-id>
 		<converter-class>org.sakaiproject.coursearchive.tool.jsf.NewlineConverter</converter-class>
 	</converter>
+
+	<converter>
+		<description>Converts AssignmentType to String and back.</description>
+		<converter-id>AssignmentTypeConverter</converter-id>
+		<converter-class>org.sakaiproject.coursearchive.tool.jsf.AssignmentTypeConverter</converter-class>
+	</converter>
 </faces-config>
