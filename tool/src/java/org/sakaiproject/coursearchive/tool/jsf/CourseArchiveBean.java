@@ -110,11 +110,10 @@ public class CourseArchiveBean {
 
 	public String processActionDelete() {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		List items = (List) itemsModel.getWrappedData();
+		List<CourseArchiveItemWrapper> items = (List<CourseArchiveItemWrapper>)itemsModel.getWrappedData();
 		int itemsRemoved = 0;
 
-		for(Iterator iter = items.iterator(); iter.hasNext();) {
-			CourseArchiveItemWrapper wrapper = (CourseArchiveItemWrapper)iter.next();
+		for(CourseArchiveItemWrapper wrapper:items) {
 			if(wrapper.isSelected()) {
 				logic.removeItem(wrapper.getItem());
 				itemsRemoved++;
@@ -223,10 +222,8 @@ public class CourseArchiveBean {
 
 			logic.saveItem(item);
 
-			List assignments = (List)itemAssignments.getWrappedData();
-
-			for(Iterator iter = assignments.iterator(); iter.hasNext();) {
-				CourseArchiveWrapper<CourseArchiveAssignment> wrapper = (CourseArchiveWrapper<CourseArchiveAssignment>)iter.next();
+			List<CourseArchiveWrapper> assignments = (List<CourseArchiveWrapper>)itemAssignments.getWrappedData();
+			for(CourseArchiveWrapper<CourseArchiveAssignment> wrapper:assignments) {
 				CourseArchiveAssignment assignment = wrapper.getItem();
 
 				if(wrapper.isSelected()) {
@@ -241,9 +238,8 @@ public class CourseArchiveBean {
 				}
 			}
 
-			List syllabi = (List)itemSyllabi.getWrappedData();
-			for(Iterator iter = syllabi.iterator(); iter.hasNext();) {
-				CourseArchiveWrapper<CourseArchiveSyllabus> wrapper = (CourseArchiveWrapper<CourseArchiveSyllabus>)iter.next();
+			List<CourseArchiveWrapper> syllabi = (List<CourseArchiveWrapper>)itemSyllabi.getWrappedData();
+			for(CourseArchiveWrapper<CourseArchiveSyllabus> wrapper:syllabi) {
 				CourseArchiveSyllabus syllabus = wrapper.getItem();
 
 				if(wrapper.isSelected()) {
@@ -270,11 +266,10 @@ public class CourseArchiveBean {
 
 	public String processActionMerge() {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		List items = (List) itemsModel.getWrappedData();
+		List<CourseArchiveItemWrapper> items = (List<CourseArchiveItemWrapper>)itemsModel.getWrappedData();
 		List<CourseArchiveItem> toMerge = new ArrayList<CourseArchiveItem>();
 
-		for(Iterator iter = items.iterator(); iter.hasNext();) {
-			CourseArchiveItemWrapper wrapper = (CourseArchiveItemWrapper)iter.next();
+		for(CourseArchiveItemWrapper wrapper:items) {
 			if(wrapper.isSelected()) {
 				toMerge.add(wrapper.getItem());
 			}
@@ -297,10 +292,12 @@ public class CourseArchiveBean {
 
 	public String processActionSelectSyllabi() {
 		ArrayList siteSyllabiList = new ArrayList();
-		Set siteSyllabiSet = logic.getSyllabiForSiteId(currentItem.getItem().getSiteId());
-		for(Iterator iter = siteSyllabiSet.iterator(); iter.hasNext();) {
-			siteSyllabiList.add(new CourseArchiveWrapper<SyllabusData>((SyllabusData)iter.next()));
+		Set<SyllabusData> siteSyllabiSet = logic.getSyllabiForSiteId(currentItem.getItem().getSiteId());
+
+		for(SyllabusData syllabusData:siteSyllabiSet) {
+			siteSyllabiList.add(new CourseArchiveWrapper<SyllabusData>(syllabusData));
 		}
+
 		siteSyllabi = new ListDataModel(siteSyllabiList);
 		return "selectSyllabi";
 	}
@@ -308,9 +305,8 @@ public class CourseArchiveBean {
 	public String processActionArchiveSyllabi() {
 		int archivedCount = 0;
 
-		List syllabi = (List)siteSyllabi.getWrappedData();
-		for(Iterator iter = syllabi.iterator(); iter.hasNext();) {
-			CourseArchiveWrapper<SyllabusData> wrapper = (CourseArchiveWrapper<SyllabusData>)iter.next();
+		List<CourseArchiveWrapper> syllabi = (List<CourseArchiveWrapper>)siteSyllabi.getWrappedData();
+		for(CourseArchiveWrapper<SyllabusData> wrapper:syllabi) {
 			if(wrapper.isSelected()) {
 				logic.archiveSyllabi(currentItem.getItem(), wrapper.getItem());
 				archivedCount++;
@@ -342,12 +338,11 @@ public class CourseArchiveBean {
 		return currentItem.getItem().getTitle();
 	}
 
-	public DataModel wrapItems(List items) {
+	public DataModel wrapItems(List<CourseArchiveItem> items) {
 		log.debug("wrapping items for JSF datatable...");
 		List<CourseArchiveItemWrapper> wrappedItems = new ArrayList<CourseArchiveItemWrapper>();
 
-		for(Iterator iter = items.iterator(); iter.hasNext();) {
-			CourseArchiveItem item = (CourseArchiveItem)iter.next();
+		for(CourseArchiveItem item:items) {
 			item.setEnrollment(logic.getItemEnrollment(item));
 			CourseArchiveItemWrapper wrapper = new CourseArchiveItemWrapper(item);
 
@@ -364,12 +359,11 @@ public class CourseArchiveBean {
 		return new ListDataModel(wrappedItems);
 	}
 
-	public DataModel wrapAssignments(List assignments) {
+	public DataModel wrapAssignments(List<CourseArchiveAssignment> assignments) {
 		log.debug("wrapping assignments for JSF datatable...");
 		List<CourseArchiveWrapper> wrappedAssignments = new ArrayList<CourseArchiveWrapper>();
 
-		for(Iterator iter = assignments.iterator(); iter.hasNext();) {
-			CourseArchiveAssignment item = (CourseArchiveAssignment)iter.next();
+		for(CourseArchiveAssignment item:assignments) {
 			CourseArchiveWrapper<CourseArchiveAssignment> wrapper = new CourseArchiveWrapper<CourseArchiveAssignment>(item);
 			wrappedAssignments.add(wrapper);
 		}
@@ -377,12 +371,11 @@ public class CourseArchiveBean {
 		return new ListDataModel(wrappedAssignments);
 	}
 
-	public DataModel wrapSyllabi(List syllabi) {
+	public DataModel wrapSyllabi(List<CourseArchiveSyllabus> syllabi) {
 		log.debug("wrapping syllabi for JSF datatable...");
 		List<CourseArchiveWrapper> wrappedSyllabi = new ArrayList<CourseArchiveWrapper>();
 
-		for(Iterator iter = syllabi.iterator(); iter.hasNext();) {
-			CourseArchiveSyllabus item = (CourseArchiveSyllabus)iter.next();
+		for(CourseArchiveSyllabus item:syllabi) {
 			CourseArchiveWrapper<CourseArchiveSyllabus> wrapper = new CourseArchiveWrapper<CourseArchiveSyllabus>(item);
 			wrappedSyllabi.add(wrapper);
 		}

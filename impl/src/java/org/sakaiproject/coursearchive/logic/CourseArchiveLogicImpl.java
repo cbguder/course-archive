@@ -179,8 +179,7 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 	public List<CourseArchiveAssignment> getItemAssignments(CourseArchiveItem item) {
 		List<CourseArchiveAssignment> assignments = dao.findBySearch(CourseArchiveAssignment.class, new Search("item.id", item.getId()));
 
-		for(Iterator<CourseArchiveAssignment> iter = assignments.iterator(); iter.hasNext();) {
-			CourseArchiveAssignment assignment = iter.next();
+		for(CourseArchiveAssignment assignment:assignments) {
 			assignment.setType(dao.findById(CourseArchiveAssignmentType.class, assignment.getType().getId()));
 		}
 
@@ -222,8 +221,8 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 			dao.deleteByItemId(CourseArchiveStudent.class,    item.getId());
 
 			List<CourseArchiveSyllabus> syllabi = getItemSyllabi(item);
-			for(Iterator<CourseArchiveSyllabus> iter = syllabi.iterator(); iter.hasNext();)
-				removeSyllabus(iter.next());
+			for(CourseArchiveSyllabus syllabus:syllabi)
+				removeSyllabus(syllabus);
 
 			dao.delete(item);
 			log.info("Removing item: " + item.getId() + ":" + item.getCode());
@@ -247,8 +246,9 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 
 		if(canWriteItem(item, externalLogic.getCurrentUserId())) {
 			List<CourseArchiveAttachment> attachments = getSyllabusAttachments(syllabus);
-			for(Iterator<CourseArchiveAttachment> iter = attachments.iterator(); iter.hasNext();)
-				externalLogic.removeAttachment(iter.next().getResourceId());
+
+			for(CourseArchiveAttachment attachment:attachments)
+				externalLogic.removeAttachment(attachment.getResourceId());
 
 			dao.deleteBySyllabusId(CourseArchiveAttachment.class, syllabus.getId());
 			dao.delete(syllabus);
@@ -308,8 +308,8 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		}
 
 		int minLength = Integer.MAX_VALUE;
-		for(Iterator<String> iter = strings.iterator(); iter.hasNext();) {
-			int len = iter.next().length();
+		for(String str:strings) {
+			int len = str.length();
 			if(len < minLength) {
 				minLength = len;
 			}
@@ -322,8 +322,8 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 			boolean notFound = false;
 			char c = first.charAt(i);
 
-			for(Iterator<String> iter = strings.iterator(); iter.hasNext();) {
-				if(iter.next().charAt(i) != c) {
+			for(String str:strings) {
+				if(str.charAt(i) != c) {
 					notFound = true;
 					break;
 				}
@@ -345,8 +345,8 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 
 		StringBuilder result = new StringBuilder(commonCodePrefix);
 
-		for(Iterator<String> iter = codes.iterator(); iter.hasNext();) {
-			result.append(iter.next().substring(prefixLength));
+		for(String code:codes) {
+			result.append(code.substring(prefixLength));
 		}
 
 		return result.toString();
@@ -413,15 +413,15 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 			}
 
 			StringBuilder itemOtherInstructors = new StringBuilder();
-			for(Iterator i = otherInstructors.iterator(); i.hasNext();) {
-				itemOtherInstructors.append(i.next());
+			for(String instructor:otherInstructors) {
+				itemOtherInstructors.append(instructor);
 				itemOtherInstructors.append("\n");
 			}
 			newItem.setOtherInstructors(itemOtherInstructors.toString().trim());
 
 			StringBuilder itemAssistants = new StringBuilder();
-			for(Iterator i = assistants.iterator(); i.hasNext();) {
-				itemAssistants.append(i.next());
+			for(String assistant:assistants) {
+				itemAssistants.append(assistant);
 				itemAssistants.append("\n");
 			}
 			newItem.setAssistants(itemAssistants.toString().trim());
@@ -472,11 +472,10 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 		CourseArchiveSyllabus syllabus = new CourseArchiveSyllabus(item, syllabusData.getTitle(), syllabusData.getAsset());
 		dao.save(syllabus);
 
-		Set attachments = externalLogic.getSyllabusAttachmentsForSyllabusData(syllabusData);
+		Set<SyllabusAttachment> attachments = externalLogic.getSyllabusAttachmentsForSyllabusData(syllabusData);
 
-		for(Iterator iter = attachments.iterator(); iter.hasNext();) {
-			SyllabusAttachment syllabusAttachment = (SyllabusAttachment)iter.next();
-			String oldId = syllabusAttachment.getAttachmentId();
+		for(SyllabusAttachment oldAttachment:attachments) {
+			String oldId = oldAttachment.getAttachmentId();
 			ContentResource newAttachment = externalLogic.copyAttachment(oldId);
 
 			if(newAttachment != null) {
