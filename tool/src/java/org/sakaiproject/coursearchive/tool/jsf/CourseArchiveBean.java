@@ -435,24 +435,6 @@ public class CourseArchiveBean {
 		return new ListDataModel(wrappedSyllabi);
 	}
 
-	public void resetItem() {
-		currentItem = null;
-		itemCode = "";
-		itemName = "";
-		itemTerm = "";
-		itemPrimaryInstructor = getCurrentUserDisplayName();
-		itemOtherInstructors = "";
-		itemAssistants = "";
-		itemEnrollment = 0;
-		itemComments = "";
-		itemSyllabusURL = "";
-		itemDelegateEid = "";
-		itemDelegateName = "";
-		itemPublic = false;
-		itemStudents = null;
-		itemSyllabi = null;
-	}
-
 	private void loadCurrentItem() {
 		currentItem = (CourseArchiveItemWrapper)itemsModel.getRowData();
 		reloadCurrentItem();

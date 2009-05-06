@@ -46,17 +46,6 @@ public interface ExternalLogic {
 	public String getUserDisplayName(String userId);
 
 	/**
-	 * @return the current location id of the current user
-	 */
-	public String getCurrentLocationId();
-
-	/**
-	 * @param locationId a unique id which represents the current location of the user (entity reference)
-	 * @return the title for the context or "--------" (8 hyphens) if none found
-	 */
-	public String getLocationTitle(String locationId);
-
-	/**
 	 * Check if this user has super admin access
 	 * @param userId the internal user id (not username)
 	 * @return true if the user has admin access, false otherwise

@@ -104,42 +104,6 @@ public class ExternalLogicImpl implements ExternalLogic {
 		functionManager.registerFunction(ITEM_READ_HIDDEN);
 	}
 
-
-	/* (non-Javadoc)
-	 * @see org.sakaiproject.coursearchive.logic.ExternalLogic#getCurrentLocationId()
-	 */
-	public String getCurrentLocationId() {
-		String location = null;
-		try {
-			String context = toolManager.getCurrentPlacement().getContext();
-			location  = context;
-//			  Site s = siteService.getSite( context );
-//			  location = s.getReference(); // get the entity reference to the site
-		} catch (Exception e) {
-			// sakai failed to get us a location so we can assume we are not inside the portal
-			return NO_LOCATION;
-		}
-		if(location == null) {
-			location = NO_LOCATION;
-		}
-		return location;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.sakaiproject.coursearchive.logic.ExternalLogic#getLocationTitle(java.lang.String)
-	 */
-	public String getLocationTitle(String locationId) {
-		String title = null;
-		try {
-			Site site = siteService.getSite(locationId);
-			title = site.getTitle();
-		} catch (IdUnusedException e) {
-			log.warn("Cannot get the info about locationId: " + locationId);
-			title = "----------";
-		}
-		return title;
-	}
-
 	/* (non-Javadoc)
 	 * @see org.sakaiproject.coursearchive.logic.ExternalLogic#getCurrentUserId()
 	 */
