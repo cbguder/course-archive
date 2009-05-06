@@ -77,6 +77,7 @@ public interface ExternalLogic {
 	public SyllabusItem getSyllabusItemBySiteId(String siteId);
 	public Set getSyllabiForSyllabusItem(SyllabusItem syllabusItem);
 	public Set getSyllabusAttachmentsForSyllabusData(SyllabusData syllabusData);
-	public ContentResource copyAttachment(String oldId);
-	public void removeAttachment(String resourceId);
+	public ContentResource addAttachmentResource(String name, String type, byte[] content);
+	public ContentResource copyAttachmentResource(String oldId);
+	public void removeAttachmentResource(String resourceId);
 }

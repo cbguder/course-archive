@@ -248,7 +248,7 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 			List<CourseArchiveAttachment> attachments = getSyllabusAttachments(syllabus);
 
 			for(CourseArchiveAttachment attachment:attachments)
-				externalLogic.removeAttachment(attachment.getResourceId());
+				externalLogic.removeAttachmentResource(attachment.getResourceId());
 
 			dao.deleteBySyllabusId(CourseArchiveAttachment.class, syllabus.getId());
 			dao.delete(syllabus);
@@ -476,16 +476,33 @@ public class CourseArchiveLogicImpl implements CourseArchiveLogic {
 
 		for(SyllabusAttachment oldAttachment:attachments) {
 			String oldId = oldAttachment.getAttachmentId();
-			ContentResource newAttachment = externalLogic.copyAttachment(oldId);
+			ContentResource newAttachment = externalLogic.copyAttachmentResource(oldId);
 
 			if(newAttachment != null) {
-				CourseArchiveAttachment attachment = new CourseArchiveAttachment(syllabus);
-				attachment.setName(newAttachment.getProperties().getProperty(ResourceProperties.PROP_DISPLAY_NAME));
-				attachment.setType(newAttachment.getContentType());
-				attachment.setResourceId(newAttachment.getId());
-				attachment.setResourceURL(newAttachment.getUrl());
-				dao.save(attachment);
+				createAttachment(syllabus, newAttachment);
 			}
+		}
+	}
+
+	public CourseArchiveAttachment createAttachment(CourseArchiveSyllabus syllabus, ContentResource resource) {
+		CourseArchiveAttachment attachment = new CourseArchiveAttachment(
+				syllabus,
+				resource.getProperties().getProperty(ResourceProperties.PROP_DISPLAY_NAME),
+				resource.getContentType(),
+				resource.getId(),
+				resource.getUrl());
+		dao.save(attachment);
+
+		return attachment;
+	}
+
+	public CourseArchiveAttachment createAttachment(CourseArchiveSyllabus syllabus, String name, String type, byte[] content) {
+		ContentResource resource = externalLogic.addAttachmentResource(name, type, content);
+
+		if(resource == null) {
+			return null;
+		} else {
+			return createAttachment(syllabus, resource);
 		}
 	}
 

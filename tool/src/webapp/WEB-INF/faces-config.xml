@@ -48,12 +48,32 @@
 			<to-view-id>/coursearchive/CourseArchiveItems.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
+			<from-outcome>addSyllabus</from-outcome>
+			<to-view-id>/coursearchive/CourseArchiveEditSyllabus.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
 			<from-outcome>showSyllabus</from-outcome>
 			<to-view-id>/coursearchive/CourseArchiveShowSyllabus.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>selectSyllabi</from-outcome>
 			<to-view-id>/coursearchive/CourseArchiveSelectSyllabi.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>*</from-outcome>
+			<to-view-id>/coursearchive/CourseArchiveItems.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/coursearchive/CourseArchiveEditSyllabus.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>syllabusSaved</from-outcome>
+			<to-view-id>/coursearchive/CourseArchiveShowItem.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>showItem</from-outcome>
+			<to-view-id>/coursearchive/CourseArchiveShowItem.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>*</from-outcome>
@@ -82,6 +102,10 @@
 		<navigation-case>
 			<from-outcome>updatedItem</from-outcome>
 			<to-view-id>/coursearchive/CourseArchiveShowItem.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>updateFailed</from-outcome>
+			<to-view-id>/coursearchive/CourseArchiveEditItem.jsp</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>listItems</from-outcome>

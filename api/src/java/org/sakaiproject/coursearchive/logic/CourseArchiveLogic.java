@@ -97,4 +97,6 @@ public interface CourseArchiveLogic {
 	public Set getSyllabiForSiteId(String siteId);
 
 	public void archiveSyllabi(CourseArchiveItem item, SyllabusData syllabusData);
+
+	public CourseArchiveAttachment createAttachment(CourseArchiveSyllabus syllabus, String name, String type, byte[] content);
 }

@@ -20,10 +20,12 @@ import java.util.TreeMap;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -74,6 +76,7 @@ public class CourseArchiveBean {
 	private boolean itemCanEdit;
 
 	private CourseArchiveSyllabus currentSyllabus;
+	private Object newAttachment;
 
 	private int itemA;
 	private int itemA_MINUS;
@@ -106,6 +109,43 @@ public class CourseArchiveBean {
 		itemAssignments.setWrappedData(assignments);
 
 		return "editItem";
+	}
+
+	public String processActionAddSyllabus() {
+		currentSyllabus = new CourseArchiveSyllabus(currentItem.getItem());
+		return "addSyllabus";
+	}
+
+	public String processActionSaveSyllabus() {
+		String title = currentSyllabus.getTitle();
+
+		if(title == null || title.equals("")) {
+			String message = "Cannot save syllabus without a title";
+			FacesContext fc = FacesContext.getCurrentInstance();
+			fc.addMessage("itemDetails", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
+			return "syllabusSaved";
+		}
+
+		logic.saveSyllabus(currentSyllabus);
+
+		if(newAttachment != null) {
+			try {
+				FileItem item = (FileItem)newAttachment;
+				String name = item.getName();
+				String contentType = item.getContentType();
+				byte[] content = item.get();
+
+				logic.createAttachment(currentSyllabus, name, contentType, content);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+
+			newAttachment = null;
+		}
+
+		itemSyllabi = wrapSyllabi(logic.getItemSyllabi(currentItem.getItem()));
+
+		return "syllabusSaved";
 	}
 
 	public String processActionDelete() {
@@ -164,7 +204,11 @@ public class CourseArchiveBean {
 	}
 
 	public String processActionShow() {
-		if(currentItem == null) { loadCurrentItem(); }
+		if(currentItem == null)
+			loadCurrentItem();
+		else
+			reloadCurrentItem();
+
 		itemAssignments = wrapAssignments(logic.getItemAssignments(currentItem.getItem()));
 		itemSyllabi = wrapSyllabi(logic.getItemSyllabi(currentItem.getItem()));
 		return "showItem";
@@ -193,8 +237,7 @@ public class CourseArchiveBean {
 
 		if(itemCode != null && !itemCode.equals("") &&
 		   itemName != null && !itemName.equals("") &&
-		   itemTerm != null && !itemTerm.equals("") &&
-		   itemPrimaryInstructor != null && !itemPrimaryInstructor.equals("")) {
+		   itemTerm != null && !itemTerm.equals("")) {
 			CourseArchiveItem item = currentItem.getItem();
 
 			item.setCode(itemCode);
@@ -253,17 +296,19 @@ public class CourseArchiveBean {
 			}
 
 			String message = "Updated item: " + item.getTitle();
-			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
+			fc.addMessage("itemDetails", new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
 
 			reloadCurrentItem();
 			itemAssignments = wrapAssignments(logic.getItemAssignments(currentItem.getItem()));
 			itemSyllabi = wrapSyllabi(logic.getItemSyllabi(currentItem.getItem()));
-		} else {
-			String message = "Could not add item without a code, name, term or primary instructor.";
-			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
-		}
 
-		return "updatedItem";
+			return "updatedItem";
+		} else {
+			String message = "Cannot save item without a code, name or term.";
+			fc.addMessage("itemDetails", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
+
+			return "updateFailed";
+		}
 	}
 
 	public String processActionMerge() {
@@ -322,6 +367,11 @@ public class CourseArchiveBean {
 		fc.addMessage("itemDetails", new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
 
 		return "archivedSyllabi";
+	}
+
+	public String processUpload(ValueChangeEvent event) {
+		newAttachment = event.getNewValue();
+		return "";
 	}
 
 	/**

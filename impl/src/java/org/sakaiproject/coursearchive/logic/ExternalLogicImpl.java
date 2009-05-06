@@ -32,6 +32,7 @@ import org.sakaiproject.content.api.ContentResource;
 import org.sakaiproject.coursearchive.logic.ExternalLogic;
 
 import org.sakaiproject.entity.api.ResourceProperties;
+import org.sakaiproject.entity.api.ResourcePropertiesEdit;
 
 import org.sakaiproject.exception.IdUnusedException;
 
@@ -210,24 +211,42 @@ public class ExternalLogicImpl implements ExternalLogic {
 		return syllabusManager.getSyllabusAttachmentsForSyllabusData(syllabusData);
 	}
 
-	public ContentResource copyAttachment(String oldId) {
+	public ContentResource copyAttachmentResource(String oldId) {
 		try {
 			ContentResource oldAttachment = contentHostingService.getResource(oldId);
-			ContentResource newAttachment = contentHostingService.addAttachmentResource(
+			return addAttachmentResource(
 				oldAttachment.getProperties().getProperty(ResourceProperties.PROP_DISPLAY_NAME),
-				"course-archive",
-				"syllabus",
 				oldAttachment.getContentType(),
 				oldAttachment.getContent(),
 				oldAttachment.getProperties());
-
-			return newAttachment;
 		} catch(Exception e) {
 			return null;
 		}
 	}
 
-	public void removeAttachment(String resourceId) {
+	public ContentResource addAttachmentResource(String name, String type, byte[] content) {
+		ResourcePropertiesEdit properties = contentHostingService.newResourceProperties();
+		properties.addProperty(ResourceProperties.PROP_DISPLAY_NAME, name);
+
+		return addAttachmentResource(name, type, content, properties);
+	}
+
+	public ContentResource addAttachmentResource(String name, String type, byte[] content, ResourceProperties properties) {
+		try {
+			ContentResource resource = contentHostingService.addAttachmentResource(
+					name,
+					"course-archive",
+					"syllabus",
+					type,
+					content,
+					properties);
+			return resource;
+		} catch(Exception e) {
+			return null;
+		}
+	}
+
+	public void removeAttachmentResource(String resourceId) {
 		try {
 			contentHostingService.removeResource(resourceId);
 		} catch(Exception e) {
