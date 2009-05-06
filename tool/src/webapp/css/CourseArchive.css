@@ -7,8 +7,8 @@
 .enrollmentCol { width: 5%; text-align: right; }
 .publicCol     { width: 5%; }
 .dateTimeCol   { width: 17%; }
-.dateCol       { width: 10%; }
-.gradeCol      { width: 10%; text-align: right; }
+.dateCol       { width: 12%; }
+.gradeCol      { width: 12%; text-align: right; }
 
 table.chefEditItem { margin-top: 1em; }
 
