@@ -255,7 +255,9 @@ public class CourseArchiveBean {
 			String message = "Updated item: " + item.getTitle();
 			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_INFO, message, message));
 
-			resetItem();
+			reloadCurrentItem();
+			itemAssignments = wrapAssignments(logic.getItemAssignments(currentItem.getItem()));
+			itemSyllabi = wrapSyllabi(logic.getItemSyllabi(currentItem.getItem()));
 		} else {
 			String message = "Could not add item without a code, name, term or primary instructor.";
 			fc.addMessage("items", new FacesMessage(FacesMessage.SEVERITY_WARN, message, message));
@@ -403,6 +405,10 @@ public class CourseArchiveBean {
 
 	private void loadCurrentItem() {
 		currentItem = (CourseArchiveItemWrapper)itemsModel.getRowData();
+		reloadCurrentItem();
+	}
+
+	private void reloadCurrentItem() {
 		CourseArchiveItem item = currentItem.getItem();
 
 		itemCode         = item.getCode();
